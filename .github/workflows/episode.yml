@@ -1,0 +1,67 @@
+name: Episode
+
+on:
+  schedule:
+    - cron: "0 15 * * 1,3,5"
+  workflow_dispatch:
+    inputs:
+      upload:
+        description: "Subir a YouTube (false = solo generar el vídeo como artefacto)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: episode
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install system dependencies
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg fonts-dejavu-core
+
+      - run: pip install -r requirements.txt
+
+      - name: Generate and upload episode
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          MAGNIFIC_API_KEY: ${{ secrets.MAGNIFIC_API_KEY }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        run: python main.py ${{ github.event_name == 'workflow_dispatch' && !inputs.upload && '--no-upload' || '' }}
+
+      - name: Save history
+        if: github.event_name != 'workflow_dispatch' || inputs.upload
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
+          git add history.json
+          git commit -m "chore: add episode $(date +%F)" || { echo "Nothing to commit"; exit 0; }
+          git pull --rebase -q && git push
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: episode
+          path: |
+            build/video.mp4
+            build/script.json
+            build/description.txt
+            build/thumbnail.jpg
+          retention-days: 14
+          if-no-files-found: ignore

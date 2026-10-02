@@ -1,0 +1,9 @@
+.venv/
+build/
+cache/
+__pycache__/
+client_secret*.json
+.env
+.yt.env
+output/
+episode.json

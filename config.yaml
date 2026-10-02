@@ -1,0 +1,53 @@
+channel:
+  niche: "unsolved historical mysteries, strange disappearances and cold cases"
+  language: "English"
+  audience: "adults in the US, UK and Canada who enjoy documentary storytelling"
+  tone: "calm, intriguing documentary narrator; respectful to victims; never graphic or gory"
+
+script:
+  models:
+    - "gemini-3.8-flash"
+    - "gemini-3.5-flash"
+    - "gemini-flash-latest"
+  target_words: 1900
+  chapters: 6
+
+voice:
+  voice_id: "JBFqnCBsd6RMkjVDRZzb"
+  model_id: "eleven_flash_v2_5"
+  credits_per_char: 0.5
+  stability: 0.45
+  similarity_boost: 0.8
+  style: 0.15
+  scene_pause: 0.35
+  chapter_pause: 1.2
+  title_pause: 3.5
+
+visuals:
+  ai_model: "flux-2-turbo"
+  ai_width: 2048
+  ai_height: 1152
+  ai_style: "people only from behind, in silhouette or out of focus with no clear faces, cinematic documentary still, moody low-key lighting, muted desaturated colors, subtle film grain, 35mm, realistic, no text, no watermark"
+  max_ai_images: 40
+  upscale_archive_below: 0
+  max_upscales: 0
+
+video:
+  width: 1920
+  height: 1080
+  fps: 25
+  zoom: 0.10
+  burn_subtitles: true
+
+thumbnail:
+  model: "mystic"
+  style: "dramatic cinematic thumbnail background, high contrast, dark moody atmosphere, single clear focal subject on the right, empty dark space on the left for text, no text"
+
+music:
+  volume: 0.07
+
+upload:
+  privacy: "public"
+  category_id: "27"
+  contains_synthetic_media: true
+  hashtags: "#mystery #history #unsolved"
