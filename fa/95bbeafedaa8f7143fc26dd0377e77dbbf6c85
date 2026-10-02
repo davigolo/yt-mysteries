@@ -1,0 +1,70 @@
+longform/thumbnail.py
+  s_91cd9700dae137::t_44d434758ea6a8 1-16,19-42,44-56
+  s_91cd9700dae137::t_a517b3e3ef54fb 17-18
+  s_91cd9700dae137::t_0d4d6968410c2c 43
+longform/cache.py
+  s_91cd9700dae137::t_f8531d078dd427 1-21
+main.py
+  s_91cd9700dae137::t_719e856feefec6 1-100
+  s_91cd9700dae137::t_1b967605d962d4 101-111
+longform/script.py
+  s_91cd9700dae137::t_21c4201befe1cf 65-66
+  s_91cd9700dae137::t_0fd4e7b811cd76 1-64,67-151,153-184
+  s_91cd9700dae137::t_93454e5c974702 152,185-197
+README.md
+  s_91cd9700dae137::t_505360e840caa3 1-60
+longform/magnific.py
+  s_91cd9700dae137::t_4cd27e0f77bf0d 1-60
+  s_91cd9700dae137::t_97619783d954ae 61-64
+longform/voice.py
+  s_91cd9700dae137::t_f77bfb9cc7ffdc 1-111
+longform/visuals.py
+  s_91cd9700dae137::t_a3f9f0c897837f 1-140
+  s_91cd9700dae137::t_cf15c9229359f6 141-160
+longform/upload.py
+  s_91cd9700dae137::t_d431cc8b1123aa 1-97
+  s_91cd9700dae137::t_3ef9e80d3d74bc 98-99
+config.yaml
+  s_91cd9700dae137::t_2661e21d99082b 1-51
+  s_91cd9700dae137::t_dd83c60b7d5f54 52-53
+longform/media.py
+  s_91cd9700dae137::t_7a25ffd146a97b 1-26
+longform/gemini.py
+  s_91cd9700dae137::t_5a82af9f17e9c9 1-47
+  s_91cd9700dae137::t_a6cb7641a7be07 48-50
+longform/render.py
+  s_91cd9700dae137::t_5524f820fb60f8 1-240
+  s_91cd9700dae137::t_4d4645234e7218 241-281
+.github/workflows/episode.yml
+  s_91cd9700dae137::t_c7c7ed6c24b03c 1-67
+.gitignore
+  s_91cd9700dae137::t_64e14872446c9d 1-9
+fonts/OFL.txt
+  s_91cd9700dae137::t_f1cbe8c13985ae 1-93
+history.json
+  s_91cd9700dae137::t_d20b1c7a60cefe 1-9
+longform/insights.py
+  s_91cd9700dae137::t_6008221dd32267 1-76
+requirements.txt
+  s_91cd9700dae137::t_fe1ea9571c3d25 1-6
+scripts/generate_music.py
+  s_91cd9700dae137::t_536b444bf3ec78 1-30
+scripts/get_token.py
+  s_91cd9700dae137::t_9f665f041a3213 1-27
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "fa95bbeafedaa8f7143fc26dd0377e77dbbf6c85",
+  "prompts": {},
+  "sessions": {
+    "s_91cd9700dae137": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "f32219a3-8304-4d8a-b623-16f23c6aaebf",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
