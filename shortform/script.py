@@ -88,6 +88,11 @@ class ShortScript:
         return ShortScript(**data)
 
 
+def _parse(text: str) -> dict:
+    data, _ = json.JSONDecoder().raw_decode(text.strip())
+    return data[0] if isinstance(data, list) else data
+
+
 def _beat(raw: dict) -> Beat:
     narration = raw["narration"].strip()
     kind = raw.get("kind") if raw.get("kind") in {"archive", "stock", "ai"} else "stock"
@@ -110,7 +115,7 @@ def generate_short(config: dict, episode_id: str, episode: Script, used_angles: 
     narration = "\n".join(s.narration for c in episode.chapters for s in c.scenes)
     min_words, max_words = shorts["min_words"], shorts["max_words"]
     for _ in range(3):
-        data = json.loads(gemini.json(PROMPT.format(
+        data = _parse(gemini.json(PROMPT.format(
             **config["channel"],
             title=episode.title,
             topic=episode.topic,
