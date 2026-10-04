@@ -33,8 +33,10 @@ Voz, imágenes IA y descargas se guardan en `cache/`, así que repetir un render
    `youtube.force-ssl`, necesario para subir subtítulos).
 4. Crea el repo en GitHub y añade los secrets: `GEMINI_API_KEY`, `PEXELS_API_KEY`, `ELEVENLABS_API_KEY`,
    `MAGNIFIC_API_KEY` y los de `.yt.env` (`gh secret set -f .yt.env`).
-5. Música: `ELEVENLABS_API_KEY=... .venv/bin/python scripts/generate_music.py` genera 4 fondos dark-ambient de 3 min en
-   `music/` (o añade pistas de la Biblioteca de audio de YouTube sin atribución). Haz commit de `music/`.
+5. Música y efectos: `ELEVENLABS_API_KEY=... .venv/bin/python scripts/generate_music.py [longform|shorts]` genera 10 fondos
+   documentales de 3 min en `music/` y 8 pistas de tensión de 90 s para Shorts en `music/shorts/`;
+   `scripts/generate_sfx.py` genera impactos, whoosh, risers y tape stops en `sfx/`. Solo crea lo que falte, así que para
+   añadir variedad basta con añadir prompts. También valen pistas de la Biblioteca de audio de YouTube. Haz commit de `music/` y `sfx/`.
 
 ## Coste estimado por episodio (~13 min)
 
@@ -69,7 +71,8 @@ los sube a las 13:00, 18:00 y 23:00 UTC (mañana, mediodía y tarde en EE. UU.).
 - Estructura: gancho de máximo 8 palabras, desarrollo rápido, punto de inflexión, CTA "Watch the full investigation, linked right here."
   con flecha animada y una última frase que enlaza con el gancho para que el vídeo haga bucle.
 - Cortes de máximo 2,4 s con Ken Burns, etalonaje frío desaturado, subtítulos de 1-2 palabras (palabras clave en amarillo/rojo),
-  drone sub-bass, golpes de graves, whoosh y riser sintetizados con ffmpeg.
+  música de tensión de `music/shorts/`, drone sub-bass y efectos de `sfx/` (golpes de graves, whoosh, riser, tape stop;
+  si la carpeta no existe se sintetizan con ffmpeg).
 - Coste por Short: ~400 créditos de ElevenLabs y hasta 4 imágenes de Magnific (`shorts.visuals.max_ai_images`). Si quedan menos de
   `shorts.reserve_credits` créditos, no se genera para no dejar sin voz a los episodios largos.
 - El enlace al episodio va en la descripción y en un comentario. El **"Vídeo relacionado"** no existe en la API de YouTube: hay que

@@ -11,6 +11,7 @@ from longform.voice import Word
 from shortform.script import Beat
 
 FONTS = Path(__file__).parent.parent / "fonts"
+SFX_DIR = Path(__file__).parent.parent / "sfx"
 SAMPLE_RATE = 48000
 TAIL_SECONDS = 0.25
 RISER_SECONDS = 2.6
@@ -24,7 +25,8 @@ RED_WORDS = {
 }
 POP = r"{\fscx82\fscy82\t(0,90,\fscx100\fscy100)}"
 ARROW = "m 38 0 l 82 0 l 82 100 l 120 100 l 60 170 l 0 100 l 38 100"
-SFX_VOLUME = {"hit": 0.9, "whoosh": 0.45, "riser": 0.5}
+SFX_VOLUME = {"hit": 0.35, "whoosh": 0.5, "riser": 0.5, "stop": 0.6}
+SYNTH_VOLUME = {"hit": 0.9, "whoosh": 0.45, "riser": 0.5}
 
 ASS_HEADER = """[Script Info]
 ScriptType: v4.00+
@@ -199,26 +201,51 @@ def _synth_sfx(workdir: Path, total: float) -> dict[str, Path]:
     return paths
 
 
-def _sfx_events(beats: list[Beat], timeline: ShortTimeline) -> list[tuple[str, float]]:
-    events = [("hit", 0.0)]
+def _sfx_library(synth: dict[str, Path]) -> dict[str, list[tuple[Path, float]]]:
+    library = {}
+    for name in ("hit", "whoosh", "riser", "stop"):
+        real = sorted(p for p in SFX_DIR.glob(f"{name}_*") if p.suffix.lower() in MUSIC_EXTENSIONS) if SFX_DIR.exists() else []
+        if real:
+            library[name] = [(p, SFX_VOLUME[name]) for p in real]
+        elif name in synth:
+            library[name] = [(synth[name], SYNTH_VOLUME[name])]
+    return library
+
+
+def _sfx_events(beats: list[Beat], timeline: ShortTimeline, library: dict[str, list[tuple[Path, float]]]) -> list[tuple[Path, float, float]]:
+    events = []
+
+    def add(name: str, at: float, ending: bool = False) -> None:
+        if name not in library:
+            return
+        path, volume = random.choice(library[name])
+        events.append((path, volume, max(at - duration(path), 0) if ending else max(at, 0)))
+
+    add("hit", 0.0)
     for i, beat in enumerate(beats):
         start = timeline.beat_starts[i]
         if beat.sfx == "whoosh" or beat.cta:
-            events.append(("whoosh", max(start - 0.3, 0)))
+            add("whoosh", start - 0.3)
         elif beat.sfx == "riser":
-            events += [("riser", max(start - RISER_SECONDS, 0)), ("hit", start)]
+            add("riser", start, ending=True)
+            add("hit", start)
+        elif beat.sfx == "stop":
+            add("stop", start, ending=True)
         elif beat.sfx == "hit" and i > 0:
             keys = {_plain(h) for h in beat.highlight}
             hit_word = next(
                 (w for w, b in zip(timeline.words, timeline.beat_of_word) if b == i and _plain(w.text) in keys), None,
             )
-            events.append(("hit", hit_word.start if hit_word else start))
+            add("hit", hit_word.start if hit_word else start)
     return events
 
 
 def _pick_music(music_dir: Path) -> Path | None:
-    tracks = [p for p in music_dir.glob("*") if p.suffix.lower() in MUSIC_EXTENSIONS] if music_dir.exists() else []
-    return random.choice(tracks) if tracks else None
+    for folder in (music_dir / "shorts", music_dir):
+        tracks = [p for p in folder.glob("*") if p.suffix.lower() in MUSIC_EXTENSIONS] if folder.exists() else []
+        if tracks:
+            return random.choice(tracks)
+    return None
 
 
 def _mix_audio(beats: list[Beat], timeline: ShortTimeline, voice_mp3: Path, config: dict, workdir: Path, music_dir: Path) -> Path:
@@ -228,16 +255,16 @@ def _mix_audio(beats: list[Beat], timeline: ShortTimeline, voice_mp3: Path, conf
         "ffmpeg", "-y", "-i", str(voice_mp3), "-af", f"loudnorm=I=-14:TP=-1.5:LRA=9,apad=whole_dur={total:.3f}",
         "-ar", str(SAMPLE_RATE), "-ac", "2", str(voice),
     ])
-    sfx = _synth_sfx(workdir, total)
-    events = _sfx_events(beats, timeline)
+    synth = _synth_sfx(workdir, total)
+    events = _sfx_events(beats, timeline, _sfx_library(synth))
     music = _pick_music(music_dir)
-    inputs = ["-i", str(voice), "-i", str(sfx["drone"])]
+    inputs = ["-i", str(voice), "-i", str(synth["drone"])]
     chain = f"[1:a]volume={config['shorts']['drone_volume']}[drone];"
     mixes = ["[vo]", "[drone]"]
-    for k, (name, at) in enumerate(events):
-        inputs += ["-i", str(sfx[name])]
+    for k, (path, volume, at) in enumerate(events):
+        inputs += ["-i", str(path)]
         ms = int(at * 1000)
-        chain += f"[{k + 2}:a]adelay={ms}|{ms},volume={SFX_VOLUME[name]}[s{k}];"
+        chain += f"[{k + 2}:a]aresample={SAMPLE_RATE},aformat=channel_layouts=stereo,adelay={ms}|{ms},volume={volume}[s{k}];"
         mixes.append(f"[s{k}]")
     if music:
         print(f"Música: {music.name}")

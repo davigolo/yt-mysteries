@@ -43,7 +43,8 @@ Use roughly 35% archive, 35% stock and 30% ai (at most {max_ai} ai beats), never
 Per beat also return:
 - "highlight": 0-2 key words copied exactly from that beat's narration to show in colour (e.g. Vanished, Never, Blood, Unknown).
 - "sfx": "hit" (bass drop on a shocking word), "whoosh" (rhythm change), "riser" (tension build that ENDS when this beat
-  starts; use it once, on the turning point) or "none". Use "hit" at most 5 times.
+  starts; use it once, on the turning point), "stop" (tape stop that ENDS when this beat starts, when the rhythm brakes
+  hard right before a key line; at most once) or "none". Use "hit" at most 5 times.
 
 Return ONLY JSON:
 {{
@@ -51,7 +52,7 @@ Return ONLY JSON:
   "title": "Short title, max 60 characters, curiosity-driven but honest, no hashtags",
   "description": "1-2 sentences that tease the case without spoiling it",
   "tags": ["8-12 tags"],
-  "beats": [{{"narration": "...", "kind": "archive|stock|ai", "query": "...", "highlight": ["..."], "sfx": "hit|whoosh|riser|none"}}]
+  "beats": [{{"narration": "...", "kind": "archive|stock|ai", "query": "...", "highlight": ["..."], "sfx": "hit|whoosh|riser|stop|none"}}]
 }}"""
 
 
@@ -96,7 +97,7 @@ def _parse(text: str) -> dict:
 def _beat(raw: dict) -> Beat:
     narration = raw["narration"].strip()
     kind = raw.get("kind") if raw.get("kind") in {"archive", "stock", "ai"} else "stock"
-    sfx = raw.get("sfx") if raw.get("sfx") in {"hit", "whoosh", "riser"} else "none"
+    sfx = raw.get("sfx") if raw.get("sfx") in {"hit", "whoosh", "riser", "stop"} else "none"
     return Beat(narration, kind, raw.get("query", "").strip(), [h for h in raw.get("highlight", []) if h][:2], sfx)
 
 
