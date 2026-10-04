@@ -51,3 +51,31 @@ upload:
   category_id: "27"
   contains_synthetic_media: true
   hashtags: "#mystery #history #unsolved"
+
+shorts:
+  episode_window: 5
+  min_words: 100
+  max_words: 120
+  min_beats: 14
+  max_beats: 20
+  reserve_credits: 20000
+  music_volume: 0.16
+  drone_volume: 0.22
+  hashtags: "#mystery #unsolved #history #truecrime #shorts"
+  voice:
+    stability: 0.38
+    style: 0.3
+  video:
+    width: 1080
+    height: 1920
+    fps: 30
+    zoom: 0.16
+    max_segment_seconds: 2.4
+  visuals:
+    ai_model: "flux-2-turbo"
+    ai_width: 1152
+    ai_height: 2048
+    ai_style: "vertical 9:16 composition, people only from behind, in silhouette or out of focus with no clear faces, cinematic dark documentary still, low-key lighting, cold desaturated blue-grey tones, high contrast, film grain, realistic, no text, no watermark"
+    max_ai_images: 4
+    upscale_archive_below: 0
+    max_upscales: 0

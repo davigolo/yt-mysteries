@@ -1,26 +1,32 @@
-name: Episode
+name: Shorts
 
 on:
   schedule:
-    - cron: "0 15 * * 1,3,5"
+    - cron: "0 13 * * *"
+    - cron: "0 18 * * *"
+    - cron: "0 23 * * *"
   workflow_dispatch:
     inputs:
       upload:
-        description: "Subir a YouTube (false = solo generar el vídeo como artefacto)"
+        description: "Subir a YouTube (false = solo generar el Short como artefacto)"
         type: boolean
         default: true
+      episode:
+        description: "video_id del episodio a promocionar (vacío = automático)"
+        type: string
+        default: ""
 
 permissions:
   contents: write
 
 concurrency:
-  group: episode
+  group: shorts
   cancel-in-progress: false
 
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 150
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
 
@@ -34,7 +40,7 @@ jobs:
 
       - run: pip install -r requirements.txt
 
-      - name: Generate and upload episode
+      - name: Generate and upload short
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
@@ -43,25 +49,26 @@ jobs:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-        run: python main.py ${{ github.event_name == 'workflow_dispatch' && !inputs.upload && '--no-upload' || '' }}
+          UPLOAD_FLAG: ${{ github.event_name == 'workflow_dispatch' && !inputs.upload && '--no-upload' || '' }}
+          EPISODE: ${{ inputs.episode }}
+        run: python short.py $UPLOAD_FLAG ${EPISODE:+--episode "$EPISODE"}
 
       - name: Save history
         if: github.event_name != 'workflow_dispatch' || inputs.upload
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898333+github-actions[bot]@users.noreply.github.com"
-          git add history.json episodes/
-          git commit -m "chore: add episode $(date +%F)" || { echo "Nothing to commit"; exit 0; }
+          git add shorts_history.json
+          git commit -m "chore: add short $(date +%F-%H%M)" || { echo "Nothing to commit"; exit 0; }
           git pull --rebase -q && git push
 
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: episode
+          name: short
           path: |
-            build/video.mp4
-            build/script.json
-            build/description.txt
-            build/thumbnail.jpg
-          retention-days: 14
+            build/short.mp4
+            build/short_script.json
+            build/short_description.txt
+          retention-days: 7
           if-no-files-found: ignore

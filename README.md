@@ -58,3 +58,25 @@ activan el upscaler de Magnific para las fotos de archivo de baja resolución.
   describe violencia explícita, para no caer en "contenido no apto para la mayoría de anunciantes".
 - Para no ser marcado como contenido "producido en masa", conviene revisar los primeros episodios y variar formatos (`FORMATS` en
   `longform/script.py`); con 3 o más vídeos con datos, el pipeline aprende de las analíticas del canal.
+
+## Shorts del canal (3 al día)
+
+`short.py` genera Shorts verticales (~50 s) que promocionan los episodios ya publicados; `.github/workflows/shorts.yml`
+los sube a las 13:00, 18:00 y 23:00 UTC (mañana, mediodía y tarde en EE. UU.).
+
+- Elige el episodio con menos Shorts de los 5 últimos (uno recién publicado tiene prioridad) y Gemini escribe un teaser
+  con un ángulo nuevo usando **solo los hechos del guion del episodio** (`episodes/<video_id>.json`, que `main.py` guarda al subir).
+- Estructura: gancho de máximo 8 palabras, desarrollo rápido, punto de inflexión, CTA "Watch the full investigation, linked right here."
+  con flecha animada y una última frase que enlaza con el gancho para que el vídeo haga bucle.
+- Cortes de máximo 2,4 s con Ken Burns, etalonaje frío desaturado, subtítulos de 1-2 palabras (palabras clave en amarillo/rojo),
+  drone sub-bass, golpes de graves, whoosh y riser sintetizados con ffmpeg.
+- Coste por Short: ~400 créditos de ElevenLabs y hasta 4 imágenes de Magnific (`shorts.visuals.max_ai_images`). Si quedan menos de
+  `shorts.reserve_credits` créditos, no se genera para no dejar sin voz a los episodios largos.
+- El enlace al episodio va en la descripción y en un comentario. El **"Vídeo relacionado"** no existe en la API de YouTube: hay que
+  ponerlo a mano en Studio (Contenido → Shorts → Detalles → Vídeo relacionado).
+
+```bash
+.venv/bin/python short.py --no-upload                     # genera build/short.mp4 sin subirlo
+.venv/bin/python short.py --episode <video_id>            # fuerza el episodio a promocionar
+.venv/bin/python short.py --script build/short_script.json --no-upload  # re-render sin gastar créditos (caché)
+```

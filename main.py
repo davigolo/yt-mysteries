@@ -100,6 +100,9 @@ def main() -> None:
         return
     video_id = upload(video, thumbnail, captions, script.title, description, script.tags, config)
     print(f"Subido: https://youtu.be/{video_id}")
+    episodes = ROOT / "episodes"
+    episodes.mkdir(exist_ok=True)
+    (episodes / f"{video_id}.json").write_text(script.to_json(), encoding="utf-8")
     history.append({
         "date": date.today().isoformat(), "format": script.format, "topic": script.topic,
         "title": script.title, "video_id": video_id,

@@ -30,6 +30,8 @@ class VisualSource:
     def __init__(self, config: dict, workdir: Path):
         self.config = config["visuals"]
         self.width = config["video"]["width"]
+        self.height = config["video"]["height"]
+        self.portrait = self.height > self.width
         self.workdir = workdir
         self.used: set[str] = set()
         self.ai_count = 0
@@ -135,16 +137,17 @@ class VisualSource:
         response = requests.get(
             PEXELS_URL,
             headers={"Authorization": os.environ["PEXELS_API_KEY"]},
-            params={"query": query, "orientation": "landscape", "per_page": 15, "size": "large"},
+            params={"query": query, "orientation": "portrait" if self.portrait else "landscape", "per_page": 15, "size": "large"},
             timeout=30,
         )
         response.raise_for_status()
+        side, target = ("height", self.height) if self.portrait else ("width", self.width)
         for video in response.json().get("videos", []):
-            files = [f for f in video["video_files"] if (f.get("width") or 0) >= self.width and f.get("file_type") == "video/mp4"]
+            files = [f for f in video["video_files"] if (f.get(side) or 0) >= target and f.get("file_type") == "video/mp4"]
             if str(video["id"]) in self.used or not files or video["duration"] < min(seconds, 8):
                 continue
             self.used.add(str(video["id"]))
-            link = min(files, key=lambda f: f["width"])["link"]
+            link = min(files, key=lambda f: f[side])["link"]
             return Visual(self._download(link, ".mp4"), True, None)
         return None
 
