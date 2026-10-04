@@ -1,0 +1,35 @@
+README.md
+  s_5d3c9bc8948a90::t_7e1312aa6efa91 36-39,74-75
+scripts/generate_music.py
+  s_50c77f3032e1d0::t_b5a24d0442237c 8,13-18,20-33,35-52
+scripts/generate_sfx.py
+  s_50c77f3032e1d0::t_7682d6afa6951a 1-47
+shortform/render.py
+  s_50c77f3032e1d0::t_97146a0611762c 14,28-29,204-224,228,230-233,239,244-248,258-259,261,264-265,267
+shortform/script.py
+  s_50c77f3032e1d0::t_8deab705258574 46-47,55,100
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "50c526bd7f70c297f914492de1e1b072ec3ccb5a",
+  "prompts": {},
+  "sessions": {
+    "s_50c77f3032e1d0": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "da4c5904-7b3d-485f-928d-62ed6d11a334",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    },
+    "s_5d3c9bc8948a90": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "19d1ff98-81ca-4000-ac58-474b3dc686fa",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
