@@ -1,0 +1,43 @@
+shortform/render.py
+  s_50c77f3032e1d0::t_f5fcc8812cb474 1-119,121-279
+  s_50c77f3032e1d0::t_69dbc3b76ae032 120
+main.py
+  s_50c77f3032e1d0::t_115f9dac25fd65 103-105
+longform/visuals.py
+  s_50c77f3032e1d0::t_a830b0c87cae53 33-34,140,144,146,150
+short.py
+  s_50c77f3032e1d0::t_258c9456bd78dc 45,50-51
+  s_50c77f3032e1d0::t_28ed3e4a2009f0 1-44,46-49,52-98
+shortform/script.py
+  s_50c77f3032e1d0::t_7e51849aa7de49 1-139
+shortform/upload.py
+  s_50c77f3032e1d0::t_c2e1965f0677c6 1-63
+.github/workflows/shorts.yml
+  s_50c77f3032e1d0::t_072da4f74d1356 1-74
+.github/workflows/episode.yml
+  s_50c77f3032e1d0::t_02b8ffe074a884 53
+README.md
+  s_50c77f3032e1d0::t_7114a5807d7d9b 61-82
+config.yaml
+  s_50c77f3032e1d0::t_d3422efded5d61 54-81
+episodes/u_Zq48LubcM.json
+  s_50c77f3032e1d0::t_17793f6b652b1d 1-436
+shorts_history.json
+  s_50c77f3032e1d0::t_a8a53bb773d3ee 1-9
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "8a66b297d358d549bd0c42f61d1e5d32c5fb4235",
+  "prompts": {},
+  "sessions": {
+    "s_50c77f3032e1d0": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "da4c5904-7b3d-485f-928d-62ed6d11a334",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
