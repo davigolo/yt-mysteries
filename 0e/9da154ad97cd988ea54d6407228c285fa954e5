@@ -1,0 +1,38 @@
+short.py
+  s_04869bb8859425::t_848c27114a3727 13,103,106-108,112-128
+  s_04869bb8859425::t_52928e5b9ce026 129-130
+config.yaml
+  s_04869bb8859425::t_e0ccc0f37f8cdf 65-70
+.github/workflows/shorts.yml
+  s_04869bb8859425::t_564e2ae90d9742 52-57
+.gitignore
+  s_04869bb8859425::t_cf55de91b76849 10-11
+README.md
+  s_04869bb8859425::t_f713f55282434d 86-103
+scripts/get_fb_token.py
+  s_04869bb8859425::t_3f9369a2874cd8 1-53
+scripts/get_tiktok_token.py
+  s_04869bb8859425::t_8bb2bb90efc109 1-55
+shortform/facebook.py
+  s_04869bb8859425::t_df8d852f810d57 1-46
+shortform/instagram.py
+  s_04869bb8859425::t_2d46904601a818 1-69
+shortform/tiktok.py
+  s_04869bb8859425::t_378ac0335c4389 1-109
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0e9da154ad97cd988ea54d6407228c285fa954e5",
+  "prompts": {},
+  "sessions": {
+    "s_04869bb8859425": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "31f7c450-cc83-4fad-b2ee-db3643e8154a",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
