@@ -86,8 +86,9 @@ Use roughly 30% archive, 25% stock and 45% ai, and avoid the same type more than
 Return ONLY JSON:
 {{
   "title": "YouTube title, max 70 characters, curiosity-driven but honest",
-  "description": "2 short paragraphs that summarise the episode without spoiling the ending",
-  "tags": ["10-15 tags"],
+  "description": "2 short paragraphs that summarise the episode without spoiling the ending, naturally including the names, places, year and search terms people would type on YouTube to find this case",
+  "tags": ["12-18 tags: case name, people, places, era and related searches"],
+  "hashtags": ["3-5 case-specific hashtags without the # symbol and without spaces (e.g. 'DyatlovPass', 'ColdCase', 'Russia')"],
   "thumbnail_text": "2-4 punchy words for the thumbnail",
   "thumbnail_prompt": "English prompt for a dramatic thumbnail image of the case, no text, no real faces",
   "cold_open": [{{"narration": "...", "kind": "archive|stock|ai", "query": "..."}}],
@@ -121,6 +122,7 @@ class Script:
     thumbnail_prompt: str
     chapters: list[Chapter]
     sources: list[dict] = field(default_factory=list)
+    hashtags: list[str] = field(default_factory=list)
 
     @property
     def words(self) -> int:
@@ -189,6 +191,7 @@ def generate_script(config: dict, history: list[dict], insights: str = "", weigh
             thumbnail_prompt=data["thumbnail_prompt"],
             chapters=[c for c in chapters if c.scenes],
             sources=sources,
+            hashtags=[str(h) for h in data.get("hashtags", [])][:5],
         )
         print(f"Guion: {script.words} palabras (~{script.words / 150:.1f} min), {len(script.chapters) - 1} capítulos")
         if script.words >= MIN_WORDS:

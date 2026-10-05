@@ -26,7 +26,9 @@ def build_description(summary: str, episode_id: str, credits: list[str], hashtag
     return f"{text}\n\n{hashtags}"
 
 
-def upload_short(video: Path, title: str, description: str, tags: list[str], episode_id: str, config: dict) -> str:
+def upload_short(
+    video: Path, thumbnail: Path | None, title: str, description: str, tags: list[str], episode_id: str, config: dict,
+) -> str:
     youtube = build("youtube", "v3", credentials=credentials(), cache_discovery=False)
     settings = config["upload"]
     body = {
@@ -53,6 +55,12 @@ def upload_short(video: Path, title: str, description: str, tags: list[str], epi
     while response is None:
         _, response = request.next_chunk()
     video_id = response["id"]
+    if thumbnail:
+        try:
+            youtube.thumbnails().set(videoId=video_id, media_body=MediaFileUpload(str(thumbnail), mimetype="image/jpeg")).execute()
+            print("Miniatura personalizada subida")
+        except HttpError as e:
+            print(f"No se pudo poner la miniatura: {e}")
     try:
         youtube.commentThreads().insert(part="snippet", body={"snippet": {
             "videoId": video_id,

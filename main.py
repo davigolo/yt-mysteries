@@ -11,7 +11,7 @@ from longform.insights import build_insights, fetch_performance, format_weights
 from longform.render import build_voice_track, render, write_ass, write_srt
 from longform.script import Script, generate_script
 from longform.thumbnail import create_thumbnail
-from longform.upload import build_description, upload
+from longform.upload import build_description, hashtags, upload
 from longform.visuals import VisualSource
 from longform.voice import remaining_characters, synthesize
 
@@ -91,7 +91,8 @@ def main() -> None:
     thumbnail = create_thumbnail(script.thumbnail_prompt, script.thumbnail_text, config, WORKDIR, WORKDIR / "thumbnail.jpg")
     chapters = [(t, titles[i] or "Intro") for i, t in enumerate(timeline.chapter_starts)]
     description = build_description(
-        script.description, chapters, script.sources, [v.credit for v in visuals if v.credit], config["upload"]["hashtags"],
+        script.description, chapters, script.sources, [v.credit for v in visuals if v.credit],
+        hashtags(script.hashtags, config["upload"]["hashtags"]),
     )
     (WORKDIR / "description.txt").write_text(f"{script.title}\n\n{description}", encoding="utf-8")
     print(f"Miniatura: {thumbnail}\nDescripción: build/description.txt")

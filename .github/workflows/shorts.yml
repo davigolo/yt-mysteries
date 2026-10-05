@@ -70,5 +70,6 @@ jobs:
             build/short.mp4
             build/short_script.json
             build/short_description.txt
+            build/short_thumbnail.jpg
           retention-days: 7
           if-no-files-found: ignore

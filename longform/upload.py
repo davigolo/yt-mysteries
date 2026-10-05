@@ -1,4 +1,5 @@
 import os
+import re
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -24,6 +25,15 @@ def credentials() -> Credentials:
         token_uri="https://oauth2.googleapis.com/token",
         scopes=SCOPES,
     )
+
+
+def hashtags(topic_tags: list[str], base: str, limit: int = 8) -> str:
+    tags = []
+    for raw in [*topic_tags, *base.split()]:
+        tag = "#" + re.sub(r"[^\w]", "", raw.lstrip("#"))
+        if len(tag) > 2 and tag.lower() not in [t.lower() for t in tags]:
+            tags.append(tag)
+    return " ".join(tags[:limit])
 
 
 def _clock(seconds: float) -> str:

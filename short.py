@@ -12,6 +12,8 @@ from longform.voice import remaining_characters, synthesize
 from main import _load_env
 from shortform.render import build_timeline, render_short, write_ass
 from shortform.script import ShortScript, generate_short
+from longform.upload import hashtags
+from shortform.thumbnail import create_short_thumbnail
 from shortform.upload import build_description, upload_short
 
 ROOT = Path(__file__).parent
@@ -78,14 +80,24 @@ def main() -> None:
     render_short(script.beats, visuals, timeline, audio.path, subtitles, config, WORKDIR, ROOT / "music", video)
     print(f"Short generado: {video} ({timeline.total:.1f} s)")
 
+    thumbnail = None
+    try:
+        thumbnail = create_short_thumbnail(
+            visuals[0].path, visuals[0].is_video, script.thumbnail_text or script.title, WORKDIR, WORKDIR / "short_thumbnail.jpg",
+        )
+        print(f"Miniatura: {thumbnail} ({script.thumbnail_text})")
+    except Exception as e:
+        print(f"No se pudo generar la miniatura ({type(e).__name__}: {e})")
+
     title = f"{script.title} #shorts"
     description = build_description(
-        script.description, script.episode_id, [v.credit for v in visuals if v.credit], shorts["hashtags"],
+        script.description, script.episode_id, [v.credit for v in visuals if v.credit],
+        hashtags(script.hashtags, shorts["hashtags"]),
     )
     (WORKDIR / "short_description.txt").write_text(f"{title}\n\n{description}", encoding="utf-8")
     if args.no_upload:
         return
-    video_id = upload_short(video, title, description, script.tags, script.episode_id, config)
+    video_id = upload_short(video, thumbnail, title, description, script.tags, script.episode_id, config)
     print(f"Subido: https://youtube.com/shorts/{video_id}")
     shorts_history.append({
         "date": date.today().isoformat(), "episode_id": script.episode_id, "angle": script.angle,

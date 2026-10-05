@@ -50,8 +50,10 @@ Return ONLY JSON:
 {{
   "angle": "one sentence describing the cliffhanger of this Short",
   "title": "Short title, max 60 characters, curiosity-driven but honest, no hashtags",
-  "description": "1-2 sentences that tease the case without spoiling it",
-  "tags": ["8-12 tags"],
+  "description": "2-3 sentences that tease the case without spoiling it, naturally including the case name, people, places and search terms",
+  "tags": ["10-15 tags: case name, people, places, era and related searches"],
+  "hashtags": ["3-5 case-specific hashtags without the # symbol and without spaces"],
+  "thumbnail_text": "2-4 punchy words for a vertical thumbnail that open a question without solving the case (e.g. 'NOBODY CAME BACK')",
   "beats": [{{"narration": "...", "kind": "archive|stock|ai", "query": "...", "highlight": ["..."], "sfx": "hit|whoosh|riser|stop|none"}}]
 }}"""
 
@@ -74,6 +76,8 @@ class ShortScript:
     description: str
     tags: list[str]
     beats: list[Beat]
+    hashtags: list[str] = field(default_factory=list)
+    thumbnail_text: str = ""
 
     @property
     def words(self) -> int:
@@ -137,6 +141,8 @@ def generate_short(config: dict, episode_id: str, episode: Script, used_angles: 
             description=data["description"],
             tags=data["tags"][:15],
             beats=beats,
+            hashtags=[str(h) for h in data.get("hashtags", [])][:5],
+            thumbnail_text=data.get("thumbnail_text") or data["title"],
         )
         print(f"Short: {script.words} palabras, {len(beats)} beats\nÁngulo: {script.angle}")
         if min_words - 15 <= script.words <= max_words + 20:
