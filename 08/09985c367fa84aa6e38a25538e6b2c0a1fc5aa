@@ -1,0 +1,33 @@
+.github/workflows/shorts.yml
+  s_e27b3dfbf2dd88::t_6e207d03e333db 73
+longform/script.py
+  s_e27b3dfbf2dd88::t_8b335bd321dae9 89-91,125,194
+longform/upload.py
+  s_e27b3dfbf2dd88::t_d060815f6d69a4 2,30-38
+main.py
+  s_e27b3dfbf2dd88::t_ba48c30b7f114a 14,94-95
+short.py
+  s_e27b3dfbf2dd88::t_615b37cf5a90e7 15-16,83-91,94-95,100
+shortform/script.py
+  s_e27b3dfbf2dd88::t_574070b3a0b8eb 53-56,79-80,144-145
+shortform/thumbnail.py
+  s_e27b3dfbf2dd88::t_6ea7cd839b945f 1-67
+shortform/upload.py
+  s_e27b3dfbf2dd88::t_5a1e30d8975c22 29-31,58-63
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "0809985c367fa84aa6e38a25538e6b2c0a1fc5aa",
+  "prompts": {},
+  "sessions": {
+    "s_e27b3dfbf2dd88": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "a49147ad-be38-4bd8-afb5-080f5d0bf6a2",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
