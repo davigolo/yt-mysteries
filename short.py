@@ -10,6 +10,7 @@ from longform.script import Script
 from longform.visuals import VisualSource
 from longform.voice import remaining_characters, synthesize
 from main import _load_env
+from shortform import facebook, instagram, tiktok
 from shortform.render import build_timeline, render_short, write_ass
 from shortform.script import ShortScript, generate_short
 from longform.upload import hashtags
@@ -99,11 +100,32 @@ def main() -> None:
         return
     video_id = upload_short(video, thumbnail, title, description, script.tags, script.episode_id, config)
     print(f"Subido: https://youtube.com/shorts/{video_id}")
-    shorts_history.append({
+    entry = {
         "date": date.today().isoformat(), "episode_id": script.episode_id, "angle": script.angle,
         "title": script.title, "video_id": video_id,
-    })
+    }
+    entry.update(_publish_social(video, script, shorts))
+    shorts_history.append(entry)
     SHORTS_HISTORY.write_text(json.dumps(shorts_history, ensure_ascii=False, indent=2), encoding="utf-8")
+
+
+def _publish_social(video: Path, script: ShortScript, shorts: dict) -> dict:
+    caption = f"{script.title}\n\n{script.description}\n\nFull investigation on YouTube: https://youtu.be/{script.episode_id}"
+    targets = [
+        ("Facebook", "fb_video_id", facebook, facebook.upload_reel, shorts.get("facebook", {})),
+        ("Instagram", "ig_media_id", instagram, instagram.upload_reel, shorts.get("instagram", {})),
+        ("TikTok", "tiktok_publish_id", tiktok, lambda v, c: tiktok.upload_video(v, c)[0], shorts.get("tiktok", {})),
+    ]
+    ids = {}
+    for name, key, module, publish, settings in targets:
+        if not module.is_configured():
+            continue
+        try:
+            ids[key] = publish(video, f"{caption}\n\n{hashtags(script.hashtags, settings.get('hashtags', ''))}")
+            print(f"Subido a {name}: {ids[key]}")
+        except Exception as e:
+            print(f"No se pudo subir a {name} ({type(e).__name__}: {e})")
+    return ids
 
 
 if __name__ == "__main__":

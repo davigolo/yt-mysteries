@@ -62,6 +62,12 @@ shorts:
   music_volume: 0.16
   drone_volume: 0.22
   hashtags: "#mystery #unsolved #history #truecrime #shorts"
+  facebook:
+    hashtags: "#mystery #unsolved #history #truecrime #reels"
+  instagram:
+    hashtags: "#mystery #unsolved #history #truecrime #reels"
+  tiktok:
+    hashtags: "#mystery #unsolved #history #truecrime #fyp"
   voice:
     stability: 0.38
     style: 0.3

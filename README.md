@@ -83,3 +83,21 @@ los sube a las 13:00, 18:00 y 23:00 UTC (mañana, mediodía y tarde en EE. UU.).
 .venv/bin/python short.py --episode <video_id>            # fuerza el episodio a promocionar
 .venv/bin/python short.py --script build/short_script.json --no-upload  # re-render sin gastar créditos (caché)
 ```
+
+### Facebook, Instagram y TikTok (opcional)
+
+Cada Short se publica también en las redes cuyos secrets existan (cuentas propias del canal, separadas de las de
+yt-autoshorts). Si una plataforma falla, el resto sigue igual. El pie incluye el enlace al episodio de YouTube.
+
+- **Facebook Reels**: `FB_PAGE_ID` y `FB_PAGE_TOKEN`. Crea la página, una app de Meta de tipo *Empresa*, genera en
+  *Graph API Explorer* un *User Token* con `pages_show_list`, `pages_read_engagement`, `pages_manage_posts`,
+  `publish_video`, `instagram_basic` e `instagram_content_publish`, y ejecuta `scripts/get_fb_token.py`.
+- **Instagram Reels**: `IG_USER_ID` (lo añade `get_fb_token.py` si la página tiene vinculada una cuenta profesional de
+  Instagram). Usa el mismo token de página.
+- **TikTok**: `TIKTOK_CLIENT_KEY`, `TIKTOK_CLIENT_SECRET` y `TIKTOK_REFRESH_TOKEN` (app con *Login Kit* y *Content
+  Posting API*, scope `video.publish`; ejecuta `scripts/get_tiktok_token.py`). Hasta que TikTok audite la app, los
+  vídeos se publican como privados.
+
+```bash
+gh secret set -f .fb.env && gh secret set -f .tiktok.env
+```
