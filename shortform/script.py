@@ -53,7 +53,7 @@ Return ONLY JSON:
   "description": "2-3 sentences that tease the case without spoiling it, naturally including the case name, people, places and search terms",
   "tags": ["10-15 tags: case name, people, places, era and related searches"],
   "hashtags": ["3-5 case-specific hashtags without the # symbol and without spaces"],
-  "thumbnail_text": "2-4 punchy words for a vertical thumbnail that open a question without solving the case (e.g. 'NOBODY CAME BACK')",
+  "thumbnail_text": "2-4 punchy words for a vertical thumbnail that open a question and NEVER reveal the answer, the key evidence or the ending (e.g. 'NOBODY CAME BACK', 'WHO WROTE THIS?')",
   "beats": [{{"narration": "...", "kind": "archive|stock|ai", "query": "...", "highlight": ["..."], "sfx": "hit|whoosh|riser|stop|none"}}]
 }}"""
 
