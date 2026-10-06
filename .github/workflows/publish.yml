@@ -23,7 +23,7 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
 
@@ -32,9 +32,47 @@ jobs:
           python-version: "3.12"
           cache: pip
 
-      - run: pip install -r requirements.txt
+      - run: pip install -r requirements.txt playwright==1.63.0
+
+      - uses: actions/cache/restore@v4
+        with:
+          path: .studio/state.enc
+          key: studio-state-${{ github.run_id }}
+          restore-keys: studio-state-
+
+      - name: Load YouTube Studio session
+        env:
+          STUDIO_STATE: ${{ secrets.STUDIO_STATE }}
+          STUDIO_STATE_KEY: ${{ secrets.STUDIO_STATE_KEY }}
+        run: |
+          mkdir -p .studio
+          if [ -f .studio/state.enc ]; then
+            openssl enc -d -aes-256-cbc -pbkdf2 -in .studio/state.enc -out .studio/state.json -pass env:STUDIO_STATE_KEY
+          else
+            printf '%s' "$STUDIO_STATE" | base64 -d | gunzip > .studio/state.json
+          fi
+
+      - name: Link Shorts to their episode (related video)
+        id: related
+        run: python scripts/link_related_videos.py --state .studio/state.json
+
+      - name: Save YouTube Studio session
+        if: always()
+        env:
+          STUDIO_STATE_KEY: ${{ secrets.STUDIO_STATE_KEY }}
+        run: |
+          [ -f .studio/state.json ] || exit 0
+          openssl enc -aes-256-cbc -pbkdf2 -salt -in .studio/state.json -out .studio/state.enc -pass env:STUDIO_STATE_KEY
+          rm -f .studio/state.json
+
+      - uses: actions/cache/save@v4
+        if: always()
+        with:
+          path: .studio/state.enc
+          key: studio-state-${{ github.run_id }}
 
       - name: Make due unlisted videos public
+        if: always()
         env:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}

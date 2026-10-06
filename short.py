@@ -92,8 +92,7 @@ def main() -> None:
 
     title = f"{script.title} #shorts"
     description = build_description(
-        script.description, script.episode_id, [v.credit for v in visuals if v.credit],
-        hashtags(script.hashtags, shorts["hashtags"], config["upload"]["max_hashtags"]),
+        script.description, script.episode_id, hashtags(script.hashtags, shorts["hashtags"], config["upload"]["max_hashtags"]),
     )
     (WORKDIR / "short_description.txt").write_text(f"{title}\n\n{description}", encoding="utf-8")
     if args.no_upload:

@@ -98,14 +98,17 @@ los sube a las 13:17, 18:17 y 23:17 UTC (mañana, mediodía y tarde en EE. UU.).
   si la carpeta no existe se sintetizan con ffmpeg).
 - Coste por Short: ~400 créditos de ElevenLabs y hasta 4 imágenes de Magnific (`shorts.visuals.max_ai_images`). Si quedan menos de
   `shorts.reserve_credits` créditos, no se genera para no dejar sin voz a los episodios largos.
-- El enlace al episodio va en la descripción y en un comentario, pero en los Shorts esos enlaces no son clicables: el único
+- Descripción del Short: resumen, enlace al episodio y hashtags; el enlace va también en un comentario. Pero en los Shorts esos enlaces no son clicables: el único
   enlace que funciona es el **"Vídeo relacionado"**, que no existe en la API de YouTube.
-  `scripts/link_related_videos.py` lo pone automáticamente desde YouTube Studio conectándose al Chrome local (perfil con la
-  identidad de Unsolved Archives activa y depuración remota habilitada en `chrome://inspect/#remote-debugging`).
-  Lo ejecuta cada hora el timer de systemd `yt-related.timer` (`~/.config/systemd/user/`), así que los Shorts quedan
-  enlazados mientras siguen en oculto. Guarda los ya enlazados en `~/.local/state/yt-mysteries/related_done.json`.
-  Requiere `.venv/bin/pip install playwright` y las funciones avanzadas del canal activadas (verificación ya hecha).
-  Log: `journalctl --user -u yt-related.service`.
+  `scripts/link_related_videos.py` lo pone automáticamente desde YouTube Studio con un Chrome sin ventana en GitHub Actions:
+  lo ejecuta `publish.yml` antes de pasar nada a público, sobre los Shorts de los últimos 3 días (los ya enlazados se saltan).
+  - La sesión de Studio es la del secret `STUDIO_STATE` (cookies de Google/YouTube, gzip + base64). Tras cada ejecución
+    se guarda renovada y cifrada (`STUDIO_STATE_KEY`, AES-256) en la caché de Actions, así que no depende de ningún equipo.
+  - Si la sesión caduca, el paso falla (GitHub te avisa por email) pero la publicación sigue. Para renovarla: inicia sesión
+    en un Chrome con perfil vacío y Unsolved Archives activo, exporta las cookies de google.com/youtube.com con Playwright
+    (`storage_state`) y súbelas con `gzip -9c state.json | base64 -w0 | gh secret set STUDIO_STATE`; borra la caché
+    `studio-state-*` en Actions → Caches.
+  - Requiere las funciones avanzadas del canal activadas (verificación ya hecha).
 
 ```bash
 .venv/bin/python short.py --no-upload                     # genera build/short.mp4 sin subirlo

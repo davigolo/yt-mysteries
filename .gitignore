@@ -9,3 +9,4 @@ output/
 episode.json
 .fb.env
 .tiktok.env
+.studio/

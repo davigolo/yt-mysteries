@@ -6,24 +6,9 @@ from googleapiclient.http import MediaFileUpload
 
 from longform.upload import add_to_playlists, credentials
 
-MAX_DESCRIPTION = 4900
 
-
-def build_description(summary: str, episode_id: str, credits: list[str], hashtags: str) -> str:
-    text = (
-        f"{summary.strip()}\n\n"
-        f"▶ Full investigation: https://youtu.be/{episode_id}\n\n"
-        "Narration voice and some illustrative images are AI-generated reconstructions. "
-        "Archive images are public domain or Creative Commons."
-    )
-    if credits:
-        block = "Image credits (Wikimedia Commons):\n" + "\n".join(f"- {c}" for c in dict.fromkeys(credits))
-        room = MAX_DESCRIPTION - len(text) - len(hashtags) - 4
-        if len(block) > room:
-            block = block[:room].rsplit("\n", 1)[0]
-        if room > 200:
-            text += "\n\n" + block
-    return f"{text}\n\n{hashtags}"
+def build_description(summary: str, episode_id: str, hashtags: str) -> str:
+    return f"{summary.strip()}\n\n▶ Full investigation: https://youtu.be/{episode_id}\n\n{hashtags}"
 
 
 def upload_short(
