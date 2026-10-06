@@ -42,11 +42,11 @@ def make_public(youtube, video_id: str, status: dict, overrides: dict, dry_run: 
 
 def publish_due(
     youtube, entries: list[dict], statuses: dict[str, dict], after_hours: float, overrides: dict,
-    requires: str | None = None, dry_run: bool = False,
+    limit: int, requires: str | None = None, dry_run: bool = False,
 ) -> int:
     now = datetime.now(timezone.utc)
     published = 0
-    for entry in entries:
+    for entry in sorted(entries, key=_uploaded_at):
         video_id = entry["video_id"]
         status = statuses.get(video_id)
         if not status or status.get("privacyStatus") != "unlisted":
@@ -62,6 +62,9 @@ def publish_due(
         dependency = entry.get(requires) if requires else None
         if dependency and statuses.get(dependency, {}).get("privacyStatus") != "public":
             print(f"Esperando a que el vídeo {dependency} sea público: {label}")
+            continue
+        if published >= limit and age < 2 * after_hours:
+            print(f"Ya se ha publicado el máximo de esta franja; queda para la siguiente: {label}")
             continue
         if make_public(youtube, video_id, status, overrides, dry_run):
             status["privacyStatus"] = "public"

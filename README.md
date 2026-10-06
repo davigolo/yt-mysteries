@@ -6,7 +6,7 @@ Hermano de `yt-autoshorts`, reutiliza la misma idea de pipeline:
 **Gemini** (tema → investigación → guion por capítulos) → **ElevenLabs** (voz con tiempos por carácter) →
 **Wikimedia Commons** (imágenes reales de archivo, con licencia libre) + **Pexels** (b-roll) + **Magnific** (reconstrucciones IA
 y miniatura) → **ffmpeg** (1920x1080, Ken Burns, rótulos de capítulo, etalonaje, música con ducking) →
-**YouTube Data API** (vídeo + miniatura + subtítulos SRT + capítulos en la descripción) → **GitHub Actions** (L/X/V 15:00 UTC).
+**YouTube Data API** (vídeo + miniatura + subtítulos SRT + capítulos en la descripción) → **GitHub Actions** (L/X/V 15:37 UTC).
 
 ## Probar en local (recomendado antes de activar el cron)
 
@@ -55,10 +55,11 @@ activan el upscaler de Magnific para las fotos de archivo de baja resolución.
 
 Episodios y Shorts se suben en **oculto** (`upload.privacy: "unlisted"`) para que YouTube los analice antes de enseñarlos,
 y `.github/workflows/publish.yml` los pasa a **público al día siguiente**, en la misma franja en que se subieron
-(13:00, 15:00, 18:00 y 23:00 UTC). `publish.py` publica los vídeos de `history.json` y `shorts_history.json` que llevan
+(13:17, 15:37, 18:17 y 23:17 UTC). `publish.py` publica los vídeos de `history.json` y `shorts_history.json` que llevan
 al menos `publish.after_hours` (22 h) en oculto y ya están procesados. Un Short nunca se publica antes que su episodio:
-si el episodio sigue oculto, espera a la siguiente ejecución. No guarda estado, así que si una ejecución falla los
-publica la siguiente.
+si el episodio sigue oculto, espera a la siguiente ejecución. Como máximo `publish.max_per_run` vídeos por franja (si uno
+lleva más de 44 h, se publica igualmente). No guarda estado: si una ejecución falla, los publica la siguiente. Los cron no
+están en punto porque GitHub retrasa hasta 3 h los de `:00`.
 
 - Ajusta los cron de `publish.yml` a las horas en que tu audiencia está conectada (Studio → Analytics → Audience →
   *When your viewers are on YouTube*).
@@ -85,7 +86,7 @@ espectador" o el episodio relacionado), **tarjetas** a otros episodios y el **v�
 ## Shorts del canal (3 al día)
 
 `short.py` genera Shorts verticales (~50 s) que promocionan los episodios ya publicados; `.github/workflows/shorts.yml`
-los sube a las 13:00, 18:00 y 23:00 UTC (mañana, mediodía y tarde en EE. UU.).
+los sube a las 13:17, 18:17 y 23:17 UTC (mañana, mediodía y tarde en EE. UU.).
 
 - Elige el episodio con menos Shorts de los 5 últimos (uno recién publicado tiene prioridad) y Gemini escribe un teaser
   con un ángulo nuevo usando **solo los hechos del guion del episodio** (`episodes/<video_id>.json`, que `main.py` guarda al subir).

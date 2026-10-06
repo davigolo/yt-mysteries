@@ -7,6 +7,7 @@ from longform.upload import credentials
 
 MIN_VIDEOS_FOR_INSIGHTS = 3
 MIN_VIDEOS_PER_FORMAT = 2
+MIN_VIEWS = 100
 
 
 def fetch_performance(history: list[dict], days: int = 90) -> list[dict]:
@@ -24,7 +25,7 @@ def fetch_performance(history: list[dict], days: int = 90) -> list[dict]:
     performance = []
     for video_id, views, retention, likes, subscribers in response.get("rows", []):
         entry = by_id.get(video_id)
-        if entry:
+        if entry and int(views) >= MIN_VIEWS:
             performance.append({
                 **entry,
                 "views": int(views),

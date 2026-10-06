@@ -32,8 +32,11 @@ def main() -> None:
         youtube, [e["video_id"] for e in episodes] + [s["video_id"] for s in shorts] + [s["episode_id"] for s in shorts],
     )
     overrides = {"selfDeclaredMadeForKids": False, "containsSyntheticMedia": config["upload"]["contains_synthetic_media"]}
-    published = publish_due(youtube, episodes, statuses, after_hours, overrides, dry_run=args.dry_run)
-    published += publish_due(youtube, shorts, statuses, after_hours, overrides, requires="episode_id", dry_run=args.dry_run)
+    limit = config["publish"]["max_per_run"]
+    published = publish_due(youtube, episodes, statuses, after_hours, overrides, limit, dry_run=args.dry_run)
+    published += publish_due(
+        youtube, shorts, statuses, after_hours, overrides, limit - published, requires="episode_id", dry_run=args.dry_run,
+    )
     print(f"{published} vídeo(s) publicados")
 
 

@@ -55,6 +55,7 @@ upload:
 
 publish:
   after_hours: 22
+  max_per_run: 1
 
 playlists:
   episodes:
