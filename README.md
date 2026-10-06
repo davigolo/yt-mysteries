@@ -71,7 +71,8 @@ Además, en cada subida: contenido sintético declarado, "no es para niños", co
 hashtags (los del caso primero) y listas de reproducción (`playlists` en `config.yaml`, se crean públicas si no existen):
 cada episodio va a la lista general y a la de su formato, y cada Short a *Mystery Shorts*. Mientras el vídeo está en
 oculto conviene añadir a mano en Studio lo que la API no permite: **pantalla final** (suscribirse + "Mejor para el
-espectador" o el episodio relacionado), **tarjetas** a otros episodios y el **vídeo relacionado** de cada Short.
+espectador" o el episodio relacionado) y **tarjetas** a otros episodios. El vídeo relacionado de cada Short se pone solo
+(ver más abajo).
 
 ## Políticas de YouTube a tener en cuenta
 
@@ -97,8 +98,14 @@ los sube a las 13:17, 18:17 y 23:17 UTC (mañana, mediodía y tarde en EE. UU.).
   si la carpeta no existe se sintetizan con ffmpeg).
 - Coste por Short: ~400 créditos de ElevenLabs y hasta 4 imágenes de Magnific (`shorts.visuals.max_ai_images`). Si quedan menos de
   `shorts.reserve_credits` créditos, no se genera para no dejar sin voz a los episodios largos.
-- El enlace al episodio va en la descripción y en un comentario. El **"Vídeo relacionado"** no existe en la API de YouTube: hay que
-  ponerlo a mano en Studio (Contenido → Shorts → Detalles → Vídeo relacionado).
+- El enlace al episodio va en la descripción y en un comentario, pero en los Shorts esos enlaces no son clicables: el único
+  enlace que funciona es el **"Vídeo relacionado"**, que no existe en la API de YouTube.
+  `scripts/link_related_videos.py` lo pone automáticamente desde YouTube Studio conectándose al Chrome local (perfil con la
+  identidad de Unsolved Archives activa y depuración remota habilitada en `chrome://inspect/#remote-debugging`).
+  Lo ejecuta cada hora el timer de systemd `yt-related.timer` (`~/.config/systemd/user/`), así que los Shorts quedan
+  enlazados mientras siguen en oculto. Guarda los ya enlazados en `~/.local/state/yt-mysteries/related_done.json`.
+  Requiere `.venv/bin/pip install playwright` y las funciones avanzadas del canal activadas (verificación ya hecha).
+  Log: `journalctl --user -u yt-related.service`.
 
 ```bash
 .venv/bin/python short.py --no-upload                     # genera build/short.mp4 sin subirlo
