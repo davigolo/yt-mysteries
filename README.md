@@ -98,8 +98,10 @@ los sube a las 13:17, 18:17 y 23:17 UTC (mañana, mediodía y tarde en EE. UU.).
   si la carpeta no existe se sintetizan con ffmpeg).
 - Sin imágenes de Wikimedia (`shorts.visuals.archive: false`), para no tener que acreditar licencias CC BY: los planos de
   personas, lugares y objetos concretos son reconstrucciones de Magnific y la atmósfera, vídeo de Pexels (sin atribución).
-- Coste por Short: ~400 créditos de ElevenLabs y hasta 8 imágenes de Magnific (`shorts.visuals.max_ai_images`, ~45 créditos
-  cada una: ~32k/mes con 3 Shorts al día). Si se alcanza el tope, el resto de planos pasan a vídeo de stock. Si quedan menos de
+- Coste por Short: ~400 créditos de ElevenLabs y hasta 4 imágenes de Magnific (`shorts.visuals.max_ai_images`). Si se alcanza el tope, el
+  resto de planos pasan a vídeo de stock.
+- Presupuesto de Magnific (43k créditos/mes, ~50 por imagen): episodios 30 imágenes (`visuals.max_ai_images`, ~20,5k/mes)
+  + Shorts 4 (~18k/mes) = ~38,5k. Si se acaban los créditos, los planos de IA pasan solos a vídeo de stock. Si quedan menos de
   `shorts.reserve_credits` créditos, no se genera para no dejar sin voz a los episodios largos.
 - Descripción del Short: resumen, enlace al episodio y hashtags; el enlace va también en un comentario. Pero en los Shorts esos enlaces no son clicables: el único
   enlace que funciona es el **"Vídeo relacionado"**, que no existe en la API de YouTube.
