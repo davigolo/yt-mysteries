@@ -1,0 +1,29 @@
+.github/workflows/publish.yml
+  s_103045bd360d77::t_bad48313e8e813 26,35-72,75
+.gitignore
+  s_103045bd360d77::t_2484f37052bd72 12
+README.md
+  s_103045bd360d77::t_5f1bc78029b416 101,103-111
+scripts/link_related_videos.py
+  s_103045bd360d77::t_d67f9b4f3e54aa 3,5,15-16,72-73,76-78,83-85,89,91,96-100,105-117,119,121-123,125,127,129-131
+short.py
+  s_103045bd360d77::t_712445b4b76f94 95
+shortform/upload.py
+  s_103045bd360d77::t_604551f0d29b4d 10-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "230b1a63d77952c0ad76fac4d83ca44035049186",
+  "prompts": {},
+  "sessions": {
+    "s_103045bd360d77": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "d6899d16-945e-4c9d-abf6-5fa30a9a3cd2",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
