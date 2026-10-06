@@ -33,12 +33,12 @@ Present theories and disputed claims as such ("some say", "records suggest"). Ne
 No calls to subscribe or like. No emojis, no stage directions, no markdown.
 
 Visual for each beat:
-- "archive": real historical photo, painting, map or document that probably exists on Wikimedia Commons. "query" ALWAYS
-  includes the proper name of the person, place or object (e.g. "Shugborough Hall", "Nicolas Poussin Arcadia").
 - "stock": vertical atmospheric stock footage. "query" = 2-4 literal English words (e.g. "candle dark room", "stormy sea").
-- "ai": cinematic vertical reconstruction. "query" = detailed English prompt with setting, era, objects, lighting.
-  Never identifiable faces of real people (silhouettes, hands, backs, distance), never gore, NEVER anything with writing.
-Use roughly 35% archive, 35% stock and 30% ai (at most {max_ai} ai beats), never the same type more than 3 times in a row.
+- "ai": cinematic vertical reconstruction of the specific person, place or object (e.g. an 18th-century stone monument
+  in an English garden). "query" = detailed English prompt with setting, era, objects, lighting. Never identifiable faces
+  of real people (silhouettes, hands, backs, distance), never gore, NEVER anything with writing.
+Use "ai" for every beat about a concrete person, place, object or event (at most {max_ai} ai beats) and "stock" for
+atmosphere, never the same type more than 3 times in a row.
 
 Per beat also return:
 - "highlight": 0-2 key words copied exactly from that beat's narration to show in colour (e.g. Vanished, Never, Blood, Unknown).
@@ -54,7 +54,7 @@ Return ONLY JSON:
   "tags": ["10-15 tags: case name, people, places, era and related searches"],
   "hashtags": ["3-5 case-specific hashtags without the # symbol and without spaces"],
   "thumbnail_text": "2-4 punchy words for a vertical thumbnail that open a question and NEVER reveal the answer, the key evidence or the ending (e.g. 'NOBODY CAME BACK', 'WHO WROTE THIS?')",
-  "beats": [{{"narration": "...", "kind": "archive|stock|ai", "query": "...", "highlight": ["..."], "sfx": "hit|whoosh|riser|stop|none"}}]
+  "beats": [{{"narration": "...", "kind": "stock|ai", "query": "...", "highlight": ["..."], "sfx": "hit|whoosh|riser|stop|none"}}]
 }}"""
 
 

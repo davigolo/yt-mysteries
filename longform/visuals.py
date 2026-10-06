@@ -49,8 +49,12 @@ class VisualSource:
         return visuals
 
     def _for_scene(self, scene: Scene, seconds: float) -> Visual:
+        archive_ai = lambda: self._ai(f"historical scene evoking {scene.query}, no identifiable faces")
+        archive = [lambda: self._archive(scene.query), archive_ai] if self.config.get("archive", True) else [
+            archive_ai, lambda: self._stock(" ".join(scene.query.split()[:4]), seconds),
+        ]
         attempts = {
-            "archive": [lambda: self._archive(scene.query), lambda: self._ai(f"historical scene evoking {scene.query}, no identifiable faces")],
+            "archive": archive,
             "stock": [lambda: self._stock(scene.query, seconds), lambda: self._ai(scene.query)],
             "ai": [lambda: self._ai(scene.query), lambda: self._stock(" ".join(scene.query.split()[:4]), seconds)],
         }[scene.kind]

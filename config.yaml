@@ -111,6 +111,7 @@ shorts:
     ai_width: 1152
     ai_height: 2048
     ai_style: "vertical 9:16 composition, people only from behind, in silhouette or out of focus with no clear faces, cinematic dark documentary still, low-key lighting, cold desaturated blue-grey tones, high contrast, film grain, realistic, no text, no watermark"
-    max_ai_images: 4
+    max_ai_images: 8
+    archive: false
     upscale_archive_below: 0
     max_upscales: 0
