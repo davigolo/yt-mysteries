@@ -1,0 +1,25 @@
+README.md
+  s_103045bd360d77::t_b1c171c9618892 99-102
+config.yaml
+  s_103045bd360d77::t_d77d2f57003ffd 114-115
+longform/visuals.py
+  s_103045bd360d77::t_66b4c0b6eb3426 52-55,57
+shortform/script.py
+  s_103045bd360d77::t_e7a259c4862b24 37-41,57
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ab160f5a9cd373d451da853073eaba6d5419eaaa",
+  "prompts": {},
+  "sessions": {
+    "s_103045bd360d77": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "d6899d16-945e-4c9d-abf6-5fa30a9a3cd2",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
