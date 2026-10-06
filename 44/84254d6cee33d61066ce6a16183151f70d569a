@@ -1,0 +1,22 @@
+scripts/link_related_videos.py
+  s_103045bd360d77::t_4300a9e1515f03 1-137
+  s_103045bd360d77::t_c2a3fec7879a93 138-140
+README.md
+  s_103045bd360d77::t_6169858ef3a46b 74-75,101-108
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4484254d6cee33d61066ce6a16183151f70d569a",
+  "prompts": {},
+  "sessions": {
+    "s_103045bd360d77": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "d6899d16-945e-4c9d-abf6-5fa30a9a3cd2",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
