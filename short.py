@@ -1,7 +1,7 @@
 import argparse
 import json
 import shutil
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 import yaml
@@ -93,16 +93,18 @@ def main() -> None:
     title = f"{script.title} #shorts"
     description = build_description(
         script.description, script.episode_id, [v.credit for v in visuals if v.credit],
-        hashtags(script.hashtags, shorts["hashtags"]),
+        hashtags(script.hashtags, shorts["hashtags"], config["upload"]["max_hashtags"]),
     )
     (WORKDIR / "short_description.txt").write_text(f"{title}\n\n{description}", encoding="utf-8")
     if args.no_upload:
         return
-    video_id = upload_short(video, thumbnail, title, description, script.tags, script.episode_id, config)
-    print(f"Subido: https://youtube.com/shorts/{video_id}")
+    playlists = [config["playlists"]["shorts"]] if config.get("playlists", {}).get("shorts") else []
+    video_id = upload_short(video, thumbnail, title, description, script.tags, script.episode_id, playlists, config)
+    print(f"Subido ({config['upload']['privacy']}): https://youtube.com/shorts/{video_id}")
     entry = {
         "date": date.today().isoformat(), "episode_id": script.episode_id, "angle": script.angle,
-        "title": script.title, "video_id": video_id,
+        "title": script.title, "video_id": video_id, "privacy": config["upload"]["privacy"],
+        "uploaded_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
     }
     entry.update(_publish_social(video, script, shorts))
     shorts_history.append(entry)

@@ -4,7 +4,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload
 
-from longform.upload import credentials
+from longform.upload import add_to_playlists, credentials
 
 MAX_DESCRIPTION = 4900
 
@@ -27,7 +27,8 @@ def build_description(summary: str, episode_id: str, credits: list[str], hashtag
 
 
 def upload_short(
-    video: Path, thumbnail: Path | None, title: str, description: str, tags: list[str], episode_id: str, config: dict,
+    video: Path, thumbnail: Path | None, title: str, description: str, tags: list[str], episode_id: str,
+    playlists: list[dict], config: dict,
 ) -> str:
     youtube = build("youtube", "v3", credentials=credentials(), cache_discovery=False)
     settings = config["upload"]
@@ -44,6 +45,7 @@ def upload_short(
             "privacyStatus": settings["privacy"],
             "selfDeclaredMadeForKids": False,
             "containsSyntheticMedia": settings["contains_synthetic_media"],
+            "publicStatsViewable": True,
         },
     }
     request = youtube.videos().insert(
@@ -68,4 +70,5 @@ def upload_short(
         }}).execute()
     except HttpError as e:
         print(f"No se pudo publicar el comentario con el enlace: {e}")
+    add_to_playlists(youtube, video_id, playlists)
     return video_id

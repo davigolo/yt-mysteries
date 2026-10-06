@@ -47,10 +47,38 @@ music:
   volume: 0.07
 
 upload:
-  privacy: "public"
+  privacy: "unlisted"
   category_id: "27"
   contains_synthetic_media: true
   hashtags: "#mystery #history #unsolved"
+  max_hashtags: 5
+
+publish:
+  after_hours: 22
+
+playlists:
+  episodes:
+    all:
+      title: "Unsolved Archives: Full Investigations"
+      description: "Every full-length investigation from the channel: unsolved disappearances, historical enigmas and cold cases, told as calm, well-sourced documentaries."
+    disappearance:
+      title: "Unsolved Disappearances"
+      description: "People, ships and aircraft that vanished without a trace, and every theory investigators have tested since."
+    enigma:
+      title: "Historical Enigmas"
+      description: "Objects, documents, codes and places from history that still have no accepted explanation."
+    solved:
+      title: "Cold Cases Finally Solved"
+      description: "Mysteries that stayed open for decades until new evidence finally revealed what happened."
+    lost:
+      title: "Lost Expeditions, Cities and Treasures"
+      description: "Lost expeditions, vanished cities and missing treasures, and the searches that are still going on."
+    phenomenon:
+      title: "Strange Historical Phenomena"
+      description: "Strange documented events and mass phenomena from history, and the theories that try to explain them."
+  shorts:
+    title: "Mystery Shorts"
+    description: "Short teasers from our full investigations. Each one links to the complete documentary."
 
 shorts:
   episode_window: 5

@@ -51,6 +51,27 @@ Voz, imágenes IA y descargas se guardan en `cache/`, así que repetir un render
 Ajusta `visuals.max_ai_images` para limitar el gasto en Magnific. `visuals.upscale_archive_below` (p. ej. `900`) y `max_upscales`
 activan el upscaler de Magnific para las fotos de archivo de baja resolución.
 
+## Publicación en oculto y paso a público
+
+Episodios y Shorts se suben en **oculto** (`upload.privacy: "unlisted"`) para que YouTube los analice antes de enseñarlos,
+y `.github/workflows/publish.yml` los pasa a **público al día siguiente**, en la misma franja en que se subieron
+(13:00, 15:00, 18:00 y 23:00 UTC). `publish.py` publica los vídeos de `history.json` y `shorts_history.json` que llevan
+al menos `publish.after_hours` (22 h) en oculto y ya están procesados. Un Short nunca se publica antes que su episodio:
+si el episodio sigue oculto, espera a la siguiente ejecución. No guarda estado, así que si una ejecución falla los
+publica la siguiente.
+
+- Ajusta los cron de `publish.yml` a las horas en que tu audiencia está conectada (Studio → Analytics → Audience →
+  *When your viewers are on YouTube*).
+- Para que un vídeo no se publique, pásalo a **privado** en Studio: solo se tocan los que siguen en oculto.
+- `.venv/bin/python publish.py --dry-run` muestra qué se publicaría sin cambiar nada.
+- Facebook, Instagram y TikTok se siguen publicando al momento (allí no existe el oculto).
+
+Además, en cada subida: contenido sintético declarado, "no es para niños", contador de "me gusta" visible, máximo 5
+hashtags (los del caso primero) y listas de reproducción (`playlists` en `config.yaml`, se crean públicas si no existen):
+cada episodio va a la lista general y a la de su formato, y cada Short a *Mystery Shorts*. Mientras el vídeo está en
+oculto conviene añadir a mano en Studio lo que la API no permite: **pantalla final** (suscribirse + "Mejor para el
+espectador" o el episodio relacionado), **tarjetas** a otros episodios y el **vídeo relacionado** de cada Short.
+
 ## Políticas de YouTube a tener en cuenta
 
 - `containsSyntheticMedia: true` va siempre activado (voz IA + reconstrucciones).

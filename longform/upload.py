@@ -8,6 +8,8 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload
 
+from longform.playlists import add_to_playlist
+
 SCOPES = [
     "https://www.googleapis.com/auth/youtube.upload",
     "https://www.googleapis.com/auth/youtube.force-ssl",
@@ -63,7 +65,14 @@ def build_description(summary: str, chapters: list[tuple[float, str]], sources: 
     return f"{text}\n\n{footer}"
 
 
-def upload(video: Path, thumbnail: Path, captions: Path, title: str, description: str, tags: list[str], config: dict) -> str:
+def add_to_playlists(youtube, video_id: str, playlists: list[dict]) -> None:
+    for playlist in playlists:
+        add_to_playlist(youtube, video_id, playlist["title"], playlist["description"])
+
+
+def upload(
+    video: Path, thumbnail: Path, captions: Path, title: str, description: str, tags: list[str], playlists: list[dict], config: dict,
+) -> str:
     youtube = build("youtube", "v3", credentials=credentials(), cache_discovery=False)
     settings = config["upload"]
     body = {
@@ -79,6 +88,7 @@ def upload(video: Path, thumbnail: Path, captions: Path, title: str, description
             "privacyStatus": settings["privacy"],
             "selfDeclaredMadeForKids": False,
             "containsSyntheticMedia": settings["contains_synthetic_media"],
+            "publicStatsViewable": True,
         },
     }
     request = youtube.videos().insert(
@@ -106,4 +116,5 @@ def upload(video: Path, thumbnail: Path, captions: Path, title: str, description
         ).execute()
     except HttpError as e:
         print(f"No se pudieron subir los subtítulos: {e}")
+    add_to_playlists(youtube, video_id, playlists)
     return video_id

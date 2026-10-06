@@ -2,7 +2,7 @@ import argparse
 import json
 import os
 import shutil
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
 
 import yaml
@@ -92,21 +92,24 @@ def main() -> None:
     chapters = [(t, titles[i] or "Intro") for i, t in enumerate(timeline.chapter_starts)]
     description = build_description(
         script.description, chapters, script.sources, [v.credit for v in visuals if v.credit],
-        hashtags(script.hashtags, config["upload"]["hashtags"]),
+        hashtags(script.hashtags, config["upload"]["hashtags"], config["upload"]["max_hashtags"]),
     )
     (WORKDIR / "description.txt").write_text(f"{script.title}\n\n{description}", encoding="utf-8")
     print(f"Miniatura: {thumbnail}\nDescripción: build/description.txt")
 
     if args.preview or args.no_upload:
         return
-    video_id = upload(video, thumbnail, captions, script.title, description, script.tags, config)
-    print(f"Subido: https://youtu.be/{video_id}")
+    playlists = config["playlists"]["episodes"]
+    targets = [p for p in (playlists.get("all"), playlists.get(script.format)) if p]
+    video_id = upload(video, thumbnail, captions, script.title, description, script.tags, targets, config)
+    print(f"Subido ({config['upload']['privacy']}): https://youtu.be/{video_id}")
     episodes = ROOT / "episodes"
     episodes.mkdir(exist_ok=True)
     (episodes / f"{video_id}.json").write_text(script.to_json(), encoding="utf-8")
     history.append({
         "date": date.today().isoformat(), "format": script.format, "topic": script.topic,
-        "title": script.title, "video_id": video_id,
+        "title": script.title, "video_id": video_id, "privacy": config["upload"]["privacy"],
+        "uploaded_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
     })
     HISTORY.write_text(json.dumps(history, ensure_ascii=False, indent=2), encoding="utf-8")
 
