@@ -1,0 +1,536 @@
+{
+  "topic": "The Lead Masks of Vintém Hill",
+  "format": "enigma",
+  "title": "The Lead Masks of Vintém Hill: Brazil's Unsolved Hillside Mystery",
+  "description": "In August 1966, two radio technicians left their hometown in Brazil on an ordinary business trip. Days later, their bodies were discovered on the steep slope of Morro do Vintém in Niterói, dressed in formal suits, sheltered by waterproof raincoats, and resting behind handmade lead eye masks. Beside them lay a cryptic handwritten schedule detailing the ingestion of unknown capsules and instructions to protect metals.\n\nDecades later, the deaths of Manoel Pereira da Cruz and Miguel José Viana remain one of the twentieth century's most baffling cold cases. Drawing strictly from historical police records, autopsies, and investigative files, this documentary explores the strange physical evidence, missing millions, precursor deaths, and competing theories that continue to surround Vintém Hill.",
+  "tags": [
+    "Lead Masks of Vintem Hill",
+    "Morro do Vintem",
+    "Manoel Pereira da Cruz",
+    "Miguel Jose Viana",
+    "Niteroi mystery",
+    "Brazil cold case",
+    "unsolved mysteries",
+    "Jacques Vallee",
+    "Hermes Luiz Feitosa",
+    "1966 mystery",
+    "true crime documentary",
+    "Brazilian mysteries",
+    "historical cold cases",
+    "unexplained deaths"
+  ],
+  "thumbnail_text": "THE LEAD MASKS",
+  "thumbnail_prompt": "Cinematic low-angle view of two handmade curved lead eye masks resting on dark cut palm fronds on a misty hillside at twilight, dramatic moody lighting, 1960s atmosphere, hyper-detailed, no text, no human faces",
+  "chapters": [
+    {
+      "title": "",
+      "scenes": [
+        {
+          "narration": "Two men lay dead on a steep hillside wearing eyeless lead masks.",
+          "kind": "ai",
+          "query": "Cinematic wide angle shot of two figures in dark suits lying on a steep tropical hillside at dusk, overcast moody sky, surrounded by tall grass, no visible faces"
+        },
+        {
+          "narration": "Beside them lay damp towels, a cryptic timetable instructing them to swallow capsules, and a receipt for a refundable water bottle.",
+          "kind": "archive",
+          "query": "Morro do Vintem lead mask evidence"
+        },
+        {
+          "narration": "Their bodies rested on palm fronds severed by a blade that was nowhere on the hill, while millions of cruzeiros had vanished from their pockets.",
+          "kind": "stock",
+          "query": "misty tropical mountain"
+        },
+        {
+          "narration": "Four years earlier, another technician had been found dead on a neighboring peak under nearly identical conditions.",
+          "kind": "archive",
+          "query": "Morro do Cruzeiro Sao Goncalo"
+        },
+        {
+          "narration": "What compelled two rational radio technicians to follow a strict timeline to their deaths?",
+          "kind": "stock",
+          "query": "vintage electronics workshop"
+        },
+        {
+          "narration": "To uncover the truth, we must trace their final hours into the storm.",
+          "kind": "stock",
+          "query": "heavy rain road"
+        }
+      ]
+    },
+    {
+      "title": "The Final Journey",
+      "scenes": [
+        {
+          "narration": "On the morning of August 17, 1966, thirty-two-year-old Manoel Pereira da Cruz and thirty-four-year-old Miguel José Viana boarded a bus in Campos dos Goytacazes.",
+          "kind": "archive",
+          "query": "Campos dos Goytacazes 1960s"
+        },
+        {
+          "narration": "Both men were respected radio and television repair technicians, married, with deep roots in their coastal community in the state of Rio de Janeiro.",
+          "kind": "stock",
+          "query": "soldering circuit board"
+        },
+        {
+          "narration": "Before departing at nine o'clock, they assured their wives they were traveling south to purchase electronic components for their repair business and inspect a used Volkswagen vehicle.",
+          "kind": "ai",
+          "query": "1960s Brazilian bus terminal exterior, vintage buses, travelers with luggage, morning haze, cinematic realism, no legible text"
+        },
+        {
+          "narration": "Miguel carried the bulk of their funds, an immense sum reported between two point three and three million Brazilian cruzeiros.",
+          "kind": "stock",
+          "query": "counting paper money"
+        },
+        {
+          "narration": "Around two o'clock that afternoon, their bus pulled into the terminal at Niterói under heavy, relentless rain.",
+          "kind": "archive",
+          "query": "Niteroi bus terminal 1960s"
+        },
+        {
+          "narration": "Rather than seeking shelter, the two men moved through the downpour with deliberate purpose, stopping first at an electronics and hardware shop.",
+          "kind": "stock",
+          "query": "rain hitting pavement"
+        },
+        {
+          "narration": "There, they spent nine thousand four hundred cruzeiros on two identical, heavy-duty waterproof raincoats.",
+          "kind": "ai",
+          "query": "Two men seen from behind in dark coats walking down a rain-soaked 1960s urban street, retro storefronts, overcast gloomy daylight"
+        },
+        {
+          "narration": "Shortly after three o'clock, they stepped into a bar on Rua Marquês de Paraná, purchasing a single glass bottle of Magnesiana mineral water.",
+          "kind": "archive",
+          "query": "Rua Marques de Parana Niteroi"
+        },
+        {
+          "narration": "The barmaid later remembered Miguel looking noticeably anxious, repeatedly checking the watch on his wrist as if racing against an invisible deadline.",
+          "kind": "stock",
+          "query": "checking wrist watch"
+        },
+        {
+          "narration": "Curiously, the men carefully pocketed the deposit slip for the glass bottle, indicating they fully intended to return and reclaim their money.",
+          "kind": "ai",
+          "query": "Close up of hands placing a small folded paper slip into a wet overcoat pocket, vintage wool fabric, rain droplets, dramatic lighting"
+        },
+        {
+          "narration": "From the bar, they stepped back into the storm, heading toward an isolated hillside where their countdown was already ticking away.",
+          "kind": "stock",
+          "query": "dark storm clouds"
+        }
+      ]
+    },
+    {
+      "title": "The Ascent and the Horizon",
+      "scenes": [
+        {
+          "narration": "Between three-thirty and five o'clock that afternoon, witnesses spotted two men matching their descriptions at the foot of Morro do Vintém.",
+          "kind": "archive",
+          "query": "Morro do Vintem Niteroi"
+        },
+        {
+          "narration": "Some local residents reported seeing them arrive in an unidentified Jeep, while others saw them walking alone up the steep, muddy trail.",
+          "kind": "ai",
+          "query": "An olive green vintage 1960s utility vehicle parked at the base of a dense, overgrown tropical hill trail, misty rain, cinematic atmosphere"
+        },
+        {
+          "narration": "The ascent was grueling, winding through thick vegetation made treacherous by the torrential downpour.",
+          "kind": "stock",
+          "query": "muddy jungle trail"
+        },
+        {
+          "narration": "According to instructions found later, they were required to reach a specific point on the hill by four-thirty that afternoon.",
+          "kind": "ai",
+          "query": "Two silhouetted men climbing a steep muddy hillside through heavy rain and tall grass, back view, dramatic gloomy sky"
+        },
+        {
+          "narration": "A second instruction was scheduled for six-thirty, the exact hour dusk settled over the Guanabara Bay region.",
+          "kind": "stock",
+          "query": "dusk over bay"
+        },
+        {
+          "narration": "Around seven-thirty that evening, multiple residents in the nearby neighborhoods of Santa Rosa and Fonseca looked up toward the summit.",
+          "kind": "archive",
+          "query": "Santa Rosa Niteroi historic"
+        },
+        {
+          "narration": "A local woman named Gracinda Barbosa Coutinho de Souza formally testified that she witnessed a luminous, fiery orange oval object hovering above the hill.",
+          "kind": "ai",
+          "query": "Distant view of a glowing orange oval light hovering above a dark hill silhouette at night, suburban 1960s rooftops in the foreground"
+        },
+        {
+          "narration": "The following morning, August 18, eighteen-year-old Paulo Cordeiro Azevedo dos Santos was hunting birds on the slopes when he spotted two bodies lying in the brush.",
+          "kind": "stock",
+          "query": "dense foliage morning"
+        },
+        {
+          "narration": "Paulo ran to the local police precinct to report what he had seen, but desk officers dismissed his claims, assuming the teenager was playing a prank.",
+          "kind": "ai",
+          "query": "Interior of a 1960s Brazilian police station, dim practical lighting, wooden desks, vintage rotary phone, cinematic realism"
+        },
+        {
+          "narration": "It was not until two days later, when another eighteen-year-old named Jorge da Costa Alves climbed the hill to retrieve a lost kite, that the authorities finally took notice.",
+          "kind": "archive",
+          "query": "Morro do Vintem 1966"
+        },
+        {
+          "narration": "Jorge alerted the Second Police Precinct, prompting an armed recovery team to climb the slope, completely unprepared for what lay waiting in the grass.",
+          "kind": "stock",
+          "query": "flashlight beam woods"
+        }
+      ]
+    },
+    {
+      "title": "The Hillside Tableau",
+      "scenes": [
+        {
+          "narration": "On the morning of August 21, police officers, firefighters, and reporters completed the difficult climb up Morro do Vintém.",
+          "kind": "archive",
+          "query": "Morro do Vintem police 1966"
+        },
+        {
+          "narration": "They found Manoel Pereira da Cruz and Miguel José Viana lying side-by-side, face-up, arranged with unsettling precision.",
+          "kind": "ai",
+          "query": "High angle shot of two figures in dark suits lying side by side on a clearing on a grassy hill, surrounded by tropical foliage, somber morning light"
+        },
+        {
+          "narration": "Both men were dressed in formal suits underneath their newly purchased waterproof raincoats, completely unsuited for hiking rough wilderness.",
+          "kind": "stock",
+          "query": "wet fabric texture"
+        },
+        {
+          "narration": "Beneath them lay a neat bed of palm fronds and tall grass, cleanly cut from the surrounding brush with a sharp blade.",
+          "kind": "ai",
+          "query": "Close up of cut tropical palm fronds neatly arranged on the muddy forest ground, freshly severed stems, morning moisture"
+        },
+        {
+          "narration": "Yet despite an exhaustive search of the entire hillside, investigators could find no knife, machete, or cutting tool anywhere on the scene.",
+          "kind": "stock",
+          "query": "searching overgrown grass"
+        },
+        {
+          "narration": "Resting over their faces, or placed immediately beside their heads, were two homemade eye shields cut from sheet lead.",
+          "kind": "archive",
+          "query": "Lead mask evidence photo 1966"
+        },
+        {
+          "narration": "The masks had no eye holes, contoured tightly to the human face, with holes punched at the sides threaded with crude string.",
+          "kind": "ai",
+          "query": "Studio macro shot of a crude handmade lead sheet mask, hammered metal texture, punched side holes with string, dramatic side lighting"
+        },
+        {
+          "narration": "Beside the bodies sat the empty Magnesiana mineral water bottle, two damp towels wrapped neatly in paper, and a handkerchief embroidered with the initials A.M.S.",
+          "kind": "archive",
+          "query": "Morro do Vintem evidence handkerchief"
+        },
+        {
+          "narration": "Neither victim, nor any member of their families, possessed those initials, leaving investigators with a monogram pointing to a ghost.",
+          "kind": "stock",
+          "query": "vintage embroidered handkerchief"
+        },
+        {
+          "narration": "When detectives counted their money, Miguel had one hundred fifty-seven thousand cruzeiros and Manoel had four thousand, meaning over ninety percent of their cash had vanished.",
+          "kind": "stock",
+          "query": "leather wallet open"
+        },
+        {
+          "narration": "Medical examiner Dr. Astor de Melo conducted the initial autopsy, finding no bullet wounds, stab marks, strangulation, or signs of physical struggle, deepening an already inexplicable puzzle.",
+          "kind": "archive",
+          "query": "Instituto Medico Legal Rio de Janeiro"
+        }
+      ]
+    },
+    {
+      "title": "The Script and the Secret Workshop",
+      "scenes": [
+        {
+          "narration": "When detectives searched the victims' clothing, they pulled two folded sheets of paper from their pockets that provided a disturbing glimpse into their intentions.",
+          "kind": "archive",
+          "query": "Morro do Vintem handwritten note"
+        },
+        {
+          "narration": "One page was covered in technical schematics, mathematical formulas, and component codes for radio tubes and electronic circuits.",
+          "kind": "stock",
+          "query": "vintage circuit diagram"
+        },
+        {
+          "narration": "The second paper contained a handwritten schedule matched to Miguel's handwriting: at sixteen-thirty, be at the determined location; at eighteen-thirty, ingest capsules, after effect protect metals await signal mask.",
+          "kind": "archive",
+          "query": "Morro do Vintem original note Portuguese"
+        },
+        {
+          "narration": "Despite the direct instruction to swallow capsules, police found no packaging, blisters, or chemical residue anywhere on the ground.",
+          "kind": "stock",
+          "query": "searching ground forensic"
+        },
+        {
+          "narration": "The instruction to protect metals explained why pieces of foil and damp towels were carefully wrapped around their metallic possessions, a technique believed to shield against electromagnetic pulses.",
+          "kind": "ai",
+          "query": "Close up of vintage coins and a pocket watch carefully wrapped in damp cloth and aluminum foil on a wooden surface, dramatic low lighting"
+        },
+        {
+          "narration": "Between August 25 and 27, detectives searched Manoel's electronics workshop back in Campos dos Goytacazes.",
+          "kind": "archive",
+          "query": "Campos dos Goytacazes 1966"
+        },
+        {
+          "narration": "Inside, they discovered lead scraps, cutting tools matching the contours of the masks, literature on spiritism, and notes on communicating with Mars.",
+          "kind": "ai",
+          "query": "Interior of a cluttered 1960s radio repair workshop, workbench covered in lead sheets, cutting snips, vacuum tubes, and scattered notebooks"
+        },
+        {
+          "narration": "Police detained an associate named Élcio Gomes, who confessed that the men belonged to a secretive group practicing scientific spiritualism.",
+          "kind": "stock",
+          "query": "interrogation room shadow"
+        },
+        {
+          "narration": "Élcio revealed that their group had staged hazardous field experiments before, attempting to bridge radio frequency science with metaphysical communication.",
+          "kind": "stock",
+          "query": "old radio receiver dials"
+        },
+        {
+          "narration": "Just two months earlier, in June 1966, the men had detonated a homemade device on Atafona beach, triggering a blast so powerful it shattered nearby roofs and brought scrutiny from the Brazilian Navy.",
+          "kind": "ai",
+          "query": "A wide sandy ocean beach at dusk with smoke rising from a crater in the sand, distant coastline, moody dramatic sky, 1960s setting"
+        },
+        {
+          "narration": "Investigators now suspected their hilltop venture was another experiment, but unlocking the physical cause of their deaths proved far more elusive.",
+          "kind": "stock",
+          "query": "forensic microscope laboratory"
+        }
+      ]
+    },
+    {
+      "title": "The Flawed Inquest and the Precursor",
+      "scenes": [
+        {
+          "narration": "Determined to identify what chemical was inside the swallowed capsules, authorities called in a secondary forensic specialist, Dr. Alberto Farah, to collect organ tissue for toxicological screening.",
+          "kind": "archive",
+          "query": "Dr Alberto Farah coroner Rio"
+        },
+        {
+          "narration": "However, the morgue in Niterói was overwhelmed that weekend, and the preservation fluids used for the viscera were mishandled and delayed.",
+          "kind": "stock",
+          "query": "laboratory glass vials"
+        },
+        {
+          "narration": "By the time toxicologists tested the samples, the internal organs had decomposed to such a degree that standard tests for basic alkaloid poisons were completely inconclusive.",
+          "kind": "ai",
+          "query": "Dim 1960s morgue laboratory, stainless steel trays, glass test tubes, vintage scientific equipment, shadowy lighting, no human subjects"
+        },
+        {
+          "narration": "In August 1967, a judicial order forced the exhumation of the bodies in Campos dos Goytacazes for secondary testing.",
+          "kind": "archive",
+          "query": "Campos dos Goytacazes cemetery"
+        },
+        {
+          "narration": "The effort proved entirely futile, as advanced skeletal decomposition made it impossible to isolate any organic toxins or hallucinogens.",
+          "kind": "stock",
+          "query": "dusty archival files"
+        },
+        {
+          "narration": "As detectives struggled with the forensic void, veteran homicide detective Saulo Soares de Souza uncovered an extraordinary precedent in state files.",
+          "kind": "stock",
+          "query": "detective opening file cabinet"
+        },
+        {
+          "narration": "Four years earlier, in early 1962, another electronics technician named Hermes Luiz Feitosa had been found dead on Morro do Cruzeiro in nearby São Gonçalo.",
+          "kind": "archive",
+          "query": "Sao Goncalo Rio de Janeiro historic"
+        },
+        {
+          "narration": "Hermes had been dressed in formal attire, showed zero signs of physical trauma, and lay beside an identical handmade lead eye mask.",
+          "kind": "ai",
+          "query": "A solitary handmade lead mask resting in tall wild grass on a desolate rocky hill crest under a pale overcast sky, cinematic somber tone"
+        },
+        {
+          "narration": "The 1962 investigation had ended with no answers, proving that this bizarre ritual had existed in the local electronics community long before Manoel and Miguel made their climb.",
+          "kind": "stock",
+          "query": "old typewriter typing"
+        },
+        {
+          "narration": "With identical deaths repeating across neighboring hills, investigators were left to reconcile three wildly divergent theories of what occurred on Morro do Vintém.",
+          "kind": "stock",
+          "query": "fog rolling over hills"
+        }
+      ]
+    },
+    {
+      "title": "Shadows on Vintém Hill",
+      "scenes": [
+        {
+          "narration": "The first theory, championed by Detective Saulo Soares de Souza and contemporary reporters, argued that the technicians died during an esoteric spiritualist experiment gone terribly wrong.",
+          "kind": "archive",
+          "query": "Saulo Soares de Souza detective"
+        },
+        {
+          "narration": "Believing that spirit entities emitted hazardous high-frequency radiation, the men may have fabricated lead shields for protection, swallowing lethal doses of hallucinogens to trigger an altered state of consciousness.",
+          "kind": "ai",
+          "query": "Close up of an open vintage book with schematic diagrams alongside esoteric notes on a wooden desk, candle light, moody shadows, no legible text"
+        },
+        {
+          "narration": "Yet this theory failed to identify who supplied the fatal compound, or why over two million cruzeiros disappeared from their pockets.",
+          "kind": "stock",
+          "query": "empty vintage leather wallet"
+        },
+        {
+          "narration": "This discrepancy led Chief Police Delegate Venâncio Bittencourt to favor a second theory: latrocínio, or robbery-homicide under false pretenses.",
+          "kind": "archive",
+          "query": "Delegado Venancio Bittencourt"
+        },
+        {
+          "narration": "Under this scenario, an opportunistic criminal ring lured the naive technicians to the hill under the promise of clandestine electronics or esoteric secrets, poisoned them, and stole their cash.",
+          "kind": "stock",
+          "query": "shadowy figures dark alley"
+        },
+        {
+          "narration": "This explanation accounts for the missing cutting tool, the unidentified handkerchief with the initials A.M.S., and witness accounts of an olive-green Jeep carrying unknown passengers.",
+          "kind": "ai",
+          "query": "An unidentified vintage Jeep driving away along a dark rural gravel road at night, taillights glowing through coastal mist, cinematic composition"
+        },
+        {
+          "narration": "However, skeptics note that ordinary robbers rarely leave behind wristwatches, wedding rings, or one hundred sixty-one thousand cruzeiros in loose cash.",
+          "kind": "stock",
+          "query": "vintage watch on table"
+        },
+        {
+          "narration": "A third theory, advanced by Brazilian ufologists, pointed to the luminous orange object witnessed over the hill by Gracinda Coutinho de Souza, alleging extraterrestrial contact.",
+          "kind": "archive",
+          "query": "Sociedade Brasileira de Estudos Sobre Discos Voadores"
+        },
+        {
+          "narration": "Yet when authorities scanned the victims and their masks with Geiger counters, they detected zero residual radioactivity, and no burns or scorched earth were ever found.",
+          "kind": "stock",
+          "query": "geiger counter radiation device"
+        },
+        {
+          "narration": "In 1980, astrophysicist Jacques Vallée climbed Morro do Vintém alongside Detective Soares, who still suspected a manipulative cult leader had orchestrated the ritual poisoning from the shadows.",
+          "kind": "archive",
+          "query": "Jacques Vallee 1980"
+        },
+        {
+          "narration": "Judicially shelved in 1969, the case has long passed Brazil's twenty-year statute of limitations, leaving the lead masks archived in state files as silent monuments to an encounter that science could never explain.",
+          "kind": "ai",
+          "query": "Archival evidence room interior, metal shelves with labeled vintage storage boxes, two antique lead masks illuminated by a single warm beam of light"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "title": "wikipedia.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGG1dbJ2va1Hig62LYIbORuuzAeg6uk0EQyhxWN6FG0sHlORan0_jVeM3l2nk-okMMPMBpYO5XnPJLeflts2RbKvRehbHv7T2NiUY2q3bNQlnf9oBm9lVYtNYrkV1igk5IgogA="
+    },
+    {
+      "title": "observatorio3setor.org.br",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFa3iBppEJcYCR6RrR_y0IyYqPqbAVboejFcfmqs6hLUn-Qhqzy-O1VV3sJEhHLd0tf3HAQmgJwkv2zQsW3X3aMgebFyFuMnI4TgOFUEtnXyk_ZkKDzrsu1cGToP7YULNV_ubO_8MTElB6elrwttc9Z_bNhjWh7HNjlXR2bQhDTrIU-XtW8RKDDzoI6IoBvoCLHpAecZCLxlME="
+    },
+    {
+      "title": "wikipedia.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFNOoT8UTidahlbUBBWEh43qWkpnvu8dOk5sFlImln6VSeT4AzXxrabiIU7oLRgwdTl_uupGa7-5QewDIiE0rQ9YY3GIUcteOjJcSh6jc3lXURsVCO197oQSdF0q8kjGGthvt7caVZYD6R9h3Ho5c-KQPsxsVxbgJfXlWAk6w=="
+    },
+    {
+      "title": "veriarch.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGokzHes5qJ-6pq3qB7GxQvbFvMb97ZP2H3y3SLBKBa0UlVuxp054c4vDKjDYsBOdmNEpivsTgdQY9L3_WO9B2YdlslbxTetsHT-wJxKuRBZVdER7Sh-k880Q=="
+    },
+    {
+      "title": "wordpress.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFbrrtuFoLoeWp11UeqrHBcEa8gtTtgqE_N1mpG-TJ18KqFlbWcL2raUZmWp86m5IBdMioHZfM5wEAnpVcUIVwbhaUVj7jweM4Tyd_Geg7sfH9RebkanqKrs3Axaefdop1VCSvXGEBBLLT7WXEvcoAr8mZb5aq1B3f48KGWR5IY7hh5GBZw73ZInUf3-1cVRdg="
+    },
+    {
+      "title": "blogspot.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGn9VX2Iphw-rUvmEYdaB-iQTCRfbLbwAU48nb2Wqmf39W85lvAszE1dA8xRGw1bgN53m3gxuwQsUzBQ6rhRRQEoykDKOiN2Wnj2VDaj0iT7u2R68Q-9l7JifeQYqzDBtJn8d4Du9brHDlYWLChNsLCq70cXrdDY-z7ktifM4RXnNJC5zCq3f_p-8Sx"
+    },
+    {
+      "title": "slideshare.net",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGGHAtNCDaCZA8qO45XOLCjfB42K3WftOtd2i816HWi38NrLZU0kMAVyS6azWaNlQEFXpBR3d84LGNp0PEP3erOP-dcMejuXsVeFpqxmx9wbf0s6ed_FxRW_kZZ2lQWYxyL324yu8ETuKcUWHLiTQs8W8qWT5HcymZua7Q="
+    },
+    {
+      "title": "scribd.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFbGGva72u_mRfOAMJWwPxy2FZV3d7T97j_3vmldNAaMeCSzK4kGdbrBpghtZ4WkqZsOmN_Zp529BxJR8M1CnP7SCH8_poBlqCz5VV34ggjImpjbZYPUipGqiLQBjLNPNZext8Y4I_K_HnXMW6M_5WgGpzQjmb1pQ=="
+    },
+    {
+      "title": "youtube.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFI0uhgxbxMNjoSfrX7XMF2Jh4Fg5Q1rCvPRtGmhUPAZA_Mufq10zewhB-vb6siuvAKL6dswSX6WcJL8g1ojkhiV6_WqyojT0vY6msbCEJu_kOxUv1aCkmJPHxuodJUs7q3"
+    },
+    {
+      "title": "podcastcdd.com.br",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHTIZ-C0jTDB9iBMX7hpR8QY_HoPlKIUvSfob9caweNMdMleJ8vrtlyO5XLwGkLW7YKdfJMnYOlcSgkkRjb_SzzPCo1TrV2UrWw10p9W9_E2QbI8QxCsvDAzhk7Sw5zsWN-3eRMAjP9Akh4N25pI6paABoOF8AjXHLqN2lUBCv1oBdI77UZU021DglYb14vKWEnx79caz0="
+    },
+    {
+      "title": "unilad.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG1L6HyX8rxhmiLAY7Kazol4ivAonlh0Gm3AP-eUGgsoccf57ERg2VMlzhSlvwZ8CNhj7uSGtsEC1tRWu2qmJDH3vbLLalg-AnHKnmUqP8vQ6cGm97RbCXifxKpWdOHo85Msdhyju_QHj21700ulWaaz-XJ4boXkDFLs8iJZpPRv27fZ9FDPCYKUF-I9c-SjG3uqACSx7WbxutgRSoUCA=="
+    },
+    {
+      "title": "instagram.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH1d-zqbtISX-qzvnh-Bpo01BGjOkde7b9a_ZUrJhwWSQLC4VgkLDq5_R32oKiEnhpXi1qAk3vca1Qc03HrujFpjEfuLNXBtmNRo99z3ITHzZSrR82Xh8U0Dl91zA_PT80i84NL"
+    },
+    {
+      "title": "aventurasnahistoria.com.br",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEZiyZ3MpoH6lgJwPO-cQ29_GzXoqm6_nwzioPNzCywldCG2ukA6qiiC48GBkAgS328qEF0mkQKftr6TPfFJebvewqObFpi1g1weW2I91udU6muTKqbceLutnLD79oNX-5glh9FVv9hluS_kR4Ae6SsFdyzGCq2yFe-omtxUUdJCJajbhHcvIGfPBZ-e6rZP6w="
+    },
+    {
+      "title": "morbidkuriosity.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEqrtgv4oWugoZZ1ZcoCiY-GhU4m7cd1GG_E7fHHM7IyXT9G0Z4V5jOSe9uB4CgP15ImysRhYF9jXaECgopYYpY9aKLPybQgrqttS45_SVo21EAtQ06nG2IC52j6a1VYWv7SmNUvK9Gltr2PBPFcpfc"
+    },
+    {
+      "title": "facebook.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFbd1xfzcUmvy6qLD8bwv7wbZfS5mnrfAUyoi-rGwuRoImXOqLoMWQQfxNBAHRE1HnVyvgHtH-yfDqyNwxRx-9Ak1ZmT1T33w89r2NGqx3S7UAMq2LWaw4QYqJjp1xQGBx2DVuqD0HulzeBulC3usNdEonRcD22lrfqm7ASWE844RUS95f1FKnThSxCKx3A38KV0FrG21NKoNwGSRbw"
+    },
+    {
+      "title": "wordpress.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFibGlPinolKHZovQxRSuKrhDAhOruTf_IZVXJe1TijxLCJHuoWqqpZrib5uMCqKpuroap__Jtc8Lz6FUvByaHvSZsbYzO8IHdPl98DjoPAvxGYOuZB6hZxIXloUjV9rlGLfgAuAxitNl5JJCLp07pNYvGOzN8="
+    },
+    {
+      "title": "wordpress.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEq163r_ya22FJXQKfTojAJL5isK4rN9wZg3wf_tXEG0eZqRepNuMUS4VVOAGiJrhCU3DWPpIq2EuJCEqfVyUDQpJRmc3xmdvDArKr5lTllzL2mU5VvJ9Ihu_9cl6tuPxp4NpDtp-AmkJEjpqJF4F5qkD0Q63vIHQJAPREpnc4xiv_L4mYvWZ_-Mx1ldB0UhMWD"
+    },
+    {
+      "title": "wikipedia.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHWizTrn5vU03jOhl90YObtD6TEdagX30HwOQzunv2UTd3AdgCA0_ddVOL2rVglYovRDBS73wuny8AUbK9vHLtLIQu_oidTfE5UfSjiHZ4M5YvDSZl7qZjxDbE0RPaxgqZ9RRRfDhFQCKpl8frKFewRH2cLVmBULZ_vwMl1Dw=="
+    },
+    {
+      "title": "podcastcdd.com.br",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGGL5JVioxk6QkM3ypDiV76X96V_PpfNG08ne20upYLL7vYshZR8HEePIXcdcPJE4zTD14ezqSd38fGncVdyC8CMNCHBdXn3Q2E348XrqgAAmMvN9OLeTcpLvIhd35tmTeH0ih7gOKi-oYuEc0Njwt6lxMibW1ZEa0mvJlNYw4URvFEZMKEVe8_I7c_fdhJ5bv4UAP4Sg=="
+    },
+    {
+      "title": "slideshare.net",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHCAZe6qP0HdotYm4NBFqWFAehrxE_pp172ESPhnODnO09zGAcB7Zyx4JJBsBjB0CaEpI51aI60hAf9XlX_igQ199q78YNqdxBZHv6o_0lIKY6HbqEV7AGb55GQR4jGEoijsXRZjK-d_An0c0MsmX_CU0j5voQPHq1XXEcor_hmcgVZMN9syTt5bJaI0GG9oo8xuf9G80adlGSHuqDNeEjo8xaKFOsgWRei7w=="
+    },
+    {
+      "title": "facebook.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEJde2LbGgD9uvyjXkZ0e_q4osIpDkDHFeXz0nS7jcA7yCAfQopFDSu4Rugq1smCJQ_LiDamArZdyaXukThvOsosvaCOTpTxn_kJP7T3aRwhDw0oPDsIYQfmrGCzgFKDOTRHr4lnHcG_847DBrkQ4LTaW9T0VS8w54KtFeZwuc="
+    },
+    {
+      "title": "headcountcoffee.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGHT2rjkirmslI3YRPzejKIipDnmGX1RtaCVExq_IpZk34jKSQqqOTKCI7AcLhkIBaFUehsrlaA5ge5Y_Cwqo1MjxNOH_wd8CZgDdBxnDfgHSEKZWmarpVu2Qdki4A_X_trl5c_XtD0Mmv-goLQQZoK0YCK_DHeC14w5HaomBZQo1CbCoPc5P1Mg08yQqPBYZRPWK9jg6rf4H9zRaD85Ua-kPdbh0xKO5GxXTo0QMuEjBz77R6WMpRT"
+    },
+    {
+      "title": "facebook.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQExd4u94bOSSQnbWLDiowgfhhcv2ke0oqiqxHQRJM6pqKQbHJ4f8mF-8uwIF3BZGNTsvniaKSWSuy7OXaeQeAJNGqoeimARV2uT-9A1iLTdmXPfZayjusV-CO-oG_YQQKMQvbDV03H1hzpGfqjsKGXCU1jgjCwLPmL7RQ-pnEfEhYPu6gWxIb1bjyRi5_sZvHwV1ZP9OKStgTVSFb3EHTrZawKhUDpyo1k8GHESTmLbEeeJSyObCoOCQydcjwgaznShqJ477RC_UySKd9eNFBU="
+    },
+    {
+      "title": "dol.com.br",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGrvWcskpOGnC6g5DwqcSTQbIAK4upBYRkInHahoQ_OjLd52nvNnevWD9sDZN3rJeyjMYtVAYGBUbUTK-8tYyT_JNlMkEnlvfiCtoeOk-LQURQkSh3kc3ykMRrHgMZ04yC6bwiOzO4Rl7VGY6KnbPdm81A7xpLWrbGJjjktHQ_qXm7EwkwyGbILaSdu7i2GtmHrYN3ltoMsO-t8-DR8hmGefJ6OYhg="
+    },
+    {
+      "title": "todayifoundout.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHo9cUzc5o0C3n1spKSf_CLuQpbtvmM_pxsb2USD5DAURzTEjkwCCwpTBiveL4mw6TiM16PNfBFj0CaFcyb-Z_ajgZFb0hmwWgB_qZZh3AqmGQ0KLy4yAqs96lVfZ6EC2Yr5JwHsLYRS1ZrSmdo41pbUgvYmYu-jQq2B5VGXoKP7ux3Jw=="
+    },
+    {
+      "title": "reddit.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGeSFReUMQlDM99EmjyS3mF0dSYmuCk1nhRpV57QaoxbdzKuFPDtaWCg3qqzSGBzsdYOvSdQzAQxhw0vuaxp1egWZD9XtFPR4mEaTVKa6O4QoCGvW2sYCMZ2WuPOIxddvGe0vCmiIKYUZqLUlqJfX3GpKT7T_5IgSkGM2F5cpqfXVHrPbnZ9hoQj7-YZ0cbWohDHeUJTQY="
+    },
+    {
+      "title": "ufo.com.br",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHKCxw8qUZE3nmUXOm1do-0Y17kXQ9s54CkulMyVkSfhEGpnbbTua0bNnGb481MsshvemQzlb8aXALdQJpF5lsq3TmPtkTdNERRNuQ69K8LIF2_i80Z_fOJu_L58U6z1BbPyK8p69uTa3Fmsg=="
+    },
+    {
+      "title": "medium.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEHVp7B9bTzCtEf25ftUBga_IKWEYKjPl7humfJJwP86EId0b3ihcz4pNkHSArdzoO8ZsqkPSL1ffUy3yL5RpAkfWyz2hzJGplu-6POJU1hqIsA6kOvQjDlzij5HCeRytE456dq_tD_ezF-4OnE5jJUMkl1-c4aT80dBsXeNDbKxrkjC9pSkEXiuq6WESNRgS_tK54_oOdM"
+    }
+  ],
+  "hashtags": [
+    "LeadMasks",
+    "VintemHill",
+    "ColdCase",
+    "UnsolvedMystery"
+  ]
+}
