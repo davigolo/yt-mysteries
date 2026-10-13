@@ -24,11 +24,12 @@ Narration units (index: text | writer's first visual idea):
    - "source": "ai" (a new image generated from its anchor reference), "reuse" (show the anchor image itself again),
      "stock" or "archive".
    - At most {max_ai} units in total may be "ai" (anchors are generated apart). Use "ai" for the units with the most
-     concrete, important content; use "reuse" when the line happens in a place already shown.
+     concrete, important content; use "reuse" when the line happens in a place already shown. {reuse_rule}
    {stock_rule}
    {archive_rule}
    - The first two units must be two DIFFERENT images, and two consecutive units never show the same image.
    - "anchor": id of the anchor this shot happens in or shows (required for ai and reuse).
+   - "also": ids of other anchors (key objects or people) that also appear in the shot, so they keep the same design.
    - "framing": wide, medium, close-up or extreme close-up. Start a place with a wide shot, then go closer. Never the
      same anchor and framing twice in a row.
    - "prompt" (ai only): what the image shows, LITERALLY matching the concrete nouns and actions of the line (if the
@@ -40,7 +41,7 @@ Narration units (index: text | writer's first visual idea):
 Return ONLY JSON:
 {{"bible": {{"era": "...", "place": "...", "look": "...", "characters": [{{"id": "c1", "description": "..."}}]}},
   "anchors": [{{"id": "a1", "description": "detailed English image prompt of the location or object, with era-authentic details", "characters": ["c1"]}}],
-  "shots": [{{"i": 0, "source": "ai|reuse|stock|archive", "anchor": "a1", "framing": "wide", "prompt": "...", "query": "..."}}]}}"""
+  "shots": [{{"i": 0, "source": "ai|reuse|stock|archive", "anchor": "a1", "also": [], "framing": "wide", "prompt": "...", "query": "..."}}]}}"""
 
 PICK_PROMPT = """These are {count} candidate images (numbered 0 to {last} in order) for one shot of a documentary.
 Story: {context}. Era and place: {era}, {place}.
@@ -61,6 +62,7 @@ class Shot:
     framing: str
     prompt: str
     query: str
+    also: list[str] = field(default_factory=list)
 
 
 @dataclass
@@ -93,8 +95,12 @@ def _units(narrations: list[str], hints: list[str]) -> str:
 
 def plan_visuals(
     gemini: Gemini, narrations: list[str], hints: list[str], context: str, max_ai: int, anchors: str, archive: bool,
-    stock: bool, video_format: str,
+    stock: bool, video_format: str, max_reuse: int | None = None,
 ) -> VisualPlan:
+    reuse_rule = (
+        f'At most {max_reuse} units may be "reuse" and never the same anchor twice: viewers notice repeated images.'
+        if max_reuse is not None else ""
+    )
     stock_rule = (
         '- "stock" ONLY for timeless atmosphere with no people, vehicles, buildings, devices, money or text, and only when '
         'it matches the landscape of the real place: fog, storm clouds, rain, waves, fire, a candle flame, the night sky. '
@@ -108,7 +114,7 @@ def plan_visuals(
     )
     data = json.loads(gemini.json(PLAN_PROMPT.format(
         format=video_format, context=context, units=_units(narrations, hints), anchors=anchors, max_ai=max_ai,
-        archive_rule=archive_rule, stock_rule=stock_rule,
+        archive_rule=archive_rule, stock_rule=stock_rule, reuse_rule=reuse_rule,
     ), temperature=0.4))
     bible = data["bible"]
     anchor_ids = {a["id"]: a for a in data["anchors"] if a.get("id") and a.get("description")}
@@ -124,7 +130,11 @@ def plan_visuals(
             anchor = shots[-1].anchor if shots and shots[-1].anchor else next(iter(anchor_ids))
         if source == "reuse" and shots and shots[-1].source == "reuse" and shots[-1].anchor == anchor:
             source = "ai"
-        shots.append(Shot(source, anchor, raw.get("framing", "medium"), raw.get("prompt") or narrations[i], raw.get("query", "")))
+        reused = [s.anchor for s in shots if s.source == "reuse"]
+        if source == "reuse" and max_reuse is not None and (len(reused) >= max_reuse or anchor in reused):
+            source = "ai"
+        also = [a for a in raw.get("also") or [] if a in anchor_ids and a != anchor][:2]
+        shots.append(Shot(source, anchor, raw.get("framing", "medium"), raw.get("prompt") or narrations[i], raw.get("query", ""), also))
     return VisualPlan(
         era=bible.get("era", ""), place=bible.get("place", ""), look=bible.get("look", ""),
         characters={c["id"]: c["description"] for c in bible.get("characters", []) if c.get("id") and c.get("description")},

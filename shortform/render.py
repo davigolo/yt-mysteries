@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from pathlib import Path
 
 from longform.media import duration, run
-from longform.render import _image_filter, _ts
+from longform.render import OVERSAMPLE, _image_filter, _ts
 from longform.visuals import Visual
 from longform.voice import Word
 from shortform.script import Beat
@@ -17,6 +17,9 @@ TAIL_SECONDS = 0.25
 RISER_SECONDS = 2.6
 MUSIC_EXTENSIONS = {".mp3", ".m4a", ".wav", ".ogg"}
 MOTIONS = ["zoom_in", "zoom_in", "pan_right", "zoom_out", "pan_left"]
+PUNCH_ZOOM = 0.22
+PUNCH_DRIFT = 0.025
+PUNCH_FOCUS = [0.5, 0.3, 0.7]
 YELLOW = r"{\c&H00D6FF&}"
 RED = r"{\c&H2B2BFF&}"
 RED_WORDS = {
@@ -152,17 +155,32 @@ def plan_segments(visuals: list[Visual], timeline: ShortTimeline, max_seconds: f
     return segments
 
 
+def _punch_filter(w: int, h: int, frames: int, focus: float) -> str:
+    sw, sh = w * OVERSAMPLE, h * OVERSAMPLE
+    p = f"(on/{max(frames - 1, 1)})"
+    return (
+        f"scale={sw}:{sh}:force_original_aspect_ratio=increase:flags=lanczos,crop={sw}:{sh},"
+        f"zoompan=z='{1 + PUNCH_ZOOM}+{PUNCH_DRIFT}*{p}':x='(iw-iw/zoom)/2':y='(ih-ih/zoom)*{focus}'"
+        f":d={frames}:s={w}x{h}:fps={{fps}},setsar=1"
+    )
+
+
 def _render_parts(segments: list[Segment], config: dict, workdir: Path) -> list[Path]:
     video = config["shorts"]["video"]
     w, h, fps, zoom = video["width"], video["height"], video["fps"], video["zoom"]
-    parts, motion = [], None
+    parts, motion, repeats = [], None, 0
     for i, segment in enumerate(segments):
         frames = max(round(segment.end * fps) - round(segment.start * fps), 1)
         part = workdir / f"short_part_{i:03d}.mp4"
+        same_image = i > 0 and segment.visual.path == segments[i - 1].visual.path
+        repeats = repeats + 1 if same_image else 0
         if segment.visual.is_video:
             offset = random.uniform(0, max(duration(segment.visual.path) - frames / fps, 0))
             inputs = ["-ss", f"{offset:.3f}", "-stream_loop", "-1", "-i", str(segment.visual.path)]
             vf = f"setpts=PTS-STARTPTS,fps={fps},scale={w}:{h}:force_original_aspect_ratio=increase,crop={w}:{h},setsar=1"
+        elif same_image:
+            inputs = ["-i", str(segment.visual.path)]
+            vf = _punch_filter(w, h, frames, PUNCH_FOCUS[repeats % len(PUNCH_FOCUS)]).replace("{fps}", str(fps))
         else:
             motion = random.choice([m for m in MOTIONS if m != motion])
             inputs = ["-i", str(segment.visual.path)]

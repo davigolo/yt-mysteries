@@ -27,7 +27,7 @@ visuals:
   ai_model: "flux-2-turbo"
   ai_width: 2048
   ai_height: 1152
-  ai_style: "people only from behind, in silhouette or out of focus with no clear faces, cinematic documentary still, moody but well-exposed lighting with the subject clearly visible, muted desaturated colors, subtle film grain, 35mm, realistic, no text, no watermark"
+  ai_style: "people only from behind, in silhouette or out of focus with no clear faces but always with complete heads and bodies, cinematic documentary still, moody but well-exposed lighting with the subject clearly visible, muted desaturated colors, subtle film grain, 35mm, realistic, no text, no watermark"
   max_ai_images: 30
   plan: true
   plan_model: "flux-2-klein"
@@ -109,17 +109,18 @@ shorts:
     width: 1080
     height: 1920
     fps: 30
-    zoom: 0.16
+    zoom: 0.06
     max_segment_seconds: 2.4
   visuals:
     ai_model: "flux-2-turbo"
     ai_width: 1152
     ai_height: 2048
-    ai_style: "vertical 9:16 composition, people only from behind, in silhouette or out of focus with no clear faces, cinematic documentary still, dramatic but well-exposed lighting with the subject clearly visible and centred, desaturated tones, high contrast, film grain, realistic, no text, no watermark"
-    max_ai_images: 12
+    ai_style: "vertical 9:16 composition, people only from behind, in silhouette or out of focus with no clear faces but always with complete heads and bodies, cinematic documentary still, dramatic but well-exposed lighting with the subject clearly visible and centred, desaturated tones, high contrast, film grain, realistic, no text, no watermark"
+    max_ai_images: 15
     plan: true
     plan_model: "flux-2-klein"
     plan_anchors: "2-3"
+    plan_max_reuse: 2
     plan_stock: false
     archive: false
     upscale_archive_below: 0

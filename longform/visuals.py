@@ -88,7 +88,7 @@ class VisualSource:
         self.plan = plan_visuals(
             self.gemini, [s.narration for s in scenes], [f"{s.kind}: {s.query}" for s in scenes], context,
             max_ai=max(budget - max_anchors, 0), anchors=anchors, archive=self.config.get("archive", True),
-            stock=self.config.get("plan_stock", True),
+            stock=self.config.get("plan_stock", True), max_reuse=self.config.get("plan_max_reuse"),
             video_format="vertical YouTube Short" if self.portrait else "long-form YouTube episode",
         )
         counts = {k: sum(1 for s in self.plan.shots if s.source == k) for k in ("ai", "reuse", "stock", "archive")}
@@ -138,8 +138,8 @@ class VisualSource:
         return Visual(self.anchor_images[anchor_id], False, None)
 
     def _planned_ai(self, shot: Shot) -> Visual | None:
-        reference = self._anchor(shot.anchor)
-        return self._ai(self.plan.shot_prompt(shot), [reference.path] if reference else None)
+        references = [v.path for v in (self._anchor(a) for a in [shot.anchor, *shot.also]) if v]
+        return self._ai(self.plan.shot_prompt(shot), references or None)
 
     def _vet(self, previews: list[bytes], narration: str, wanted: str) -> int:
         if not self.plan or not self.gemini:
