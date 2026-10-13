@@ -1,0 +1,21 @@
+README.md
+  s_731b9346e3877b::t_3e930c3904cfd7 45
+config.yaml
+  s_731b9346e3877b::t_f9270067e2c7e9 16-17
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "056a1a0146d5460824984ed19607ede27defca77",
+  "prompts": {},
+  "sessions": {
+    "s_731b9346e3877b": {
+      "agent_id": {
+        "tool": "github-copilot",
+        "id": "s_731b9346e3877b",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
