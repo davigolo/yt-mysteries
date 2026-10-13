@@ -1,0 +1,31 @@
+longform/looks.py
+  s_32cbb50392142f::t_21db47ad53e655 1-31
+README.md
+  s_32cbb50392142f::t_99e4f0280f0e54 94-98
+config.yaml
+  s_32cbb50392142f::t_b105eb20ee1462 30,118
+longform/render.py
+  s_32cbb50392142f::t_0df8d3c7a9d31d 6,216,278
+longform/visual_plan.py
+  s_32cbb50392142f::t_0b134478de422e 5,33,46,68,120,140-141
+longform/visuals.py
+  s_32cbb50392142f::t_3c526c250a4fd6 7,48,99
+shortform/render.py
+  s_32cbb50392142f::t_86957a896be63f 7,190-191,322-323
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e20bded33318080fef055779000b00f75d6e1943",
+  "prompts": {},
+  "sessions": {
+    "s_32cbb50392142f": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b2378a59-8d95-440d-bf6e-916423569633",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
