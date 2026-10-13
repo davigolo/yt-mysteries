@@ -74,6 +74,22 @@ oculto conviene añadir a mano en Studio lo que la API no permite: **pantalla fi
 espectador" o el episodio relacionado) y **tarjetas** a otros episodios. El vídeo relacionado de cada Short se pone solo
 (ver más abajo).
 
+## Aprendizaje de las analíticas
+
+Los episodios apenas reciben vistas directas y casi toda la audiencia llega por los Shorts, así que el pipeline aprende de ellos
+(`longform/insights.py`, YouTube Analytics, últimos 90 días, solo vídeos con más de 3 días de datos):
+
+- **Episodios** (`main.py`): si hay 3 episodios con 100 vistas o más, usa sus propias estadísticas. Si no, valora cada
+  caso por la media de vistas y el % visto de sus Shorts, y se lo pasa a Gemini para elegir el siguiente caso. Con 2 casos o
+  más de un formato, pondera la elección del formato.
+- **Shorts** (`short.py`): con 6 Shorts con datos, pasa a Gemini los 5 mejores y los 3 peores (título, vistas, % visto,
+  likes) para copiar el estilo de gancho y título que funciona.
+- El selector de temas prioriza casos con **un detalle tangible e inquietante** (un código, una última nota, un objeto, un
+  lugar vacío), y los títulos de episodio giran en torno a ese detalle (máximo 60 caracteres, sin el patrón "Caso: subtítulo").
+
+Las subidas se reintentan desde cero hasta 3 veces si YouTube corta la sesión resumible (410/5xx), para no dejar vídeos
+vacíos en el canal. `publish.py` avisa (`::warning::`) de los vídeos que siguen sin procesar o que han fallado.
+
 ## Políticas de YouTube a tener en cuenta
 
 - `containsSyntheticMedia: true` va siempre activado (voz IA + reconstrucciones).
@@ -82,15 +98,19 @@ espectador" o el episodio relacionado) y **tarjetas** a otros episodios. El víd
 - El selector de temas evita casos con menores, violencia sexual o acusaciones a personas vivas no condenadas, y el guion no
   describe violencia explícita, para no caer en "contenido no apto para la mayoría de anunciantes".
 - Para no ser marcado como contenido "producido en masa", conviene revisar los primeros episodios y variar formatos (`FORMATS` en
-  `longform/script.py`); con 3 o más vídeos con datos, el pipeline aprende de las analíticas del canal.
+  `longform/script.py`); el pipeline aprende de las analíticas del canal (ver *Aprendizaje de las analíticas*).
 
-## Shorts del canal (3 al día)
+## Shorts del canal (2 al día)
 
 `short.py` genera Shorts verticales (~50 s) que promocionan los episodios ya publicados; `.github/workflows/shorts.yml`
-los sube a las 13:17, 18:17 y 23:17 UTC (mañana, mediodía y tarde en EE. UU.).
+los sube a las 13:17 y 18:17 UTC (GitHub los suele lanzar con 4-5 h de retraso).
 
 - Elige el episodio con menos Shorts de los 5 últimos (uno recién publicado tiene prioridad) y Gemini escribe un teaser
   con un ángulo nuevo usando **solo los hechos del guion del episodio** (`episodes/<video_id>.json`, que `main.py` guarda al subir).
+- Máximo `shorts.max_per_episode` (5) Shorts por caso, para no saturar con el mismo caso. Si todos los episodios
+  recientes están completos, la ejecución no genera nada y espera al siguiente episodio.
+- El título no puede parecerse a ninguno ya publicado en el canal (`shorts.title_similarity`, 0,75 con `difflib`): si se
+  parece, se regenera.
 - Estructura: gancho de máximo 8 palabras, desarrollo rápido, punto de inflexión, CTA "Watch the full investigation, linked right here."
   con flecha animada y una última frase que enlaza con el gancho para que el vídeo haga bucle.
 - Cortes de máximo 2,4 s con Ken Burns, etalonaje frío desaturado, subtítulos de 1-2 palabras (palabras clave en amarillo/rojo),
@@ -98,18 +118,20 @@ los sube a las 13:17, 18:17 y 23:17 UTC (mañana, mediodía y tarde en EE. UU.).
   si la carpeta no existe se sintetizan con ffmpeg).
 - Sin imágenes de Wikimedia (`shorts.visuals.archive: false`), para no tener que acreditar licencias CC BY: los planos de
   personas, lugares y objetos concretos son reconstrucciones de Magnific y la atmósfera, vídeo de Pexels (sin atribución).
-- Coste por Short: ~400 créditos de ElevenLabs y hasta 4 imágenes de Magnific (`shorts.visuals.max_ai_images`). Si se alcanza el tope, el
+- Coste por Short: ~400 créditos de ElevenLabs y hasta 6 imágenes de Magnific (`shorts.visuals.max_ai_images`). Si se alcanza el tope, el
   resto de planos pasan a vídeo de stock.
 - Presupuesto de Magnific (43k créditos/mes, ~50 por imagen): episodios 30 imágenes (`visuals.max_ai_images`, ~20,5k/mes)
-  + Shorts 4 (~18k/mes) = ~38,5k. Si se acaban los créditos, los planos de IA pasan solos a vídeo de stock. Si quedan menos de
+  + Shorts 6 × 2 al día (~18k/mes) = ~38,5k. Si se acaban los créditos, los planos de IA pasan solos a vídeo de stock. Si quedan menos de
   `shorts.reserve_credits` créditos, no se genera para no dejar sin voz a los episodios largos.
 - Descripción del Short: resumen, enlace al episodio y hashtags; el enlace va también en un comentario. Pero en los Shorts esos enlaces no son clicables: el único
   enlace que funciona es el **"Vídeo relacionado"**, que no existe en la API de YouTube.
   `scripts/link_related_videos.py` lo pone automáticamente desde YouTube Studio con un Chrome sin ventana en GitHub Actions:
-  lo ejecuta `publish.yml` antes de pasar nada a público, sobre los Shorts de los últimos 3 días (los ya enlazados se saltan).
+  lo ejecuta `publish.yml` antes de pasar nada a público, sobre los Shorts de los últimos 7 días (los ya enlazados se saltan).
+  Si Studio no confirma el guardado, recarga la página para comprobar si se guardó y, si no, deja en el log el texto de
+  cualquier diálogo visible. Un fallo de este paso deja un aviso en la ejecución, pero no la marca como fallida.
   - La sesión de Studio es la del secret `STUDIO_STATE` (cookies de Google/YouTube, gzip + base64). Tras cada ejecución
     se guarda renovada y cifrada (`STUDIO_STATE_KEY`, AES-256) en la caché de Actions, así que no depende de ningún equipo.
-  - Si la sesión caduca, el paso falla (GitHub te avisa por email) pero la publicación sigue. Para renovarla: inicia sesión
+  - Si la sesión caduca, el paso falla (aviso en la ejecución) pero la publicación sigue. Para renovarla: inicia sesión
     en un Chrome con perfil vacío y Unsolved Archives activo, exporta las cookies de google.com/youtube.com con Playwright
     (`storage_state`) y súbelas con `gzip -9c state.json | base64 -w0 | gh secret set STUDIO_STATE`; borra la caché
     `studio-state-*` en Actions → Caches.

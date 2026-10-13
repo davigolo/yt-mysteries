@@ -1,5 +1,7 @@
 import json
+import re
 from dataclasses import dataclass, field
+from difflib import SequenceMatcher
 
 from longform.gemini import Gemini
 from longform.script import Script
@@ -18,6 +20,9 @@ Episode narration (the ONLY source of facts you may use):
 </episode>
 
 Angles already used in previous Shorts of this episode (pick a DIFFERENT cliffhanger, detail or character): {used_angles}
+Titles already used on the channel (your title must NOT reuse their wording or main noun phrase): {used_titles}
+
+{insights}
 
 Write ONE Short of {min_words}-{max_words} spoken words in total (about 50 seconds; NEVER exceed {max_words} words), split into {min_beats}-{max_beats} beats.
 Each beat is 3-10 words of narration (about 1-3 seconds on screen) with ONE visual. Structure:
@@ -114,11 +119,27 @@ def _with_cta(beats: list[Beat]) -> list[Beat]:
     return beats
 
 
-def generate_short(config: dict, episode_id: str, episode: Script, used_angles: list[str]) -> ShortScript:
+def _normalize_title(title: str) -> str:
+    return " ".join(re.sub(r"[^\w\s]", "", title.lower().replace("#shorts", "")).split())
+
+
+def _similar_title(title: str, used_titles: list[str], threshold: float) -> str | None:
+    candidate = _normalize_title(title)
+    for used in used_titles:
+        if SequenceMatcher(None, candidate, _normalize_title(used)).ratio() >= threshold:
+            return used
+    return None
+
+
+def generate_short(
+    config: dict, episode_id: str, episode: Script, used_angles: list[str], used_titles: list[str] | None = None,
+    insights: str = "",
+) -> ShortScript:
     shorts = config["shorts"]
     gemini = Gemini(config["script"]["models"])
     narration = "\n".join(s.narration for c in episode.chapters for s in c.scenes)
     min_words, max_words = shorts["min_words"], shorts["max_words"]
+    used_titles = used_titles or []
     for _ in range(3):
         data = _parse(gemini.json(PROMPT.format(
             **config["channel"],
@@ -126,6 +147,8 @@ def generate_short(config: dict, episode_id: str, episode: Script, used_angles: 
             topic=episode.topic,
             narration=narration,
             used_angles="; ".join(used_angles[-20:]) or "none",
+            used_titles="; ".join(used_titles[-40:]) or "none",
+            insights=insights,
             min_words=min_words,
             max_words=max_words,
             min_beats=shorts["min_beats"],
@@ -145,7 +168,12 @@ def generate_short(config: dict, episode_id: str, episode: Script, used_angles: 
             thumbnail_text=data.get("thumbnail_text") or data["title"],
         )
         print(f"Short: {script.words} palabras, {len(beats)} beats\nÁngulo: {script.angle}")
+        duplicate = _similar_title(script.title, used_titles, shorts.get("title_similarity", 0.75))
+        if duplicate:
+            print(f"Título demasiado parecido a \"{duplicate}\", se regenera")
+            used_titles = [*used_titles, script.title]
+            continue
         if min_words - 15 <= script.words <= max_words + 20:
             return script
         print("Longitud fuera de rango, se regenera")
-    raise RuntimeError("Gemini no generó un Short de la longitud pedida")
+    raise RuntimeError("Gemini no generó un Short válido (longitud fuera de rango o título repetido)")

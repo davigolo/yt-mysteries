@@ -7,7 +7,9 @@ from pathlib import Path
 
 import yaml
 
-from longform.insights import build_insights, fetch_performance, format_weights
+from longform.insights import (
+    MIN_VIEWS, build_case_insights, build_insights, case_format_weights, case_performance, fetch_performance, settled,
+)
 from longform.render import build_voice_track, render, write_ass, write_srt
 from longform.script import Script, generate_script
 from longform.thumbnail import create_thumbnail
@@ -17,7 +19,12 @@ from longform.voice import remaining_characters, synthesize
 
 ROOT = Path(__file__).parent
 HISTORY = ROOT / "history.json"
+SHORTS_HISTORY = ROOT / "shorts_history.json"
 WORKDIR = ROOT / "build"
+
+
+def _load(path: Path) -> list[dict]:
+    return json.loads(path.read_text(encoding="utf-8")) if path.exists() else []
 
 
 def _load_env() -> None:
@@ -50,9 +57,12 @@ def main() -> None:
     else:
         insights, weights = "", {}
         try:
-            performance = fetch_performance(history)
-            insights, weights = build_insights(performance), format_weights(performance)
-            print(f"Estadísticas: {len(performance)} vídeos con datos, pesos por formato {weights}")
+            episodes = fetch_performance(history, min_views=0)
+            shorts = fetch_performance(settled(_load(SHORTS_HISTORY)), min_views=0)
+            cases = case_performance(history, episodes, shorts)
+            insights = build_insights([e for e in episodes if e["views"] >= MIN_VIEWS]) or build_case_insights(cases)
+            weights = case_format_weights(cases)
+            print(f"Estadísticas: {len(episodes)} episodios y {len(shorts)} Shorts con datos, pesos por formato {weights}")
         except Exception as e:
             print(f"Sin estadísticas ({type(e).__name__}: {e}); se genera sin ellas")
         script = generate_script(config, history, insights, weights)

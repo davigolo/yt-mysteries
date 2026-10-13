@@ -4,7 +4,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload
 
-from longform.upload import add_to_playlists, credentials
+from longform.upload import add_to_playlists, credentials, insert_video
 
 
 def build_description(summary: str, episode_id: str, hashtags: str) -> str:
@@ -33,15 +33,7 @@ def upload_short(
             "publicStatsViewable": True,
         },
     }
-    request = youtube.videos().insert(
-        part="snippet,status",
-        body=body,
-        media_body=MediaFileUpload(str(video), mimetype="video/mp4", chunksize=-1, resumable=True),
-    )
-    response = None
-    while response is None:
-        _, response = request.next_chunk()
-    video_id = response["id"]
+    video_id = insert_video(youtube, body, video, -1)
     if thumbnail:
         try:
             youtube.thumbnails().set(videoId=video_id, media_body=MediaFileUpload(str(thumbnail), mimetype="image/jpeg")).execute()

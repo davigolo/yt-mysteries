@@ -54,7 +54,12 @@ jobs:
 
       - name: Link Shorts to their episode (related video)
         id: related
+        continue-on-error: true
         run: python scripts/link_related_videos.py --state .studio/state.json
+
+      - name: Warn if Shorts could not be linked
+        if: steps.related.outcome == 'failure'
+        run: echo "::warning::Algún Short no se pudo enlazar a su episodio; revisa el log del paso anterior"
 
       - name: Save YouTube Studio session
         if: always()

@@ -22,6 +22,9 @@ Rules:
 - Do not pick cases whose central figures are minors or that revolve around sexual violence.
 - Do not pick cases that would require accusing living people who were never convicted.
 - It must have a strong hook, twists and enough material for 6 chapters.
+- Prefer cases built around ONE tangible, eerie detail that can be stated in a single sentence: an unbroken code or
+  inscription, a last note or message, an object left behind, an empty place where people vanished. That detail is what
+  makes the Shorts and the thumbnail work.
 - Do NOT repeat any of these published topics: {history}
 
 {insights}
@@ -85,12 +88,12 @@ Use roughly 30% archive, 25% stock and 45% ai, and avoid the same type more than
 
 Return ONLY JSON:
 {{
-  "title": "YouTube title, max 70 characters, curiosity-driven but honest",
+  "title": "YouTube title, max 60 characters, curiosity-driven but honest. Build it around the single most intriguing concrete detail of the case (e.g. 'The Cipher That Mourned a Living Woman', 'The Gold Hunter's Final Chilling Note'). Never use the 'Case Name: Subtitle' pattern, never a colon, never start with 'The Mystery of'",
   "description": "2 short paragraphs that summarise the episode without spoiling the ending, naturally including the names, places, year and search terms people would type on YouTube to find this case",
   "tags": ["12-18 tags: case name, people, places, era and related searches"],
   "hashtags": ["3-5 case-specific hashtags without the # symbol and without spaces (e.g. 'DyatlovPass', 'ColdCase', 'Russia')"],
-  "thumbnail_text": "2-4 punchy words for the thumbnail",
-  "thumbnail_prompt": "English prompt for a dramatic thumbnail image of the case, no text, no real faces",
+  "thumbnail_text": "2-4 punchy words for the thumbnail that complement the title (never repeat it), open a question and never reveal the answer (e.g. 'NOBODY CAME BACK', 'WHO WROTE THIS?')",
+  "thumbnail_prompt": "English prompt for a dramatic thumbnail image built around that same concrete detail (the object, place or message), one clear subject, no text, no real faces",
   "cold_open": [{{"narration": "...", "kind": "archive|stock|ai", "query": "..."}}],
   "chapters": [{{"title": "...", "scenes": [{{"narration": "...", "kind": "archive|stock|ai", "query": "..."}}]}}]
 }}"""

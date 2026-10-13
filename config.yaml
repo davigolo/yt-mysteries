@@ -1,7 +1,7 @@
 channel:
   niche: "unsolved historical mysteries, strange disappearances and cold cases"
   language: "English"
-  audience: "adults in the US, UK and Canada who enjoy documentary storytelling"
+  audience: "adults 45+ (many over 65) in the US, UK, Canada and Australia who enjoy calm, well-sourced documentary storytelling"
   tone: "calm, intriguing documentary narrator; respectful to victims; never graphic or gory"
 
 script:
@@ -83,6 +83,8 @@ playlists:
 
 shorts:
   episode_window: 5
+  max_per_episode: 5
+  title_similarity: 0.75
   min_words: 100
   max_words: 120
   min_beats: 14
@@ -111,7 +113,7 @@ shorts:
     ai_width: 1152
     ai_height: 2048
     ai_style: "vertical 9:16 composition, people only from behind, in silhouette or out of focus with no clear faces, cinematic dark documentary still, low-key lighting, cold desaturated blue-grey tones, high contrast, film grain, realistic, no text, no watermark"
-    max_ai_images: 4
+    max_ai_images: 6
     archive: false
     upscale_archive_below: 0
     max_upscales: 0

@@ -1,5 +1,6 @@
 import os
 import re
+import time
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -16,6 +17,8 @@ SCOPES = [
     "https://www.googleapis.com/auth/yt-analytics.readonly",
 ]
 MAX_DESCRIPTION = 4900
+RETRYABLE_UPLOAD_CODES = {410, 500, 502, 503, 504}
+UPLOAD_ATTEMPTS = 3
 
 
 def credentials() -> Credentials:
@@ -65,6 +68,29 @@ def build_description(summary: str, chapters: list[tuple[float, str]], sources: 
     return f"{text}\n\n{footer}"
 
 
+def insert_video(youtube, body: dict, video: Path, chunksize: int) -> str:
+    for attempt in range(1, UPLOAD_ATTEMPTS + 1):
+        request = youtube.videos().insert(
+            part="snippet,status",
+            body=body,
+            media_body=MediaFileUpload(str(video), mimetype="video/mp4", chunksize=chunksize, resumable=True),
+        )
+        try:
+            response = None
+            while response is None:
+                status, response = request.next_chunk()
+                if status:
+                    print(f"\rSubida: {status.progress() * 100:.0f}%", end="", flush=True)
+            print()
+            return response["id"]
+        except HttpError as e:
+            if e.resp.status not in RETRYABLE_UPLOAD_CODES or attempt == UPLOAD_ATTEMPTS:
+                raise
+            print(f"\nSubida interrumpida ({e.resp.status}), se reintenta desde cero ({attempt}/{UPLOAD_ATTEMPTS})")
+            time.sleep(20 * attempt)
+    raise RuntimeError("No se pudo subir el vídeo")
+
+
 def add_to_playlists(youtube, video_id: str, playlists: list[dict]) -> None:
     for playlist in playlists:
         add_to_playlist(youtube, video_id, playlist["title"], playlist["description"])
@@ -91,18 +117,7 @@ def upload(
             "publicStatsViewable": True,
         },
     }
-    request = youtube.videos().insert(
-        part="snippet,status",
-        body=body,
-        media_body=MediaFileUpload(str(video), mimetype="video/mp4", chunksize=64 * 1024 * 1024, resumable=True),
-    )
-    response = None
-    while response is None:
-        status, response = request.next_chunk()
-        if status:
-            print(f"\rSubida: {status.progress() * 100:.0f}%", end="", flush=True)
-    print()
-    video_id = response["id"]
+    video_id = insert_video(youtube, body, video, 64 * 1024 * 1024)
 
     try:
         youtube.thumbnails().set(videoId=video_id, media_body=MediaFileUpload(str(thumbnail), mimetype="image/jpeg")).execute()

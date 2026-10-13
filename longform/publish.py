@@ -3,6 +3,7 @@ from datetime import datetime, timedelta, timezone
 from googleapiclient.errors import HttpError
 
 WRITABLE_STATUS = ("embeddable", "license", "publicStatsViewable", "selfDeclaredMadeForKids", "containsSyntheticMedia")
+BROKEN_UPLOAD = {"failed", "rejected", "deleted"}
 
 
 def fetch_statuses(youtube, video_ids: list[str]) -> dict[str, dict]:
@@ -58,6 +59,8 @@ def publish_due(
             continue
         if status.get("uploadStatus") != "processed":
             print(f"Sin procesar ({status.get('uploadStatus')}): {label}")
+            if status.get("uploadStatus") in BROKEN_UPLOAD or age >= 2 * after_hours:
+                print(f"::warning::{label} sigue sin procesar ({status.get('uploadStatus')}) tras {age:.0f} h; bórralo o vuelve a subirlo")
             continue
         dependency = entry.get(requires) if requires else None
         if dependency and statuses.get(dependency, {}).get("privacyStatus") != "public":

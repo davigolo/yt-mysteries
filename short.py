@@ -6,6 +6,7 @@ from pathlib import Path
 
 import yaml
 
+from longform.insights import build_short_insights, fetch_performance, settled
 from longform.script import Script
 from longform.visuals import VisualSource
 from longform.voice import remaining_characters, synthesize
@@ -24,13 +25,22 @@ SHORTS_HISTORY = ROOT / "shorts_history.json"
 WORKDIR = ROOT / "build"
 
 
-def _pick_episode(history: list[dict], shorts_history: list[dict], window: int) -> str:
+def _pick_episode(history: list[dict], shorts_history: list[dict], window: int, max_per_episode: int) -> str | None:
     published = [h["video_id"] for h in history if h.get("video_id") and (EPISODES / f"{h['video_id']}.json").exists()]
     if not published:
         raise RuntimeError("No hay episodios publicados con guion en episodes/ para promocionar")
     candidates = published[-window:]
     counts = {v: sum(1 for s in shorts_history if s["episode_id"] == v) for v in candidates}
-    return min(reversed(candidates), key=lambda v: counts[v])
+    open_candidates = [v for v in reversed(candidates) if counts[v] < max_per_episode]
+    return min(open_candidates, key=lambda v: counts[v]) if open_candidates else None
+
+
+def _short_insights(shorts_history: list[dict]) -> str:
+    try:
+        return build_short_insights(fetch_performance(settled(shorts_history), min_views=0))
+    except Exception as e:
+        print(f"Sin estadísticas de Shorts ({type(e).__name__}: {e}); se genera sin ellas")
+        return ""
 
 
 def main() -> None:
@@ -53,11 +63,21 @@ def main() -> None:
     if reused:
         script = reused
     else:
-        episode_id = args.episode or _pick_episode(history, shorts_history, shorts["episode_window"])
+        episode_id = args.episode or _pick_episode(
+            history, shorts_history, shorts["episode_window"], shorts["max_per_episode"],
+        )
+        if not episode_id:
+            print(f"Todos los episodios recientes tienen ya {shorts['max_per_episode']} Shorts; se espera al siguiente episodio")
+            return
         episode = Script.from_json((EPISODES / f"{episode_id}.json").read_text(encoding="utf-8"))
         print(f"Episodio: {episode.title} (https://youtu.be/{episode_id})")
-        used = [s["angle"] for s in shorts_history if s["episode_id"] == episode_id]
-        script = generate_short(config, episode_id, episode, used)
+        previous = [s for s in shorts_history if s["episode_id"] == episode_id]
+        script = generate_short(
+            config, episode_id, episode,
+            used_angles=[s["angle"] for s in previous],
+            used_titles=[s["title"] for s in shorts_history],
+            insights=_short_insights(shorts_history),
+        )
     (WORKDIR / "short_script.json").write_text(script.to_json(), encoding="utf-8")
     print(f"Título: {script.title}")
 

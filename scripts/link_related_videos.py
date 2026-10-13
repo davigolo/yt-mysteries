@@ -64,7 +64,11 @@ PICK = """async (title) => {
     await sleep(500);
     if (save.getAttribute('aria-disabled') === 'true') return 'ok';
   }
-  return 'no se confirmó el guardado';
+  const dialogs = [...document.querySelectorAll('tp-yt-paper-dialog, ytcp-dialog, ytcp-confirmation-dialog, [role="dialog"], [role="alert"]')]
+    .filter(d => d.offsetParent !== null)
+    .map(d => d.innerText.replace(/\\s+/g, ' ').trim())
+    .filter(Boolean);
+  return 'no se confirmó el guardado' + (dialogs.length ? ' | diálogo: ' + dialogs.join(' / ').slice(0, 300) : '');
 }""" % LABEL_RE
 
 
@@ -78,10 +82,20 @@ def _recent(shorts: list[dict], days: int) -> list[dict]:
     return [s for s in shorts if s.get("video_id") and s.get("date", "") >= since]
 
 
+def _linked_after_reload(page, video_id: str, title: str) -> bool:
+    try:
+        page.goto(EDIT_URL.format(video_id), wait_until="load", timeout=60000)
+        page.wait_for_function(FIELD_READY, timeout=45000)
+        state = page.evaluate(OPEN_PICKER)
+    except PlaywrightError:
+        return False
+    return state["found"] and title.lower() in state["current"].lower()
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Pone el episodio como 'Vídeo relacionado' de cada Short en YouTube Studio")
     parser.add_argument("--state", type=Path, required=True, help="storage_state de Playwright con la sesión del canal")
-    parser.add_argument("--days", type=int, default=3, help="Revisa los Shorts de los últimos N días")
+    parser.add_argument("--days", type=int, default=7, help="Revisa los Shorts de los últimos N días")
     parser.add_argument("--headed", action="store_true", help="Muestra el navegador (depuración local)")
     args = parser.parse_args()
 
@@ -123,8 +137,11 @@ def main() -> None:
                     print(f"{short['video_id']} -> {title}: ya enlazado")
                     continue
                 result = page.evaluate(PICK, title)
+                if result != "ok":
+                    if _linked_after_reload(page, short["video_id"], title):
+                        result = "ok (verificado al recargar)"
                 print(f"{short['video_id']} -> {title}: {result}")
-                failures += result != "ok"
+                failures += not result.startswith("ok")
         finally:
             context.storage_state(path=str(args.state))
             os.chmod(args.state, 0o600)
