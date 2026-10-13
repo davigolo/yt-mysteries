@@ -2,6 +2,7 @@ import json
 from dataclasses import dataclass, field
 
 from longform.gemini import Gemini
+from longform.looks import MOOD_GUIDE, MOODS
 
 SOURCES = {"ai", "reuse", "stock", "archive"}
 
@@ -29,6 +30,7 @@ Narration units (index: text | writer's first visual idea):
    {archive_rule}
    - The first two units must be two DIFFERENT images, and two consecutive units never show the same image.
    - "anchor": id of the anchor this shot happens in or shows (required for ai and reuse).
+   - "mood": the emotional colour grade of the line, one of: {mood_guide}.
    - "also": ids of other anchors (key objects or people) that also appear in the shot, so they keep the same design.
    - "framing": wide, medium, close-up or extreme close-up. Start a place with a wide shot, then go closer. Never the
      same anchor and framing twice in a row.
@@ -41,7 +43,7 @@ Narration units (index: text | writer's first visual idea):
 Return ONLY JSON:
 {{"bible": {{"era": "...", "place": "...", "look": "...", "characters": [{{"id": "c1", "description": "..."}}]}},
   "anchors": [{{"id": "a1", "description": "detailed English image prompt of the location or object, with era-authentic details", "characters": ["c1"]}}],
-  "shots": [{{"i": 0, "source": "ai|reuse|stock|archive", "anchor": "a1", "also": [], "framing": "wide", "prompt": "...", "query": "..."}}]}}"""
+  "shots": [{{"i": 0, "source": "ai|reuse|stock|archive", "anchor": "a1", "also": [], "mood": "dread", "framing": "wide", "prompt": "...", "query": "..."}}]}}"""
 
 PICK_PROMPT = """These are {count} candidate images (numbered 0 to {last} in order) for one shot of a documentary.
 Story: {context}. Era and place: {era}, {place}.
@@ -63,6 +65,7 @@ class Shot:
     prompt: str
     query: str
     also: list[str] = field(default_factory=list)
+    mood: str = ""
 
 
 @dataclass
@@ -114,7 +117,7 @@ def plan_visuals(
     )
     data = json.loads(gemini.json(PLAN_PROMPT.format(
         format=video_format, context=context, units=_units(narrations, hints), anchors=anchors, max_ai=max_ai,
-        archive_rule=archive_rule, stock_rule=stock_rule, reuse_rule=reuse_rule,
+        archive_rule=archive_rule, stock_rule=stock_rule, reuse_rule=reuse_rule, mood_guide=MOOD_GUIDE,
     ), temperature=0.4))
     bible = data["bible"]
     anchor_ids = {a["id"]: a for a in data["anchors"] if a.get("id") and a.get("description")}
@@ -134,7 +137,8 @@ def plan_visuals(
         if source == "reuse" and max_reuse is not None and (len(reused) >= max_reuse or anchor in reused):
             source = "ai"
         also = [a for a in raw.get("also") or [] if a in anchor_ids and a != anchor][:2]
-        shots.append(Shot(source, anchor, raw.get("framing", "medium"), raw.get("prompt") or narrations[i], raw.get("query", ""), also))
+        mood = raw.get("mood") if raw.get("mood") in MOODS else ""
+        shots.append(Shot(source, anchor, raw.get("framing", "medium"), raw.get("prompt") or narrations[i], raw.get("query", ""), also, mood))
     return VisualPlan(
         era=bible.get("era", ""), place=bible.get("place", ""), look=bible.get("look", ""),
         characters={c["id"]: c["description"] for c in bible.get("characters", []) if c.get("id") and c.get("description")},

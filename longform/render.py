@@ -3,6 +3,7 @@ import wave
 from dataclasses import dataclass
 from pathlib import Path
 
+from longform.looks import film_look, mood_filter
 from longform.media import duration, image_size, run
 from longform.visuals import Visual
 from longform.voice import SceneAudio, Word
@@ -212,7 +213,7 @@ def _render_parts(visuals: list[Visual], timeline: Timeline, chapter_of: list[in
             inputs = ["-i", str(visual.path)]
             vf = _image_filter(motion, w, h, frames, zoom, not 1.55 <= iw / ih <= 1.95).replace("{fps}", str(fps))
         run([
-            "ffmpeg", "-y", *inputs, "-frames:v", str(frames), "-an", "-filter_complex", f"[0:v]{vf}{fade},format=yuv420p[v]",
+            "ffmpeg", "-y", *inputs, "-frames:v", str(frames), "-an", "-filter_complex", f"[0:v]{vf}{mood_filter(visual.mood)}{fade},format=yuv420p[v]",
             "-map", "[v]", "-r", str(fps), "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", str(part),
         ])
         parts.append(part)
@@ -274,7 +275,7 @@ def render(
 
     run([
         "ffmpeg", "-y", "-i", str(joined.resolve()), "-i", str(mixed.resolve()), "-filter_complex",
-        f"[0:v]eq=saturation=0.62:contrast=1.08:gamma=0.96,vignette=PI/5,noise=alls=3:allf=t,"
+        f"[0:v]eq=saturation=0.62:contrast=1.08:gamma=0.96,{film_look(config['video']['width'], config['video']['height'], 9)},vignette=PI/5,"
         f"ass={subtitles.name}:fontsdir={FONTS.resolve()},format=yuv420p[v]",
         "-map", "[v]", "-map", "1:a", "-c:v", "libx264", "-preset", "fast", "-crf", "20",
         "-c:a", "aac", "-b:a", "192k", "-t", f"{timeline.total:.3f}", "-movflags", "+faststart", str(out.resolve()),

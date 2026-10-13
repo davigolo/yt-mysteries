@@ -4,7 +4,7 @@ import math
 import os
 import random
 import re
-from dataclasses import dataclass
+from dataclasses import dataclass, replace
 from pathlib import Path
 
 import requests
@@ -45,6 +45,7 @@ class Visual:
     path: Path
     is_video: bool
     credit: str | None = None
+    mood: str = ""
 
 
 class VisualSource:
@@ -95,7 +96,7 @@ class VisualSource:
         print(f"Plan visual: {self.plan.era}, {self.plan.place}; {len(self.plan.anchors)} anclas, {counts}")
         visuals = []
         for i, (scene, shot, seconds) in enumerate(zip(scenes, self.plan.shots, durations)):
-            visual = self._for_shot(scene, shot, seconds)
+            visual = replace(self._for_shot(scene, shot, seconds), mood=shot.mood)
             visuals.append(visual)
             self.produced.append(visual)
             print(f"\rVisuales: {i + 1}/{len(scenes)} (IA: {self.ai_count})", end="", flush=True)

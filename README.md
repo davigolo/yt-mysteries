@@ -91,6 +91,11 @@ virales del nicho:
    muestra lo pedido, o los rechaza todos si hay algo anacrónico, de otro paisaje o metafórico. En los Shorts el stock está
    desactivado (`shorts.visuals.plan_stock: false`).
 4. Las imágenes demasiado oscuras se aclaran con una curva de gamma (sin quemar luces) y el etalonado final es común.
+5. **Ambiente por plano** (`longform/looks.py`): Gemini asigna a cada frase un `mood` (dread, mystery, eerie, memory,
+   revelation, investigation, grief) que aplica un etalonado propio (frío y oscuro, verde enfermizo, sepia desvaído,
+   blanco y negro duro…).
+6. **Look de película** en el pase final, para que no se note la imagen de IA: suavizado del exceso de nitidez, halo en
+   las luces, ligera aberración cromática, negros lavados, grano animado y un parpadeo de proyector casi imperceptible.
 
 Si Gemini no responde, se usan los visuales del guion como antes. Presupuesto de Magnific: 12 imágenes por Short y
 30 por episodio. La API no devuelve el saldo de créditos, así que revisa el consumo en el panel de Magnific los primeros

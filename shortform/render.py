@@ -4,6 +4,7 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
+from longform.looks import film_look, mood_filter
 from longform.media import duration, run
 from longform.render import OVERSAMPLE, _image_filter, _ts
 from longform.visuals import Visual
@@ -186,7 +187,8 @@ def _render_parts(segments: list[Segment], config: dict, workdir: Path) -> list[
             inputs = ["-i", str(segment.visual.path)]
             vf = _image_filter(motion, w, h, frames, zoom, False).replace("{fps}", str(fps))
         run([
-            "ffmpeg", "-y", *inputs, "-frames:v", str(frames), "-an", "-filter_complex", f"[0:v]{vf},format=yuv420p[v]",
+            "ffmpeg", "-y", *inputs, "-frames:v", str(frames), "-an", "-filter_complex",
+            f"[0:v]{vf}{mood_filter(segment.visual.mood)},format=yuv420p[v]",
             "-map", "[v]", "-r", str(fps), "-c:v", "libx264", "-preset", "veryfast", "-crf", "18", str(part),
         ])
         parts.append(part)
@@ -317,7 +319,8 @@ def render_short(
     run([
         "ffmpeg", "-y", "-i", str(joined.resolve()), "-i", str(mixed.resolve()), "-filter_complex",
         "[0:v]eq=saturation=0.42:contrast=1.18:brightness=-0.02:gamma=1.0,"
-        "colorbalance=rs=-0.07:gs=-0.02:bs=0.10:rm=-0.05:bm=0.07:rh=-0.03:bh=0.05,vignette=PI/3.6,noise=alls=5:allf=t,"
+        "colorbalance=rs=-0.07:gs=-0.02:bs=0.10:rm=-0.05:bm=0.07:rh=-0.03:bh=0.05,"
+        f"{film_look(config['shorts']['video']['width'], config['shorts']['video']['height'], 12)},vignette=PI/3.6,"
         f"ass={subtitles.name}:fontsdir={FONTS.resolve()},format=yuv420p[v]",
         "-map", "[v]", "-map", "1:a", "-c:v", "libx264", "-preset", "medium", "-crf", "19",
         "-c:a", "aac", "-b:a", "192k", "-t", f"{timeline.total:.3f}", "-movflags", "+faststart", str(out.resolve()),
