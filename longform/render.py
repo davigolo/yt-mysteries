@@ -274,7 +274,7 @@ def render(
 
     run([
         "ffmpeg", "-y", "-i", str(joined.resolve()), "-i", str(mixed.resolve()), "-filter_complex",
-        f"[0:v]eq=saturation=0.85:contrast=1.04,vignette=PI/5,noise=alls=3:allf=t,"
+        f"[0:v]eq=saturation=0.62:contrast=1.08:gamma=0.96,vignette=PI/5,noise=alls=3:allf=t,"
         f"ass={subtitles.name}:fontsdir={FONTS.resolve()},format=yuv420p[v]",
         "-map", "[v]", "-map", "1:a", "-c:v", "libx264", "-preset", "fast", "-crf", "20",
         "-c:a", "aac", "-b:a", "192k", "-t", f"{timeline.total:.3f}", "-movflags", "+faststart", str(out.resolve()),

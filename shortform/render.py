@@ -298,7 +298,7 @@ def render_short(
     mixed = _mix_audio(beats, timeline, voice_mp3, config, workdir, music_dir)
     run([
         "ffmpeg", "-y", "-i", str(joined.resolve()), "-i", str(mixed.resolve()), "-filter_complex",
-        "[0:v]eq=saturation=0.42:contrast=1.22:brightness=-0.07:gamma=0.92,"
+        "[0:v]eq=saturation=0.42:contrast=1.18:brightness=-0.02:gamma=1.0,"
         "colorbalance=rs=-0.07:gs=-0.02:bs=0.10:rm=-0.05:bm=0.07:rh=-0.03:bh=0.05,vignette=PI/3.6,noise=alls=5:allf=t,"
         f"ass={subtitles.name}:fontsdir={FONTS.resolve()},format=yuv420p[v]",
         "-map", "[v]", "-map", "1:a", "-c:v", "libx264", "-preset", "medium", "-crf", "19",

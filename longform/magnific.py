@@ -10,6 +10,7 @@ ENDPOINTS = {
     "mystic": "mystic",
     "flux-2-turbo": "text-to-image/flux-2-turbo",
     "flux-2-pro": "text-to-image/flux-2-pro",
+    "flux-2-klein": "text-to-image/flux-2-klein",
     "upscale": "image-upscaler-precision",
 }
 
@@ -51,9 +52,16 @@ def _task(endpoint: str, payload: dict, out: Path, timeout: int = 300) -> Path:
     raise TimeoutError(f"Magnific {endpoint} no terminó en {timeout}s")
 
 
-def generate(prompt: str, model: str, width: int, height: int, out: Path) -> Path:
+def generate(prompt: str, model: str, width: int, height: int, out: Path, references: list[Path] | None = None) -> Path:
     if model == "mystic":
         payload = {"prompt": prompt, "aspect_ratio": "widescreen_16_9", "resolution": "2k", "filter_nsfw": True}
+    elif model == "flux-2-klein":
+        payload = {
+            "prompt": prompt, "resolution": "2k", "output_format": "jpeg",
+            "aspect_ratio": "social_story_9_16" if height > width else "widescreen_16_9",
+        }
+        for i, reference in enumerate((references or [])[:4]):
+            payload["input_image" if i == 0 else f"input_image_{i + 1}"] = base64.b64encode(reference.read_bytes()).decode()
     else:
         payload = {"prompt": prompt, "image_size": {"width": width, "height": height}, "output_format": "jpeg"}
     return _task(model, payload, out)

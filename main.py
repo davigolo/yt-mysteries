@@ -85,7 +85,7 @@ def main() -> None:
     audios = synthesize([s.narration for s in scenes], config, WORKDIR)
     durations = [a.words[-1].end if a.words else a.duration for a in audios]
     source = VisualSource(config, WORKDIR)
-    visuals = source.fetch(scenes, durations)
+    visuals = source.fetch(scenes, durations, f'"{script.title}" ({script.topic})')
 
     voice_track = WORKDIR / "voice.wav"
     timeline = build_voice_track(audios, chapter_of, config, WORKDIR, voice_track)

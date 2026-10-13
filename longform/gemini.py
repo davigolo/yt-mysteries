@@ -12,7 +12,7 @@ class Gemini:
         self.client = genai.Client(api_key=os.environ["GEMINI_API_KEY"])
         self.models = models
 
-    def _call(self, prompt: str, config: types.GenerateContentConfig, rounds: int = 3) -> types.GenerateContentResponse:
+    def _call(self, prompt: str | list, config: types.GenerateContentConfig, rounds: int = 3) -> types.GenerateContentResponse:
         last_error: Exception | None = None
         for attempt in range(rounds):
             for model in self.models:
@@ -32,6 +32,11 @@ class Gemini:
     def json(self, prompt: str, temperature: float = 0.9) -> str:
         config = types.GenerateContentConfig(response_mime_type="application/json", temperature=temperature)
         return self._call(prompt, config).text
+
+    def json_with_images(self, prompt: str, images: list[bytes], temperature: float = 0.2) -> str:
+        contents = [types.Part.from_bytes(data=image, mime_type="image/jpeg") for image in images] + [prompt]
+        config = types.GenerateContentConfig(response_mime_type="application/json", temperature=temperature)
+        return self._call(contents, config).text
 
     def text(self, prompt: str, temperature: float = 0.3) -> str:
         return self._call(prompt, types.GenerateContentConfig(temperature=temperature)).text

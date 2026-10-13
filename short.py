@@ -91,9 +91,9 @@ def main() -> None:
     audio = synthesize([narration], voice_config, WORKDIR)[0]
     timeline = build_timeline(script.beats, audio.words, audio.duration)
 
-    source = VisualSource({"visuals": shorts["visuals"], "video": shorts["video"]}, WORKDIR)
+    source = VisualSource({"visuals": shorts["visuals"], "video": shorts["video"], "script": config["script"]}, WORKDIR)
     durations = [end - start for start, end in zip(timeline.beat_starts, timeline.beat_ends)]
-    visuals = source.fetch(script.beats, durations)
+    visuals = source.fetch(script.beats, durations, f'"{script.title}": {script.description}')
 
     subtitles = WORKDIR / "short.ass"
     write_ass(script.beats, timeline, config, subtitles)

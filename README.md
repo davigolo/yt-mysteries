@@ -43,8 +43,8 @@ Voz, imágenes IA y descargas se guardan en `cache/`, así que repetir un render
 | Servicio | Consumo |
 |---|---|
 | ElevenLabs | ~11.500 caracteres con `eleven_flash_v2_5` (0,5 créditos/carácter) = ~5.800 créditos. 3 vídeos/semana = ~75k/mes: cabe en **Creator** (121k). Con `eleven_multilingual_v2` (1 crédito/carácter) haría falta Pro |
-| Magnific API | ~35-40 imágenes Flux 2 Turbo + 1 Mystic 2k (~2.000 créditos estimados; ~27k/mes, cabe en Premium+). **La API consume créditos aunque tu plan tenga uso "ilimitado" en la web** |
-| Gemini | Capa gratuita. La búsqueda web (grounding) puede no tener cuota gratis; en ese caso investiga sin búsqueda y lo avisa en el log |
+| Magnific API | Hasta 30 imágenes Flux 2 Klein con referencia + 1 Mystic 2k para la miniatura. **La API consume créditos aunque tu plan tenga uso "ilimitado" en la web** |
+| Gemini | Guion, plan visual y filtrado de candidatos con Gemini Vision (~1 llamada por plano de stock o archivo). La búsqueda web (grounding) puede no tener cuota gratis; en ese caso investiga sin búsqueda y lo avisa en el log |
 | Pexels / Wikimedia | 0 € |
 | GitHub Actions | ~40-70 min por episodio; mejor repo público o tendrás que vigilar los 2.000 min/mes |
 
@@ -73,6 +73,28 @@ cada episodio va a la lista general y a la de su formato, y cada Short a *Myster
 oculto conviene añadir a mano en Studio lo que la API no permite: **pantalla final** (suscribirse + "Mejor para el
 espectador" o el episodio relacionado) y **tarjetas** a otros episodios. El vídeo relacionado de cada Short se pone solo
 (ver más abajo).
+
+## Plan visual y continuidad
+
+Antes había planos al azar: el stock y Wikimedia metían cosas modernas o sin relación con el caso (móviles, furgonetas,
+dólares, metro…), y cada imagen de IA se generaba aislada. Ahora `longform/visual_plan.py` sigue lo que hacen los canales
+virales del nicho:
+
+1. **Gemini planifica todos los planos** de una vez a partir de la narración: una *biblia visual* (época, lugar, un look
+   de película común y personajes recurrentes, siempre de espaldas o en silueta) y entre 2 y 8 **anclas** (los lugares y
+   objetos que se repiten; el objeto del título siempre es una). Cada frase recibe un plano que muestra **literalmente**
+   lo que se dice, con plano general primero y detalles después, y nunca la misma imagen dos veces seguidas.
+2. **Magnific Flux 2 Klein** (`visuals.plan_model`) genera cada ancla y luego cada plano usando su ancla como
+   **imagen de referencia**, así se mantienen el mismo lugar, la misma luz y la misma ropa. Si se acaba el presupuesto de
+   imágenes (`max_ai_images`), se reutiliza el ancla con otro movimiento de cámara, nunca un plano al azar.
+3. **Stock y Wikimedia pasan por Gemini Vision**: se descargan hasta 6 candidatos en miniatura y Gemini elige el que
+   muestra lo pedido, o los rechaza todos si hay algo anacrónico, de otro paisaje o metafórico. En los Shorts el stock está
+   desactivado (`shorts.visuals.plan_stock: false`).
+4. Las imágenes demasiado oscuras se aclaran con una curva de gamma (sin quemar luces) y el etalonado final es común.
+
+Si Gemini no responde, se usan los visuales del guion como antes. Presupuesto de Magnific: 12 imágenes por Short y
+30 por episodio. La API no devuelve el saldo de créditos, así que revisa el consumo en el panel de Magnific los primeros
+días y baja `max_ai_images` si hace falta.
 
 ## Aprendizaje de las analíticas
 
@@ -116,12 +138,10 @@ los sube a las 13:17 y 18:17 UTC (GitHub los suele lanzar con 4-5 h de retraso).
 - Cortes de máximo 2,4 s con Ken Burns, etalonaje frío desaturado, subtítulos de 1-2 palabras (palabras clave en amarillo/rojo),
   música de tensión de `music/shorts/`, drone sub-bass y efectos de `sfx/` (golpes de graves, whoosh, riser, tape stop;
   si la carpeta no existe se sintetizan con ffmpeg).
-- Sin imágenes de Wikimedia (`shorts.visuals.archive: false`), para no tener que acreditar licencias CC BY: los planos de
-  personas, lugares y objetos concretos son reconstrucciones de Magnific y la atmósfera, vídeo de Pexels (sin atribución).
-- Coste por Short: ~400 créditos de ElevenLabs y hasta 6 imágenes de Magnific (`shorts.visuals.max_ai_images`). Si se alcanza el tope, el
-  resto de planos pasan a vídeo de stock.
-- Presupuesto de Magnific (43k créditos/mes, ~50 por imagen): episodios 30 imágenes (`visuals.max_ai_images`, ~20,5k/mes)
-  + Shorts 6 × 2 al día (~18k/mes) = ~38,5k. Si se acaban los créditos, los planos de IA pasan solos a vídeo de stock. Si quedan menos de
+- Sin imágenes de Wikimedia ni stock (`shorts.visuals.archive: false`, `plan_stock: false`): todos los planos son
+  reconstrucciones de Magnific con continuidad entre ellas.
+- Coste por Short: ~400 créditos de ElevenLabs y hasta 12 imágenes de Magnific (`shorts.visuals.max_ai_images`); a
+  partir del tope se reutilizan las anclas (ver *Plan visual y continuidad*). Si se acaban los créditos, los planos de IA pasan solos a vídeo de stock. Si quedan menos de
   `shorts.reserve_credits` créditos, no se genera para no dejar sin voz a los episodios largos.
 - Descripción del Short: resumen, enlace al episodio y hashtags; el enlace va también en un comentario. Pero en los Shorts esos enlaces no son clicables: el único
   enlace que funciona es el **"Vídeo relacionado"**, que no existe en la API de YouTube.
