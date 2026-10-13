@@ -1,6 +1,6 @@
 channel:
   niche: "unsolved historical mysteries, strange disappearances and cold cases"
-  language: "English"
+  language: "American English"
   audience: "adults 45+ (many over 65) in the US, UK, Canada and Australia who enjoy calm, well-sourced documentary storytelling"
   tone: "calm, intriguing documentary narrator; respectful to victims; never graphic or gory"
 
@@ -51,6 +51,11 @@ music:
 
 upload:
   privacy: "unlisted"
+  schedule:
+    timezone: "America/New_York"
+    min_hours: 22
+    episode_slots: ["19:00"]
+    short_slots: ["12:00", "19:30"]
   category_id: "27"
   contains_synthetic_media: true
   hashtags: "#mystery #history #unsolved"

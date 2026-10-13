@@ -34,6 +34,7 @@ Each beat is 3-10 words of narration (about 1-3 seconds on screen) with ONE visu
 5. Loop (final beat): a short unfinished line that flows grammatically straight into the hook, so the replay feels
    seamless (e.g. the last beat "Because the last line still reads..." before the hook "God is over all.").
 Use "..." or an em dash surrounded by spaces for dramatic half-second pauses on key words (at most 5 in total).
+Use American English: US spelling, US customary units (miles, feet, pounds, degrees Fahrenheit) and US date format.
 Present theories and disputed claims as such ("some say", "records suggest"). Never graphic violence or gore.
 No calls to subscribe or like. No emojis, no stage directions, no markdown.
 

@@ -25,12 +25,13 @@ Rules:
 - Prefer cases built around ONE tangible, eerie detail that can be stated in a single sentence: an unbroken code or
   inscription, a last note or message, an object left behind, an empty place where people vanished. That detail is what
   makes the Shorts and the thumbnail work.
+- {country_rule}
 - Do NOT repeat any of these published topics: {history}
 
 {insights}
 
 Return ONLY JSON:
-{{"topic": "case name in 3-8 words", "angle": "one sentence with the angle that makes this episode gripping"}}"""
+{{"topic": "case name in 3-8 words", "angle": "one sentence with the angle that makes this episode gripping", "country": "ISO 3166 alpha-2 code of the country where the case happened, e.g. US"}}"""
 
 RESEARCH_PROMPT = """Research this real case using web search: "{topic}".
 Angle of the episode: {angle}
@@ -70,6 +71,8 @@ Length: about {target_words} words in total (12-14 minutes). Structure:
 - End every chapter with an open loop that makes the viewer need the next one.
 - The last chapter weighs the theories honestly and ends with a memorable final line. No calls to subscribe or like.
 - Present theories as theories. Never state disputed claims as facts. Never describe gore or violence in detail.
+- American English: US spelling (color, center), US customary units (miles, feet, pounds, degrees Fahrenheit) and US
+  date format ("October 4, 1931").
 - Spoken style: varied sentence length, concrete details, dates and names. Text only for narration: no stage
   directions, no emojis, no markdown.
 
@@ -126,6 +129,7 @@ class Script:
     chapters: list[Chapter]
     sources: list[dict] = field(default_factory=list)
     hashtags: list[str] = field(default_factory=list)
+    country: str = ""
 
     @property
     def words(self) -> int:
@@ -153,6 +157,19 @@ def _scenes(raw: list[dict]) -> list[Scene]:
     ]
 
 
+US_CASES_IN_A_ROW = 2
+
+
+def _country_rule(history: list[dict]) -> str:
+    recent = [h.get("country", "") for h in history[-US_CASES_IN_A_ROW:]]
+    if len(recent) < US_CASES_IN_A_ROW or any(c != "US" for c in recent):
+        return "This episode's case MUST have happened in the United States: most of the audience is American."
+    return (
+        "Most of the audience is American: prefer cases in the United States or involving Americans; otherwise the UK, "
+        "Canada or Australia."
+    )
+
+
 def generate_script(config: dict, history: list[dict], insights: str = "", weights: dict[str, float] | None = None) -> Script:
     gemini = Gemini(config["script"]["models"])
     channel = config["channel"]
@@ -162,6 +179,7 @@ def generate_script(config: dict, history: list[dict], insights: str = "", weigh
         **channel,
         format_rule=FORMATS[video_format],
         insights=insights,
+        country_rule=_country_rule(history),
         history="; ".join(h["topic"] for h in history[-300:]) or "none",
     ), temperature=1.0))
     print(f"Formato: {video_format}\nTema: {pick['topic']}\nÁngulo: {pick['angle']}")
@@ -195,6 +213,7 @@ def generate_script(config: dict, history: list[dict], insights: str = "", weigh
             chapters=[c for c in chapters if c.scenes],
             sources=sources,
             hashtags=[str(h) for h in data.get("hashtags", [])][:5],
+            country=str(pick.get("country", "")).upper()[:2],
         )
         print(f"Guion: {script.words} palabras (~{script.words / 150:.1f} min), {len(script.chapters) - 1} capítulos")
         if script.words >= MIN_WORDS:

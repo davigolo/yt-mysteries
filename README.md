@@ -51,19 +51,20 @@ Voz, imágenes IA y descargas se guardan en `cache/`, así que repetir un render
 Ajusta `visuals.max_ai_images` para limitar el gasto en Magnific. `visuals.upscale_archive_below` (p. ej. `900`) y `max_upscales`
 activan el upscaler de Magnific para las fotos de archivo de baja resolución.
 
-## Publicación en oculto y paso a público
+## Publicación programada a hora de EE. UU.
 
-Episodios y Shorts se suben en **oculto** (`upload.privacy: "unlisted"`) para que YouTube los analice antes de enseñarlos,
-y `.github/workflows/publish.yml` los pasa a **público al día siguiente**, en la misma franja en que se subieron
-(13:17, 15:37, 18:17 y 23:17 UTC). `publish.py` publica los vídeos de `history.json` y `shorts_history.json` que llevan
-al menos `publish.after_hours` (22 h) en oculto y ya están procesados. Un Short nunca se publica antes que su episodio:
-si el episodio sigue oculto, espera a la siguiente ejecución. Como máximo `publish.max_per_run` vídeos por franja (si uno
-lleva más de 44 h, se publica igualmente). No guarda estado: si una ejecución falla, los publica la siguiente. Los cron no
-están en punto porque GitHub retrasa hasta 3 h los de `:00`.
+El público principal es estadounidense, así que cada vídeo se sube en **privado con `publishAt`** y YouTube lo publica él
+solo a la hora exacta, sin depender de los cron de GitHub (que se retrasan hasta 4-5 h). Configuración en `upload.schedule`:
 
-- Ajusta los cron de `publish.yml` a las horas en que tu audiencia está conectada (Studio → Analytics → Audience →
-  *When your viewers are on YouTube*).
-- Para que un vídeo no se publique, pásalo a **privado** en Studio: solo se tocan los que siguen en oculto.
+- Franjas en `America/New_York` (con horario de verano automático): episodios a las 19:00 y Shorts a las 12:00 y 19:30.
+- Siempre al menos `min_hours` (22 h) después de la subida, para que YouTube procese el vídeo antes, y nunca dos vídeos en
+  la misma franja: se busca la siguiente libre a partir de `publish_at` en `history.json` y `shorts_history.json`.
+- Un Short siempre sale al menos 30 min después de su episodio.
+- Para no usarla, quita `upload.schedule`: se vuelve a subir en oculto (`upload.privacy`) y `publish.py` lo pasa a público
+  al día siguiente (13:17, 15:37, 18:17 y 23:17 UTC, máximo `publish.max_per_run` por franja). `publish.yml` lo sigue
+  ejecutando para los vídeos antiguos en oculto y para enlazar los Shorts con su episodio.
+- Para cancelar una publicación programada, quita la fecha en Studio o borra el vídeo.
+
 - `.venv/bin/python publish.py --dry-run` muestra qué se publicaría sin cambiar nada.
 - Facebook, Instagram y TikTok se siguen publicando al momento (allí no existe el oculto).
 
@@ -100,6 +101,14 @@ virales del nicho:
 Si Gemini no responde, se usan los visuales del guion como antes. Presupuesto de Magnific: 12 imágenes por Short y
 30 por episodio. La API no devuelve el saldo de créditos, así que revisa el consumo en el panel de Magnific los primeros
 días y baja `max_ai_images` si hace falta.
+
+## Enfoque en EE. UU.
+
+- `channel.language: "American English"`, y los prompts piden ortografía de EE. UU., millas, pies, libras, °F y fechas tipo
+  "October 4, 1931".
+- Selector de temas (`_country_rule` en `longform/script.py`): 2 de cada 3 episodios son casos de EE. UU. Si alguno de los
+  dos últimos no lo fue, el siguiente lo es obligatoriamente; si no, se prefieren casos de EE. UU., UK, Canadá o Australia.
+  El país se guarda en `history.json` (`country`).
 
 ## Aprendizaje de las analíticas
 

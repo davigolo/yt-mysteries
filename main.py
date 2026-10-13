@@ -10,6 +10,7 @@ import yaml
 from longform.insights import (
     MIN_VIEWS, build_case_insights, build_insights, case_format_weights, case_performance, fetch_performance, settled,
 )
+from longform.schedule import next_slot
 from longform.render import build_voice_track, render, write_ass, write_srt
 from longform.script import Script, generate_script
 from longform.thumbnail import create_thumbnail
@@ -111,15 +112,21 @@ def main() -> None:
         return
     playlists = config["playlists"]["episodes"]
     targets = [p for p in (playlists.get("all"), playlists.get(script.format)) if p]
-    video_id = upload(video, thumbnail, captions, script.title, description, script.tags, targets, config)
-    print(f"Subido ({config['upload']['privacy']}): https://youtu.be/{video_id}")
+    schedule = config["upload"].get("schedule")
+    publish_at = next_slot(
+        schedule["episode_slots"], schedule["timezone"], schedule["min_hours"], [h.get("publish_at") for h in history],
+    ) if schedule else None
+    video_id = upload(video, thumbnail, captions, script.title, description, script.tags, targets, config, publish_at)
+    privacy = "scheduled" if publish_at else config["upload"]["privacy"]
+    print(f"Subido ({privacy}{f', se publica el {publish_at.isoformat()}' if publish_at else ''}): https://youtu.be/{video_id}")
     episodes = ROOT / "episodes"
     episodes.mkdir(exist_ok=True)
     (episodes / f"{video_id}.json").write_text(script.to_json(), encoding="utf-8")
     history.append({
         "date": date.today().isoformat(), "format": script.format, "topic": script.topic,
-        "title": script.title, "video_id": video_id, "privacy": config["upload"]["privacy"],
+        "title": script.title, "video_id": video_id, "privacy": privacy, "country": script.country,
         "uploaded_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        **({"publish_at": publish_at.isoformat(timespec="seconds")} if publish_at else {}),
     })
     HISTORY.write_text(json.dumps(history, ensure_ascii=False, indent=2), encoding="utf-8")
 

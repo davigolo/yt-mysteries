@@ -7,6 +7,7 @@ from pathlib import Path
 import yaml
 
 from longform.insights import build_short_insights, fetch_performance, settled
+from longform.schedule import next_slot
 from longform.script import Script
 from longform.visuals import VisualSource
 from longform.voice import remaining_characters, synthesize
@@ -118,12 +119,20 @@ def main() -> None:
     if args.no_upload:
         return
     playlists = [config["playlists"]["shorts"]] if config.get("playlists", {}).get("shorts") else []
-    video_id = upload_short(video, thumbnail, title, description, script.tags, script.episode_id, playlists, config)
-    print(f"Subido ({config['upload']['privacy']}): https://youtube.com/shorts/{video_id}")
+    schedule = config["upload"].get("schedule")
+    episode_entry = next((h for h in history if h.get("video_id") == script.episode_id), {})
+    publish_at = next_slot(
+        schedule["short_slots"], schedule["timezone"], schedule["min_hours"],
+        [s.get("publish_at") for s in shorts_history], not_before=episode_entry.get("publish_at"),
+    ) if schedule else None
+    video_id = upload_short(video, thumbnail, title, description, script.tags, script.episode_id, playlists, config, publish_at)
+    privacy = "scheduled" if publish_at else config["upload"]["privacy"]
+    print(f"Subido ({privacy}{f', se publica el {publish_at.isoformat()}' if publish_at else ''}): https://youtube.com/shorts/{video_id}")
     entry = {
         "date": date.today().isoformat(), "episode_id": script.episode_id, "angle": script.angle,
-        "title": script.title, "video_id": video_id, "privacy": config["upload"]["privacy"],
+        "title": script.title, "video_id": video_id, "privacy": privacy,
         "uploaded_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        **({"publish_at": publish_at.isoformat(timespec="seconds")} if publish_at else {}),
     }
     entry.update(_publish_social(video, script, shorts))
     shorts_history.append(entry)

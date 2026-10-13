@@ -1,6 +1,7 @@
 import os
 import re
 import time
+from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -68,6 +69,12 @@ def build_description(summary: str, chapters: list[tuple[float, str]], sources: 
     return f"{text}\n\n{footer}"
 
 
+def privacy_status(default: str, publish_at: datetime | None) -> dict:
+    if not publish_at:
+        return {"privacyStatus": default}
+    return {"privacyStatus": "private", "publishAt": publish_at.astimezone(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")}
+
+
 def insert_video(youtube, body: dict, video: Path, chunksize: int) -> str:
     for attempt in range(1, UPLOAD_ATTEMPTS + 1):
         request = youtube.videos().insert(
@@ -98,6 +105,7 @@ def add_to_playlists(youtube, video_id: str, playlists: list[dict]) -> None:
 
 def upload(
     video: Path, thumbnail: Path, captions: Path, title: str, description: str, tags: list[str], playlists: list[dict], config: dict,
+    publish_at: datetime | None = None,
 ) -> str:
     youtube = build("youtube", "v3", credentials=credentials(), cache_discovery=False)
     settings = config["upload"]
@@ -111,7 +119,7 @@ def upload(
             "defaultAudioLanguage": "en",
         },
         "status": {
-            "privacyStatus": settings["privacy"],
+            **privacy_status(settings["privacy"], publish_at),
             "selfDeclaredMadeForKids": False,
             "containsSyntheticMedia": settings["contains_synthetic_media"],
             "publicStatsViewable": True,

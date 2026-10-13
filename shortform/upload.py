@@ -1,10 +1,11 @@
+from datetime import datetime
 from pathlib import Path
 
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 from googleapiclient.http import MediaFileUpload
 
-from longform.upload import add_to_playlists, credentials, insert_video
+from longform.upload import privacy_status, add_to_playlists, credentials, insert_video
 
 
 def build_description(summary: str, episode_id: str, hashtags: str) -> str:
@@ -13,7 +14,7 @@ def build_description(summary: str, episode_id: str, hashtags: str) -> str:
 
 def upload_short(
     video: Path, thumbnail: Path | None, title: str, description: str, tags: list[str], episode_id: str,
-    playlists: list[dict], config: dict,
+    playlists: list[dict], config: dict, publish_at: datetime | None = None,
 ) -> str:
     youtube = build("youtube", "v3", credentials=credentials(), cache_discovery=False)
     settings = config["upload"]
@@ -27,7 +28,7 @@ def upload_short(
             "defaultAudioLanguage": "en",
         },
         "status": {
-            "privacyStatus": settings["privacy"],
+            **privacy_status(settings["privacy"], publish_at),
             "selfDeclaredMadeForKids": False,
             "containsSyntheticMedia": settings["contains_synthetic_media"],
             "publicStatsViewable": True,
