@@ -13,8 +13,8 @@ script:
   chapters: 6
 
 voice:
-  voice_id: "JBFqnCBsd6RMkjVDRZzb"
-  model_id: "eleven_flash_v2_5"
+  voice_id: "vLZJLcQMJCqxjrHGEVDO"
+  model_id: "eleven_v4_turbo"
   credits_per_char: 0.5
   stability: 0.45
   similarity_boost: 0.8

@@ -42,7 +42,7 @@ Voz, imágenes IA y descargas se guardan en `cache/`, así que repetir un render
 
 | Servicio | Consumo |
 |---|---|
-| ElevenLabs | ~11.500 caracteres con `eleven_flash_v2_5` (0,5 créditos/carácter) = ~5.800 créditos. 3 vídeos/semana = ~75k/mes: cabe en **Creator** (121k). Con `eleven_multilingual_v2` (1 crédito/carácter) haría falta Pro |
+| ElevenLabs | Voz **Connery** (narrador grave de documental, EE. UU.; elegida en una prueba a ciegas frente a otras 6) con `eleven_v4_turbo`, 0,5 créditos/carácter: ~11.500 caracteres = ~5.800 créditos por episodio. 3 vídeos/semana + 2 Shorts/día = ~100k/mes: cabe en **Creator** (236k). La voz está añadida a la biblioteca de la cuenta; si cambias de API key, añádela otra vez desde la Voice Library |
 | Magnific API | Hasta 30 imágenes Flux 2 Klein con referencia + 1 Mystic 2k para la miniatura. **La API consume créditos aunque tu plan tenga uso "ilimitado" en la web** |
 | Gemini | Guion, plan visual y filtrado de candidatos con Gemini Vision (~1 llamada por plano de stock o archivo). La búsqueda web (grounding) puede no tener cuota gratis; en ese caso investiga sin búsqueda y lo avisa en el log |
 | Pexels / Wikimedia | 0 € |
