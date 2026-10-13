@@ -1,0 +1,43 @@
+short.py
+  s_32cbb50392142f::t_66dcb2152caea1 9,28,34-43,66-71,74-80
+shortform/upload.py
+  s_32cbb50392142f::t_e7f4ffd7933084 7,36
+longform/script.py
+  s_32cbb50392142f::t_1a1a81a76522a9 25-27,91,95-96
+shortform/script.py
+  s_32cbb50392142f::t_69f77ec345686b 2,4,23-25,122-137,142,150-151,171-172
+  s_32cbb50392142f::t_958cd0de579b7b 173-175,179
+longform/upload.py
+  s_32cbb50392142f::t_31b3558dc38df5 3,20-21,71-93,120
+main.py
+  s_32cbb50392142f::t_fdd8a554b0464f 10-12,22,26-29,60-65
+config.yaml
+  s_32cbb50392142f::t_54dc02ae25a3fe 86-87,116
+  s_32cbb50392142f::t_c10285ba8d5f03 4
+longform/publish.py
+  s_32cbb50392142f::t_245cf83ece1b4e 6,62-63
+.github/workflows/publish.yml
+  s_32cbb50392142f::t_84e89f742be5f5 57,60-63
+README.md
+  s_32cbb50392142f::t_e6bc48430c9343 77-92,101,103,106,110-113,121,124,129-131,134
+longform/insights.py
+  s_32cbb50392142f::t_199380a1a9373f 11-12,15,26,30,41-45,73-118,120-121,124,130-148
+scripts/link_related_videos.py
+  s_32cbb50392142f::t_f3e445967c9889 67-71,85-94,98,140-142,144
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "3d13e0b1e307bb72989dc67d224ecdda604e381f",
+  "prompts": {},
+  "sessions": {
+    "s_32cbb50392142f": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b2378a59-8d95-440d-bf6e-916423569633",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
