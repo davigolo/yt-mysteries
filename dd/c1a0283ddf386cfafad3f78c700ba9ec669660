@@ -1,0 +1,41 @@
+longform/visuals.py
+  s_32cbb50392142f::t_24cc75483df091 115-116
+  s_32cbb50392142f::t_12702f672589f7 112-114
+  s_32cbb50392142f::t_3040b1ebbc5682 117-119
+  s_32cbb50392142f::t_fdf1262360fa52 2-3,11,14,17,24-25,29-42,61-65,67-73,83-111,120-161,198,208,213,221,235-243,261,270,275-283,289,291-292,297
+longform/visual_plan.py
+  s_32cbb50392142f::t_c4482f05f35db7 1-130
+  s_32cbb50392142f::t_8b1762184a2947 131-143
+README.md
+  s_32cbb50392142f::t_b33bae71d33abf 46-47,77-98,141-144
+config.yaml
+  s_32cbb50392142f::t_619f76fe9174d8 30,32-34,118-123
+longform/gemini.py
+  s_32cbb50392142f::t_33e34233d1c65d 15,36-40
+longform/magnific.py
+  s_32cbb50392142f::t_92f9fca03fed3e 13,55,58-64
+longform/render.py
+  s_32cbb50392142f::t_beb6668f04a475 277
+main.py
+  s_32cbb50392142f::t_b100167f9f1a83 88
+short.py
+  s_32cbb50392142f::t_8e8bc5ec45942f 94,96
+shortform/render.py
+  s_32cbb50392142f::t_d6cbcf41007dc2 301
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "ddc1a0283ddf386cfafad3f78c700ba9ec669660",
+  "prompts": {},
+  "sessions": {
+    "s_32cbb50392142f": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b2378a59-8d95-440d-bf6e-916423569633",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
