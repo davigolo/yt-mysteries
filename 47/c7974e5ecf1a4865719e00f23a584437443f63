@@ -1,0 +1,35 @@
+longform/schedule.py
+  s_32cbb50392142f::t_c3c4bd533dfe05 1-28
+README.md
+  s_32cbb50392142f::t_f99a1f5aad6bab 54-67,105-112
+config.yaml
+  s_32cbb50392142f::t_e7e7c2fb75fd02 3,54-58
+longform/script.py
+  s_32cbb50392142f::t_e72c2d182f5b49 28,34,74-75,132,160-172,182,216
+longform/upload.py
+  s_32cbb50392142f::t_c92a5e7abe1952 4,72-77,108,122
+main.py
+  s_32cbb50392142f::t_bed73e168781ac 13,115-121,127,129
+short.py
+  s_32cbb50392142f::t_0232692d8cd2a1 10,122-130,133,135
+shortform/script.py
+  s_32cbb50392142f::t_3a1edc8380525c 37
+shortform/upload.py
+  s_32cbb50392142f::t_7ae4b9a20bb933 1,8,17,31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "47c7974e5ecf1a4865719e00f23a584437443f63",
+  "prompts": {},
+  "sessions": {
+    "s_32cbb50392142f": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b2378a59-8d95-440d-bf6e-916423569633",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
