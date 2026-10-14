@@ -1,0 +1,530 @@
+{
+  "topic": "The Mystery of Ghost Blimp L-8",
+  "format": "phenomenon",
+  "title": "The Navy Blimp That Landed with an Empty Gondola",
+  "description": "On Sunday, August 16, 1942, United States Navy patrol blimp L-8 took off from San Francisco Bay on a routine anti-submarine mission over the Pacific Ocean. Hours later, the airship drifted back toward the coast, clipped power lines, and crash-landed onto a suburban street in Daly City, California. \n\nWhen local rescuers reached the cabin, they found the radio transmitting, the emergency life raft untouched, and the engines fully functional. Yet both crewmen, Lieutenant Ernest Cody and Ensign Charles Adams, had vanished without a trace into the coastal fog.",
+  "tags": [
+    "ghost blimp",
+    "L-8",
+    "Daly City blimp crash",
+    "Ernest Cody",
+    "Charles Adams",
+    "unsolved disappearance",
+    "naval history",
+    "World War II mystery",
+    "Farallon Islands",
+    "Moffett Field",
+    "Goodyear blimp",
+    "San Francisco history",
+    "aviation mystery",
+    "Treasure Island blimp",
+    "patrol squadron 32"
+  ],
+  "thumbnail_text": "THE EMPTY CABIN",
+  "thumbnail_prompt": "A 1940s US Navy blimp drifting low over a foggy California suburban street, touching utility poles, cinematic lighting, atmospheric fog, realistic vintage documentary style",
+  "chapters": [
+    {
+      "title": "",
+      "scenes": [
+        {
+          "narration": "A military aircraft drifted out of the fog with nobody inside.",
+          "kind": "ai",
+          "query": "Cinematic low angle shot of a massive gray 1940s military blimp drifting silently through dense sea fog over suburban rooftops, early morning light, moody atmosphere"
+        },
+        {
+          "narration": "Its cabin door was latched wide open, the engines were idling, and a live depth charge hung from the rack.",
+          "kind": "ai",
+          "query": "Close view of the open gondola door of a vintage US Navy blimp, showing an empty cockpit with dials, sunlight cutting through fog, hyper-realistic, no people"
+        },
+        {
+          "narration": "Inside, the radio was working perfectly, the life raft was completely untouched, and the pilot's cap rested undisturbed on the dashboard.",
+          "kind": "stock",
+          "query": "vintage radio equipment glowing"
+        },
+        {
+          "narration": "Less than three hours earlier, two experienced naval aviators had been seen at the controls over the Pacific Ocean.",
+          "kind": "archive",
+          "query": "US Navy blimp L-8"
+        },
+        {
+          "narration": "How did two decorated officers vanish from an airborne airship that never once touched the water?",
+          "kind": "stock",
+          "query": "fog rolling over ocean"
+        },
+        {
+          "narration": "To understand what happened, we must return to a damp California morning in August of 1942.",
+          "kind": "ai",
+          "query": "Panoramic cinematic view of San Francisco Bay in 1942 covered in thick morning marine layer fog, dark waters, vintage naval airfield visible in distance"
+        }
+      ]
+    },
+    {
+      "title": "Departure in the Mist",
+      "scenes": [
+        {
+          "narration": "At five-thirty in the morning on Sunday, August 16, 1942, mechanics prepared flight 101 at the auxiliary landing strip on Treasure Island.",
+          "kind": "archive",
+          "query": "Treasure Island San Francisco 1940s"
+        },
+        {
+          "narration": "The aircraft was L-8, a Goodyear L-class airship assigned to Airship Patrol Squadron 32, based out of Moffett Field.",
+          "kind": "archive",
+          "query": "Goodyear L-class blimp US Navy"
+        },
+        {
+          "narration": "Its mission was simple: conduct an anti-submarine sweep over the Farallon Islands, Montara, and the entrance channel to the Golden Gate.",
+          "kind": "stock",
+          "query": "golden gate bridge fog"
+        },
+        {
+          "narration": "In command was twenty-seven-year-old Lieutenant Ernest DeWitt Cody, an Annapolis graduate known by his commanding officers as a cool and methodical pilot.",
+          "kind": "archive",
+          "query": "USS Hornet CV-8 1942"
+        },
+        {
+          "narration": "Only four months earlier, Cody had gained national recognition for hovering L-8 motionless over the deck of the carrier USS Hornet to deliver vital parts for the Doolittle Raid.",
+          "kind": "ai",
+          "query": "A gray US Navy blimp hovering low over the flight deck of an aircraft carrier on a choppy sea, vintage 1942 military operation, photorealistic"
+        },
+        {
+          "narration": "Beside him sat Ensign Charles Ellis Adams, a thirty-eight-year-old veteran with two decades of lighter-than-air experience.",
+          "kind": "stock",
+          "query": "old naval officer insignia"
+        },
+        {
+          "narration": "Adams was no ordinary recruit; he had served on the Lakehurst mooring crew in 1937, running into the flames to pull survivors from the burning Hindenburg.",
+          "kind": "archive",
+          "query": "Hindenburg disaster Lakehurst"
+        },
+        {
+          "narration": "He had received his officer's commission just the day before, making this morning patrol his very first operational mission as an ensign.",
+          "kind": "stock",
+          "query": "vintage military uniform buttons"
+        },
+        {
+          "narration": "A third crewman, Aviation Machinist's Mate Riley Hill, was scheduled to join them, but heavy fog had soaked the blimp's envelope before takeoff.",
+          "kind": "stock",
+          "query": "dew drops on surface"
+        },
+        {
+          "narration": "Because that condensation added parasitic weight beyond the safe payload limit, Hill was ordered to step down from the gondola.",
+          "kind": "ai",
+          "query": "A ground crew mechanic in 1940s dungarees stepping down from a blimp cabin door onto a damp runway, seen from behind, mist swirling"
+        },
+        {
+          "narration": "That split-second weight calculation would spare Riley Hill's life, but seal the fate of the two officers left aboard.",
+          "kind": "stock",
+          "query": "airship taking off runway"
+        }
+      ]
+    },
+    {
+      "title": "Contact at the Farallones",
+      "scenes": [
+        {
+          "narration": "L-8 lifted smoothly into the damp, cool morning air at three minutes past six, turning out toward the Pacific swell.",
+          "kind": "ai",
+          "query": "A 1940s Navy patrol blimp ascending into thick grey clouds over a dark ocean, cinematic wide shot, realistic historical style"
+        },
+        {
+          "narration": "For an hour and a half, the patrol proceeded without incident as the airship pushed westward through low coastal fog.",
+          "kind": "stock",
+          "query": "open ocean grey clouds"
+        },
+        {
+          "narration": "At seven-thirty-eight, Cody radioed Moffett Field, confirming they were four miles east of the Farallon Islands and holding their course.",
+          "kind": "archive",
+          "query": "Farallon Islands aerial view"
+        },
+        {
+          "narration": "Four minutes later, at seven-forty-two, Cody tapped his radio microphone again: 'Am investigating suspicious oil slick—stand by.'",
+          "kind": "stock",
+          "query": "vintage radio microphone hanging"
+        },
+        {
+          "narration": "Those seven words were the final message the Navy would ever receive from the crew.",
+          "kind": "ai",
+          "query": "Close-up of a 1940s aircraft radio transmitter dial with red indicator lights glowing dimly in a foggy cockpit, atmospheric, no people"
+        },
+        {
+          "narration": "Below the airship, the crew of the fishing vessel Daisy Grey and the Liberty ship Albert Gallatin watched L-8 descend to within thirty to a hundred feet of the water.",
+          "kind": "archive",
+          "query": "Liberty ship Albert Gallatin"
+        },
+        {
+          "narration": "The blimp circled an apparent patch of oil, and witnesses saw two smoke float flares tumble from the car into the water.",
+          "kind": "ai",
+          "query": "A gray blimp hovering very low over ocean waves, smoke flares producing yellow smoke plumes on the water surface, historical naval setting"
+        },
+        {
+          "narration": "Fishermen could clearly see figures inside the glass-fronted gondola, and scrambled to haul in their nets, fearing an impending depth charge attack.",
+          "kind": "stock",
+          "query": "fishermen hauling heavy net"
+        },
+        {
+          "narration": "Then, around nine o'clock, witnesses watched L-8 drop ballast, climb sharply into the cloud deck, and turn back toward San Francisco.",
+          "kind": "ai",
+          "query": "A US Navy blimp ascending sharply into dense cloud layers over the sea, water ballast cascading from the underside, dramatic cinematic"
+        },
+        {
+          "narration": "Headquarters tried calling the airship at eight and eight-thirty for scheduled check-ins, but the speaker remained silent.",
+          "kind": "stock",
+          "query": "radio headset on desk"
+        },
+        {
+          "narration": "Somewhere inside that thick bank of Pacific cloud, the men had already lost command of their vessel.",
+          "kind": "stock",
+          "query": "thick fog moving quickly"
+        }
+      ]
+    },
+    {
+      "title": "A Drifting Specter",
+      "scenes": [
+        {
+          "narration": "At ten-twenty that morning, a Pan American commercial flight crew spotted L-8 drifting eastward at an altitude above twenty-five hundred feet.",
+          "kind": "archive",
+          "query": "Pan American Clipper flying boat"
+        },
+        {
+          "narration": "This was above the airship's design pressure height, a dangerous ceiling where automatic valves release helium to keep the gas envelope from bursting.",
+          "kind": "ai",
+          "query": "A military blimp floating high above a thick white sea of clouds, bright sun reflecting off its gray skin, vast empty sky"
+        },
+        {
+          "narration": "A Pan Am Clipper pilot spotted the airship again near the Golden Gate Bridge, noting that from a distance it still looked under control.",
+          "kind": "archive",
+          "query": "Golden Gate Bridge 1940s"
+        },
+        {
+          "narration": "Minutes later, a P-38 Lightning pilot and a Navy aviator both tracked the blimp, watching it climb and dive erratically as it drifted toward land.",
+          "kind": "archive",
+          "query": "Lockheed P-38 Lightning wartime"
+        },
+        {
+          "narration": "By eleven-fifteen, L-8 emerged like an apparition out of the fog at Ocean Beach, its gas bag now visibly sagging into a limp V-shape.",
+          "kind": "ai",
+          "query": "A deflating gray blimp sagging in the middle, drifting low over a windswept sandy beach through mist, dramatic vintage style"
+        },
+        {
+          "narration": "Two surf fishermen grabbed its trailing mooring lines as it scraped near Fort Funston, peering into the glass cabin only to find it completely empty.",
+          "kind": "stock",
+          "query": "coastal waves breaking sand"
+        },
+        {
+          "narration": "The airship brushed heavily against a seaside cliff near the Olympic Club, tearing away its starboard propeller and dislodging a three-hundred-twenty-five-pound Mark 17 depth charge.",
+          "kind": "ai",
+          "query": "An airship scraping along the rugged edge of a coastal cliff, dirt falling, propeller shattering against stone, cinematic action"
+        },
+        {
+          "narration": "Relieved of hundreds of pounds of metal and explosive, the blimp bobbed back into the sky, floating inland toward the neighborhoods of Daly City.",
+          "kind": "stock",
+          "query": "grey overcast sky clouds"
+        },
+        {
+          "narration": "On the ground, residents could only watch in terror as a pilotless military warship drifted directly toward their rooftops.",
+          "kind": "stock",
+          "query": "looking up at sky"
+        }
+      ]
+    },
+    {
+      "title": "Crash at 419 Bellevue",
+      "scenes": [
+        {
+          "narration": "At eleven-thirty, L-8 scraped over suburban homes, clipped four-thousand-volt power lines, and settled heavily into the street in front of 419 Bellevue Avenue.",
+          "kind": "archive",
+          "query": "L-8 blimp crash Daly City 1942"
+        },
+        {
+          "narration": "Sparks showered over the pavement as Captain Sean Wood and local Daly City emergency crews rushed toward the tangled fabric.",
+          "kind": "stock",
+          "query": "downed power lines sparks"
+        },
+        {
+          "narration": "Firefighters feared the worst, ready to pull two severely injured aviators from the mangled wreckage of the forward cabin.",
+          "kind": "stock",
+          "query": "vintage fire truck siren"
+        },
+        {
+          "narration": "Instead, when they pushed open the door, they found it was already unlatched and firmly hooked back against the outside wall.",
+          "kind": "ai",
+          "query": "A vintage blimp cabin resting on a suburban pavement, door latched open, interior showing empty flight seats and instruments, hyper-detailed"
+        },
+        {
+          "narration": "A second three-hundred-twenty-five-pound depth charge was still bolted securely to the car rack, sending panic through the gathering crowd.",
+          "kind": "stock",
+          "query": "crowd running away street"
+        },
+        {
+          "narration": "Yet before the Navy could establish an armed perimeter, neighborhood souvenir hunters used scissors and pocketknives to cut pieces of the fabric envelope away.",
+          "kind": "ai",
+          "query": "A civilian hand holding a pair of vintage pocket scissors slicing a square swatch from heavy rubberized gray fabric, close-up"
+        },
+        {
+          "narration": "The depth charge, fortunately, had never been armed, and the bomb squad soon declared the surrounding homes safe.",
+          "kind": "stock",
+          "query": "police barricade tape vintage"
+        },
+        {
+          "narration": "With the crowd cleared, naval investigators stepped inside the gondola to solve the mystery of where the two officers had gone.",
+          "kind": "ai",
+          "query": "Naval officer in 1942 service dress stepping into the damaged cockpit of a crashed airship, documentary style, dim atmospheric light"
+        },
+        {
+          "narration": "What they uncovered inside the car only deepened the confusion.",
+          "kind": "stock",
+          "query": "investigator examining evidence vintage"
+        }
+      ]
+    },
+    {
+      "title": "The Untouched Cabin",
+      "scenes": [
+        {
+          "narration": "Inside the gondola, every single piece of emergency survival equipment was accounted for and in pristine condition.",
+          "kind": "ai",
+          "query": "Interior of an empty 1942 blimp gondola, parachute packs strapped to metal wall brackets, leather pilot seats, vintage dials and switches"
+        },
+        {
+          "narration": "Two chest-pack parachutes sat firmly stowed in their wall brackets, completely untouched by the pilots.",
+          "kind": "stock",
+          "query": "military equipment canvas straps"
+        },
+        {
+          "narration": "Directly behind the pilot seats, the four-man inflatable life raft remained neatly rolled and secured in its storage rack.",
+          "kind": "ai",
+          "query": "A vintage yellow rubber military life raft tightly rolled and strapped behind metal aircraft seats, dim cockpit interior"
+        },
+        {
+          "narration": "The radio was still powered on, set to the squadron's operational frequency, with the microphone dangling freely from its cord.",
+          "kind": "stock",
+          "query": "radio dials glowing dark"
+        },
+        {
+          "narration": "Cody's service garrison cap was resting calmly on the dashboard, exactly where he had placed it before takeoff.",
+          "kind": "ai",
+          "query": "A 1940s US Navy officer garrison cap resting calmly on top of an aircraft instrument dashboard, soft daylight from cockpit window"
+        },
+        {
+          "narration": "A satchel containing classified codebooks, recognition charts, and secret naval orders lay undisturbed on the deck.",
+          "kind": "stock",
+          "query": "leather briefcase on floor"
+        },
+        {
+          "narration": "Sensational newspaper stories quickly claimed that rescuers found warm coffee and half-eaten sandwiches, but the official naval inquiry formally dismissed those tales as civilian hearsay.",
+          "kind": "archive",
+          "query": "1942 newspaper front page"
+        },
+        {
+          "narration": "What was verified proved far stranger: technicians examined the hollow bilge beneath the car and the interior of the lower vertical tail fin.",
+          "kind": "ai",
+          "query": "A naval technician in work clothes shining a flashlight into the dusty metal framework under an airship car, close inspection"
+        },
+        {
+          "narration": "Both compartments were bone dry and coated in dry California road dust, proving the airship had never once touched the surface of the sea.",
+          "kind": "stock",
+          "query": "dust particles in light"
+        },
+        {
+          "narration": "Only two pieces of gear were missing: the two inflatable Mae West lifejackets, which naval regulations required every crewman to wear at all times over water.",
+          "kind": "stock",
+          "query": "vintage yellow life vest"
+        },
+        {
+          "narration": "Commander Grafton Watson convened a formal naval court of inquiry, interviewing more than thirty-five military and civilian witnesses.",
+          "kind": "archive",
+          "query": "Moffett Field hangar 1940s"
+        },
+        {
+          "narration": "Yet after weeks of rigorous investigation, the official Navy conclusion regarding the crew's fate remained completely blank.",
+          "kind": "stock",
+          "query": "typing report on typewriter"
+        }
+      ]
+    },
+    {
+      "title": "A Vanishing in the Fog",
+      "scenes": [
+        {
+          "narration": "Wartime rumors were swift to suggest that an Imperial Japanese submarine had surfaced, captured the two men, and let the blimp drift away.",
+          "kind": "stock",
+          "query": "submarine periscope water surface"
+        },
+        {
+          "narration": "However, crews aboard the Albert Gallatin and Daisy Grey watched L-8 throughout the investigation and never saw a submarine, nor heard any gunfire.",
+          "kind": "ai",
+          "query": "A merchant vessel on a calm foggy ocean, lookout on the bridge watching an airship in the distance through binoculars"
+        },
+        {
+          "narration": "Post-war declassified Imperial Japanese Navy logs confirmed that not a single enemy submarine was within one hundred miles of San Francisco that morning.",
+          "kind": "archive",
+          "query": "Imperial Japanese Navy submarine I-boat"
+        },
+        {
+          "narration": "Decades later, an independent researcher proposed that L-8 carried experimental microwave radar whose radiation incapacitated the men, though naval records show no experimental equipment was ever installed.",
+          "kind": "stock",
+          "query": "radar screen sweep green"
+        },
+        {
+          "narration": "Other wartime tabloids speculated about defection, but both men had spotless service records, happy marriages, and bank accounts that were never touched.",
+          "kind": "stock",
+          "query": "old paper documents archive"
+        },
+        {
+          "narration": "The Navy's leading theory remained an accidental fall: while inspecting the oil slick just thirty feet above the water, one man leaned out the door and slipped.",
+          "kind": "ai",
+          "query": "Silhouette of a man falling backward from an open airship door into thick white fog, dramatic cinematic view from inside the cabin"
+        },
+        {
+          "narration": "The second officer, attempting a desperate rescue with a rope or float marker, may have lost his balance and tumbled into the ocean after him.",
+          "kind": "stock",
+          "query": "rough ocean water dark"
+        },
+        {
+          "narration": "Yet critics point out that blimp pilots were rigorously trained never to leave the controls, and neither man ever touched the microphone to transmit a distress call.",
+          "kind": "stock",
+          "query": "hands on flight controls"
+        },
+        {
+          "narration": "Exactly one year and a day after the crash, on August 17, 1943, Lieutenant Cody and Ensign Adams were officially declared dead.",
+          "kind": "stock",
+          "query": "military cemetery memorial stone"
+        },
+        {
+          "narration": "Their bodies, their flight suits, and their life vests were never found.",
+          "kind": "stock",
+          "query": "endless ocean horizon fog"
+        },
+        {
+          "narration": "The gondola of L-8 was fully repaired, flying through 1945 before Goodyear purchased it, operating it across America for decades to televise Super Bowls until 1982.",
+          "kind": "archive",
+          "query": "Goodyear blimp America"
+        },
+        {
+          "narration": "Today, that historic car rests inside the National Naval Aviation Museum in Pensacola, Florida, restored to its August 1942 naval colors.",
+          "kind": "archive",
+          "query": "National Naval Aviation Museum Pensacola"
+        },
+        {
+          "narration": "Millions have looked at the little glass cabin, but the silence of the Pacific fog has never given back its answer.",
+          "kind": "ai",
+          "query": "A restored 1942 US Navy blimp gondola resting in a museum exhibit under dramatic spotlights, quiet and historic atmosphere"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "title": "navy.mil",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHn5Th2RAiYaUZXzzdwzx6of-DCMNw6mGD-a3OGP4kPjBmVjLepFagoI0ZksZ6tFbfqYcl6LuT09RRHz5KKteDmJ_ZhPfUTdgPT0QQ_ybdpHRD4QPQ2s-OsWQiSZDcbQQWYQrwTQ-BxfjfYEMwIyMTJD8atrw3U3-lmDey9-ruwObAUgmij4HYTJdLj4HWEF1CTxa30P5vVT8qHz8HtVVRsS7A="
+    },
+    {
+      "title": "warhistoryonline.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFuSm-KhfaW9IGZR2LeSz3a0D7dlT-oJk_ny5o5eNhRwg6uHlmfVrvt5ScLEfYgczWIKoTs6IK-k3D_YU20-FIvbKvgbAOocB_ZaQUIjO7KWBXqpWy5bBLYbk21Q1jbAWBnWGknl1RR5HURSgYAC5CgL-5-4dhJzJ21ETAHueLvX0KXNhSkSSkF-A=="
+    },
+    {
+      "title": "usni.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFEtvXtgrGAGnHcTZTMf5tOdZSbJjFETdVb3lyoztoP51i4Sz8_vCZRS6IVfFEKaAVeYlVj2Gy1o6SI7X9JHJMjd6bNBmmiFczyZVGcagWffFPcrzY5rxAsXY56TVeqmBEaAtCbC-mS6yyKG9xgLeQDre_rxjKflg=="
+    },
+    {
+      "title": "sfgate.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEZklBfu0vpqRLOxJnzF-AQWudOT4NzYhZltJ3thO_UQa_JsizDQJsuHp6K0J4owg58GYcgsSRVpWRB5Dar8Ct6vmzsmSMQzrwTDH1iWaH1e17DhvyA3od5zJDJPAm0gp9THEq9O18H0vTP_8HH3p69EpF6uboKkm6XLyxOZ0sGIT6Cgg=="
+    },
+    {
+      "title": "wikipedia.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEGUk9xyEa6PlllF_12N1Egai9SsvQqqYNIjN4EtsK1yRyXmL6KOFUkzzRbQiNyl5zFTJCsbv8EmEKlNLppf2csMjjvXCLDhL93Qc3OcgtvwJn1FWPznuY="
+    },
+    {
+      "title": "facebook.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEcrPnUqPegeJTQB1HHNLb04R6lWJn67G2q3Vqpjw5Yz9wngjWnAyvKEWMfQ7kMqVmU2l1pLi5SlbPx4pa9C3J7Gpuj185WPMTwZ7R8Jq_xf1KzfpNq4GeqbAIIurW1x2gbYIhMjbXbR8ROvYe0-3EaS1uHfdx6yFLO8ZY_2zphjCjwrYm_60HsQWou8H5dGbY_3P4pZ0wSvG9d3JzNFso="
+    },
+    {
+      "title": "skeptoid.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGyMgtNO6gEyWPHhSlHC4H0atALIbDw5sbgLUli3kD9IJN5X8SGp0rdM3Rv7hAS5DNtQLj211aW8xOxmaeN5cOliFa5omtF64CiOEkFWYGZ_JGRAloRZg=="
+    },
+    {
+      "title": "historynet.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHCzOx3TBYWXcQiyApXaUNEwCRmWBdk1897Y12PM2KCcafJoSPhS4GaSkhHTgIuDcpBCeksQGLXPrDMp65KhNXISn2xRNcI1ffewj_zbOT3LHgGnRMEbMmBbern52Ol_0qOTu8d"
+    },
+    {
+      "title": "wikipedia.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQERGnq0BMODoAd7Qws-pkKW66zv3UkG4QiE01vfetE8Oe9UvDNcVhZb8HaZt3qbyox9TmLW8zf1ZhfQoTrxQ0Ni52weq9SYQLIdVGIKPRC-8iweeqAT3R8="
+    },
+    {
+      "title": "atlasobscura.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFIlKTpOHXGzgTMSQ83oZEwHk0kZKhAQVJQX8BCSRf8eWokaX89d2SOuDonns5mqCIoYq7m6X3CyZiHMBld-UMYVdie3KhAPuL_9B4BvQNFx8sOiEz1XzWV19AhjHwDLLyZG75aFxq8xjPw5Vo6OF26wI3v3e0q0G7-bJBFZjnH0PpQ3mWJflMvjvKROd4ieSUyVw=="
+    },
+    {
+      "title": "historynet.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEWnhUGKUsGP18uYBhgUa9WCbRAn3FwlL_xE24_TkOaYalFwFO3ddpp8u1sP5sN2N5ivi3w_fh9Rzxf_sxaZo5BfoF7C_l2nTaEJ_eUd0RO4AuRUO91XBMCmBzua6CJOtS-o_dZrQ=="
+    },
+    {
+      "title": "migflug.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFIijvaNxvwT0RjzUrc--0caPicgqfKGS9BkWc2w95zCqJRi5ZHgtcbeaAbFx2L7AlOANtyAmnHRCozD8tssyHbyK_35heO2fqXBki7mCPrhFVgKiksnbAYLYEVdME9ab0uVglJDYbjUM_trFjfQD7sXFn26I-IS-x83fjQunjszsI="
+    },
+    {
+      "title": "historynet.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFMkEIA_QLfdd3bgW4uQQI_5F6zZOZRrr_VM3YN1t463zU41pqnYOC17RZbiuhGnstIl0VGqWWg5s5dqbktvfauRksRMgaENDfSznDtR236VzVfz_lmQvUYGixkSvTGM7xyTlxo8A=="
+    },
+    {
+      "title": "findagrave.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE8ldYV6U4YJcgyATquCiCJunjxCJ9bSTE8zreg3xnmOIsCyLfgh_ejirfju6Sx7MvvAXH4BWVihbX02VrFaa0lv8JkyB0VL_wbHB_IRg-LqhHVoYT1sfEx36UGUiZ4UoAOzpgaXx0NlhYc_ZCk07cgDvfTldB0"
+    },
+    {
+      "title": "zeppelin-museum.de",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEZS6Imn6GreOzGDh8iY8xUsz0qxdOwv_7LnHS2xSgNv961SwvnKTo75cwyTfYi9gQR9vePusfhAV_KZqVFFWZyPRKpFvM7aSzxjpEOtb79sky9IMkdMt9okd9JwNp3BZwz8kf4Dq90C4mHBDgw0TuFxEHGHhpl4w3GwoeAEOo_-C3u1kLGzl2mRXS8tAp7wwy06qZ3"
+    },
+    {
+      "title": "usghostadventures.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHMsV6DNVVT2sHJlGeqKokczgLc9RIXjDtgRYvsdT-czLJ9OsGZXmGIAd7Ms2mVRzUD6_8eLlVS5jZwzesejxAp_qHZ_Cjr8Yfb0US8SChQeEel-9SyMJJjT6Bk4yPpxUfAB28EtM4G2ZOkL1fLyGaqgQJb0bhhuYgjQL89gPOwf7rdgVMVT7DynkIpnlREDIgzO8koVmNHrg=="
+    },
+    {
+      "title": "instagram.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGdaOktoqVjxbV8CQDzbGZFixCUR0oLk7lUBl_uOsA3-8sFjE6LUZCBYjQr2hrfclSiUeJBwzCg_yPewU8wKKsaoRYO8RJ65x2iIIjQ7fYMR97xFM7byjrmPN8KpA3MeQY="
+    },
+    {
+      "title": "historicmysteries.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9ewQsLToNai6hBilnwcfffsFoBU_26gCAcyaR0pQ9P-Y49gs1b4J_haTexUgAHoodDlFHwb943NuZ1T5bbzTLBbAU0nYDoH2gJ8pC4aqAv1Jm4WwABXBhAY-ZDZApdzmZaiGVEm_9jBj_DXHg1HEexejCAB8O_dGGahgCqgr9qIrZCcQ="
+    },
+    {
+      "title": "migflug.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHfCrdA07aoFLFRVokLg1vXP3zLspsNhyNZZBHSvkBmQCfqo1zIprmStNna_-PHxLfLH6EV9T50tJhIf0E5Ie6xgm1WubP7mZflVQkPanPuUx-lKMonLHoDqE_jyEY7tuoPgPqkg7XVc7Dg3ZxmmK11iVzKm16Ez5xFnCS5zh-MZA=="
+    },
+    {
+      "title": "fandom.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFHTIZfu42tA9pqxv0XDXiDlHQ3yqG_yX5_jz50nb1mGZbqns3UPnetAzrJP56p3hfJ7EeZ426_Ve4Mo8jJKoGN5ec9qyNsoQ88YcbvVdRDcWHgV4gttBjTNWbj7m5ltfh0OP9XvKHd429JYH-kYAw_Ojc="
+    },
+    {
+      "title": "zeppelin-museum.de",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGcJzT991fogPXlVeT7RkMFurgMLKyGVGbEYg7Pv9p4gwib4dtj-gocVTAwr0KxBidSXs2nQe7kwyPRwQ6UuBw8YRDTTJvD3njbYOdjY8T2NSsEM5_424azueAjH4las_6af-emj1fqtx31ag4ldW5GerdaK0hXCk6-3uZhBL7oljUMdPbxIcX90sDv3j6GDxnI7RU="
+    },
+    {
+      "title": "check-six.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFyGLjNVbKIX1PmKB5tNkPqeLgJHMedDOrWqOxiyNxofLMTsEKMS-hXcc-Dcj2rYUjzcnIGg-LAfNigo2dCv6Wo9fSdqS5ABV3tkZa19OOijrtA6-nGofZcyvXU_R9N_r0AKwyjuYPqcCtk41V47A=="
+    },
+    {
+      "title": "navy.mil",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHqCXNNqEzFm0xLIY5_BARyHnGqPg_XtvVdvlDfoQyTdzKhwzYI5oQ03Jf3x7eLx8CHCSFWZ_qFK5vhShDlNoHgaZpJ65iFJLdZOzxw4qYp9ZSPUE7c_d1M5NKff3nv9SuJzt-0I4gEasyY_y3KFXMvLuEtOdCUih0GTrurKh-dRN2OrpnP0pa1pn6FRZZAUw2yzpU7bt5jig4AjahTl3Zw2w=="
+    },
+    {
+      "title": "wikipedia.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEu3Zs-nHWM7ubZgppgNkoGQfiLwKC1ETCW5bGUXIZiLUtTgppiZ_sb6ptNiC6Ot5_klcoczHk_JGqDT4WqSiErmbXLK2WVxNPK1t2Y7Bg7yiFYvkVKCA=="
+    },
+    {
+      "title": "dalycity.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFR9WEtcWsJI1gB7qd0MAm4ONNsOK_DF4TIJobqWxzupBbqm9AbH9Zwjon9aaeNpPDMcqsRVt7cmBG_bfy0glqFtLPo1cpNxpSJaW2jI5YY34TZY87InC3SxeT6Gt-neI5047E="
+    },
+    {
+      "title": "dalycity.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEiHLe__irdTvHMDWcO_yj5OGxViTIIrb1wfEkKs0zgNOiU_L5b2ORAFj7TcE81YcqQFFXLQMDX_M0yWTBjUMp1e_kY_LYwWs0QdE1iEyiO1It8wWEjHSJs9o0hgtEyYQvpp_9D"
+    }
+  ],
+  "hashtags": [
+    "GhostBlimp",
+    "AviationMystery",
+    "WWIIHistory",
+    "UnsolvedMystery"
+  ],
+  "country": "US"
+}
