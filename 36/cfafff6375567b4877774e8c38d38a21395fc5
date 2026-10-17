@@ -1,0 +1,68 @@
+longform/render.py
+  s_3559532afe8c27::t_0b443cb28eefad 74,92,164,203
+shortform/script.py
+  s_3559532afe8c27::t_0b443cb28eefad 7,26,28-29,33-40,43,53-54,152,162-163,175,183-199,203-205,210,212-213
+  s_3559532afe8c27::t_d5b6e1bed6f56d 125-126,200-202
+  s_3559532afe8c27::t_7b87cde48738f2 65
+longform/script.py
+  s_3559532afe8c27::t_d5b6e1bed6f56d 145-149,260-262,269-271,377,382
+  s_3559532afe8c27::t_7e0ac7e4a1975c 368-373,375
+  s_3559532afe8c27::t_0b443cb28eefad 53,56,58-62,73-77,81-84,86-87,89,96,111,121-144,254-259,263-268,272-278,289-291,304-307,312,314,326-327,336-337,344,353,356-367,374,376,378-381,383-385
+  s_3559532afe8c27::t_f5ea55a0431f33 329
+  s_3559532afe8c27::t_c46561bb0b29cb 150
+  s_3559532afe8c27::t_0ee750f0b75817 251-253
+  s_3559532afe8c27::t_54cd2c39dfeb60 334-335
+  s_3559532afe8c27::t_01b3a0d1f41f7d 18,29-31,38,180,196-216,220-250
+config.yaml
+  s_3559532afe8c27::t_0b443cb28eefad 25-27,47-48,101-106
+  s_3559532afe8c27::t_fecead0a0d7f03 6,15-16
+README.md
+  s_3559532afe8c27::t_3a295266228f3b 124-136,140-157,176,185-190
+  s_3559532afe8c27::t_1e8b4f5409b08c 121-123
+  s_3559532afe8c27::t_5da4e32a7b468a 109-120
+short.py
+  s_3559532afe8c27::t_6b6c55b4ac7dd1 9,41,94-99,141
+longform/insights.py
+  s_3559532afe8c27::t_48b643b6ef6ed5 18,31,67
+  s_3559532afe8c27::t_d5b6e1bed6f56d 202-205,215-216
+  s_3559532afe8c27::t_6b6c55b4ac7dd1 1-3,9,12-14,16-17,22-24,26-27,29,32-34,36-59,61-66,68-75,77,79,81,88-92,94-95,97-101,107,112-113,115-120,129-130,132,136-138,147-149,157,164,176,188-193,197,201,206,208-214,217-218
+main.py
+  s_3559532afe8c27::t_6b6c55b4ac7dd1 11,61-65,67-69
+  s_3559532afe8c27::t_286d4fb89f330b 77-78,114
+longform/upload.py
+  s_db396b55ecd952::t_aae77b8e80bd29 51-58
+scripts/link_related_videos.py
+  s_32cbb50392142f::t_95998eb51ff45b 8,13,33,39,41-44,46-50,52-54,59,70,73-77,87-99,112-116,121-136,143-153,178-182,186-191
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "36cfafff6375567b4877774e8c38d38a21395fc5",
+  "prompts": {},
+  "sessions": {
+    "s_32cbb50392142f": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "b2378a59-8d95-440d-bf6e-916423569633",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    },
+    "s_3559532afe8c27": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "eb82bcf0-df69-418e-b542-d8c307ca71fc",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    },
+    "s_db396b55ecd952": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "06b248a5-2029-4051-9178-6fb8fb8a9fc1",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
