@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from difflib import SequenceMatcher
 
 from longform.gemini import Gemini
-from longform.script import Script
+from longform.script import Script, review_packaging
 
 CTA_LINE = "Watch the full investigation, linked right here."
 
@@ -23,17 +23,24 @@ Angles already used in previous Shorts of this episode (pick a DIFFERENT cliffha
 Titles already used on the channel (your title must NOT reuse their wording or main noun phrase): {used_titles}
 
 {insights}
+{revision}
 
-Write ONE Short of {min_words}-{max_words} spoken words in total (about 50 seconds; NEVER exceed {max_words} words), split into {min_beats}-{max_beats} beats.
+Write ONE Short of {min_words}-{max_words} spoken words INCLUDING the CTA and loop (target {target_seconds} seconds;
+NEVER exceed {max_words} words), split into {min_beats}-{max_beats} beats.
 Each beat is 3-10 words of narration (about 1-3 seconds on screen) with ONE visual. Structure:
 1. Hook (beat 1, max 8 words): a scroll-stopping, concrete statement or quote that opens a question. No greetings, no
    context, no dates, never "In", "On", "Imagine" or "This is". Its visual is the most striking image of the Short.
-2. Fast development (until ~35s): shocking facts one after another, short punchy sentences, names, places, numbers.
-3. Turning point (~35-45s): the most disturbing piece of evidence or contradiction of the case.
-4. CTA: the beat right before it is a COMPLETE cliffhanger sentence at peak tension, WITHOUT solving the mystery. This beat's narration is exactly "{cta}"
+   Strongest when it breaks something the viewer already believes about the case. The next beat confirms what the
+   title promises and raises the stakes with a bigger promise.
+2. Development (middle half): follow ONE person, object or message. Use at most two unfamiliar proper names.
+   Every beat adds information needed for this angle; no inventory of unrelated eerie details or long setup.
+3. Payoff (before the last two beats): deliver the specific verified detail promised by the title. Explain what makes
+   it contradictory or revealing. The Short must be satisfying by itself while leaving the wider case unresolved.
+4. CTA (penultimate beat): after that payoff, invite the viewer to the remaining investigation. Its narration is
+   exactly "{cta}". Never withhold the promised detail just to force a click.
 5. Loop (final beat): a short unfinished line that flows grammatically straight into the hook, so the replay feels
    seamless (e.g. the last beat "Because the last line still reads..." before the hook "God is over all.").
-Use "..." or an em dash surrounded by spaces for dramatic half-second pauses on key words (at most 5 in total).
+Use at most ONE dramatic pause in total. Prefer clear, complete sentences over fragmented suspense.
 Use American English: US spelling, US customary units (miles, feet, pounds, degrees Fahrenheit) and US date format.
 Present theories and disputed claims as such ("some say", "records suggest"). Never graphic violence or gore.
 No calls to subscribe or like. No emojis, no stage directions, no markdown.
@@ -43,8 +50,8 @@ Visual for each beat:
 - "ai": cinematic vertical reconstruction of the specific person, place or object (e.g. an 18th-century stone monument
   in an English garden). "query" = detailed English prompt with setting, era, objects, lighting. Never identifiable faces
   of real people (silhouettes, hands, backs, distance), never gore, NEVER anything with writing.
-Use "ai" for every beat about a concrete person, place, object or event (at most {max_ai} ai beats) and "stock" for
-atmosphere, never the same type more than 3 times in a row.
+Use "ai" for every beat about a concrete person, place, object or event (at most {max_ai} ai beats). Use "stock" only
+for timeless atmosphere, never as a substitute for evidence; do not alternate sources just to satisfy a pattern.
 
 Per beat also return:
 - "highlight": 0-2 key words copied exactly from that beat's narration to show in colour (e.g. Vanished, Never, Blood, Unknown).
@@ -55,7 +62,7 @@ Per beat also return:
 Return ONLY JSON:
 {{
   "angle": "one sentence describing the cliffhanger of this Short",
-  "title": "Short title, max 60 characters, curiosity-driven but honest, no hashtags",
+  "title": "Short title, max 60 characters, curiosity-driven but honest and fully delivered by the narration, about a concrete detail of the case (never about tools or AI), no hashtags",
   "description": "2-3 sentences that tease the case without spoiling it, naturally including the case name, people, places and search terms",
   "tags": ["10-15 tags: case name, people, places, era and related searches"],
   "hashtags": ["3-5 case-specific hashtags without the # symbol and without spaces"],
@@ -115,7 +122,8 @@ def _with_cta(beats: list[Beat]) -> list[Beat]:
     for beat in beats:
         if beat.narration.rstrip(".").lower() == CTA_LINE.rstrip(".").lower():
             beat.cta = True
-            return beats
+    if any(b.cta for b in beats):
+        return beats
     beats.insert(max(len(beats) - 1, 0), Beat(CTA_LINE, "stock", "old archive files", [], "whoosh", True))
     return beats
 
@@ -141,6 +149,7 @@ def generate_short(
     narration = "\n".join(s.narration for c in episode.chapters for s in c.scenes)
     min_words, max_words = shorts["min_words"], shorts["max_words"]
     used_titles = used_titles or []
+    revision = ""
     for _ in range(3):
         data = _parse(gemini.json(PROMPT.format(
             **config["channel"],
@@ -150,6 +159,8 @@ def generate_short(
             used_angles="; ".join(used_angles[-20:]) or "none",
             used_titles="; ".join(used_titles[-40:]) or "none",
             insights=insights,
+            revision=revision,
+            target_seconds=shorts.get("target_seconds", 40),
             min_words=min_words,
             max_words=max_words,
             min_beats=shorts["min_beats"],
@@ -161,7 +172,7 @@ def generate_short(
         script = ShortScript(
             episode_id=episode_id,
             angle=data["angle"],
-            title=data["title"][:80],
+            title=data["title"].strip(),
             description=data["description"],
             tags=data["tags"][:15],
             beats=beats,
@@ -169,12 +180,34 @@ def generate_short(
             thumbnail_text=data.get("thumbnail_text") or data["title"],
         )
         print(f"Short: {script.words} palabras, {len(beats)} beats\nÁngulo: {script.angle}")
+        if not (
+            min_words <= script.words <= max_words
+            and shorts["min_beats"] <= len(beats) <= shorts["max_beats"]
+            and len(beats[0].narration.split()) <= 8
+            and sum(b.cta for b in beats) == 1
+            and len(beats) >= 2 and beats[-2].cta
+        ):
+            revision = (
+                f"The previous draft had {script.words} words and {len(beats)} beats. Use exactly "
+                f"{min_words}-{max_words} words including the CTA, {shorts['min_beats']}-{shorts['max_beats']} beats, "
+                "a hook of at most 8 words and exactly one CTA in the penultimate beat."
+            )
+            print(f"Short fuera de las reglas, se regenera: {revision}")
+            continue
+        review = review_packaging(
+            gemini, script.title, script.thumbnail_text, "\n".join(b.narration for b in beats), narration,
+        )
+        if not review["narration_supported"] or not review["promise_delivered"]:
+            revision = f"Fix the source or promised-payoff issue from the previous draft: {review.get('issue', '')}"
+            print(f"Short rechazado por fuentes o promesa, se regenera: {revision}")
+            continue
+        script.title = review["title"].strip()
+        script.thumbnail_text = review["thumbnail_text"].strip()
         duplicate = _similar_title(script.title, used_titles, shorts.get("title_similarity", 0.75))
         if duplicate:
             print(f"Título demasiado parecido a \"{duplicate}\", se regenera")
             used_titles = [*used_titles, script.title]
+            revision = f'The previous title was too similar to "{duplicate}". Choose different wording and a new angle.'
             continue
-        if min_words - 15 <= script.words <= max_words + 20:
-            return script
-        print("Longitud fuera de rango, se regenera")
-    raise RuntimeError("Gemini no generó un Short válido (longitud fuera de rango o título repetido)")
+        return script
+    raise RuntimeError(f"Gemini no generó un Short válido: {revision}")

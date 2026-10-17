@@ -71,7 +71,7 @@ def build_voice_track(audios: list[SceneAudio], chapter_of: list[int], config: d
                 chapter_starts.append(visual_start)
                 if i > 0:
                     after_cold_open = chapter_of[i - 1] == 0
-                    if after_cold_open:
+                    if after_cold_open and voice["title_pause"] > 0:
                         title_start = visual_start
                     silence = int(voice["title_pause" if after_cold_open else "chapter_pause"] * SAMPLE_RATE)
                     track.writeframes(b"\x00\x00" * silence)
@@ -89,7 +89,7 @@ def build_voice_track(audios: list[SceneAudio], chapter_of: list[int], config: d
                 pause = int(voice["scene_pause"] * SAMPLE_RATE)
                 track.writeframes(b"\x00\x00" * pause)
                 cursor += pause
-        tail = int(TAIL_SECONDS * SAMPLE_RATE)
+        tail = int(config["video"].get("end_screen_seconds", TAIL_SECONDS) * SAMPLE_RATE)
         track.writeframes(b"\x00\x00" * tail)
         cursor += tail
     total = cursor / SAMPLE_RATE
@@ -161,7 +161,7 @@ def write_ass(timeline: Timeline, chapter_titles: list[str], episode_title: str,
             continue
         if number == 1 and timeline.title_start is not None:
             start = timeline.title_start + config["voice"]["title_pause"]
-        end = start + CHAPTER_CARD_SECONDS
+        end = start + video.get("chapter_card_seconds", CHAPTER_CARD_SECONDS)
         lines.append(f"Dialogue: 1,{_ts(start)},{_ts(end)},Veil,,0,0,0,,{{\\an7\\pos(0,0)\\1a&H70&\\fad(400,500)\\p1}}{veil}\n")
         lines.append(f"Dialogue: 2,{_ts(start)},{_ts(end)},ChapterLabel,,0,0,0,,{{\\fad(400,500)}}CHAPTER {number}\n")
         lines.append(f"Dialogue: 2,{_ts(start)},{_ts(end)},Chapter,,0,0,0,,{{\\fad(400,500)}}{_clean(title.upper())}\n")
@@ -200,7 +200,7 @@ def _render_parts(visuals: list[Visual], timeline: Timeline, chapter_of: list[in
         frames = round(end * fps) - round(start * fps)
         seconds = frames / fps
         chapter_start = i > 0 and chapter_of[i] != chapter_of[i - 1]
-        fade = ",fade=t=in:st=0:d=0.6" if chapter_start or i == 0 else ""
+        fade = ",fade=t=in:st=0:d=0.6" if chapter_start else ""
         part = workdir / f"part_{i:03d}.mp4"
         if visual.is_video:
             clip_length = duration(visual.path)

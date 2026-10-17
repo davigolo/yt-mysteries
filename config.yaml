@@ -3,6 +3,7 @@ channel:
   language: "American English"
   audience: "adults 45+ (many over 65) in the US, UK, Canada and Australia who enjoy calm, well-sourced documentary storytelling"
   tone: "calm, intriguing documentary narrator; respectful to victims; never graphic or gory"
+  host: "the archivist of Unsolved Archives, a calm, skeptical narrator who has read every file and is not afraid to say which theory he believes and why"
 
 script:
   models:
@@ -11,6 +12,8 @@ script:
     - "gemini-flash-latest"
   target_words: 1900
   chapters: 6
+  series_length: 6
+  country_focus: "US"
 
 voice:
   voice_id: "vLZJLcQMJCqxjrHGEVDO"
@@ -19,9 +22,9 @@ voice:
   stability: 0.45
   similarity_boost: 0.8
   style: 0.15
-  scene_pause: 0.35
-  chapter_pause: 1.2
-  title_pause: 3.5
+  scene_pause: 0.18
+  chapter_pause: 0.4
+  title_pause: 0
 
 visuals:
   ai_model: "flux-2-turbo"
@@ -41,6 +44,8 @@ video:
   fps: 25
   zoom: 0.10
   burn_subtitles: true
+  end_screen_seconds: 20
+  chapter_card_seconds: 1.8
 
 thumbnail:
   model: "mystic"
@@ -93,10 +98,12 @@ shorts:
   episode_window: 5
   max_per_episode: 5
   title_similarity: 0.75
-  min_words: 100
-  max_words: 120
-  min_beats: 14
-  max_beats: 20
+  target_seconds: 40
+  max_seconds: 45
+  min_words: 75
+  max_words: 90
+  min_beats: 12
+  max_beats: 14
   reserve_credits: 20000
   music_volume: 0.16
   drone_volume: 0.22

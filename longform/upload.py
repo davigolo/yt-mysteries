@@ -48,8 +48,14 @@ def _clock(seconds: float) -> str:
     return f"{h}:{m:02d}:{s:02d}" if h else f"{m}:{s:02d}"
 
 
-def build_description(summary: str, chapters: list[tuple[float, str]], sources: list[dict], credits: list[str], hashtags: str) -> str:
-    parts = [summary.strip(), "Chapters:\n" + "\n".join(f"{_clock(t)} {title}" for t, title in chapters)]
+def build_description(
+    summary: str, chapters: list[tuple[float, str]], sources: list[dict], credits: list[str], hashtags: str,
+    watch_next: dict | None = None,
+) -> str:
+    parts = [summary.strip()]
+    if watch_next:
+        parts.append(f"Watch next: {watch_next['title']}\nhttps://youtu.be/{watch_next['video_id']}")
+    parts.append("Chapters:\n" + "\n".join(f"{_clock(t)} {title}" for t, title in chapters))
     domains = list(dict.fromkeys(s["title"] if "." in s["title"] else urlparse(s["uri"]).netloc for s in sources))
     if domains:
         parts.append("Sources consulted: " + ", ".join(domains[:15]))

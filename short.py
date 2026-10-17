@@ -6,7 +6,7 @@ from pathlib import Path
 
 import yaml
 
-from longform.insights import build_short_insights, fetch_performance, settled
+from longform.insights import build_short_insights, fetch_performance
 from longform.schedule import next_slot
 from longform.script import Script
 from longform.visuals import VisualSource
@@ -38,7 +38,7 @@ def _pick_episode(history: list[dict], shorts_history: list[dict], window: int, 
 
 def _short_insights(shorts_history: list[dict]) -> str:
     try:
-        return build_short_insights(fetch_performance(settled(shorts_history), min_views=0))
+        return build_short_insights(fetch_performance(shorts_history, min_views=0))
     except Exception as e:
         print(f"Sin estadísticas de Shorts ({type(e).__name__}: {e}); se genera sin ellas")
         return ""
@@ -91,6 +91,12 @@ def main() -> None:
         raise RuntimeError("Créditos de ElevenLabs reservados para los episodios largos; no se genera el Short")
     audio = synthesize([narration], voice_config, WORKDIR)[0]
     timeline = build_timeline(script.beats, audio.words, audio.duration)
+    max_seconds = shorts.get("max_seconds")
+    if max_seconds is not None and timeline.total > max_seconds:
+        raise RuntimeError(
+            f"El Short dura {timeline.total:.1f}s y supera el límite de {max_seconds}s; "
+            "acorta el guion antes de generar imágenes o publicar"
+        )
 
     source = VisualSource({"visuals": shorts["visuals"], "video": shorts["video"], "script": config["script"]}, WORKDIR)
     durations = [end - start for start, end in zip(timeline.beat_starts, timeline.beat_ends)]
@@ -132,6 +138,7 @@ def main() -> None:
         "date": date.today().isoformat(), "episode_id": script.episode_id, "angle": script.angle,
         "title": script.title, "video_id": video_id, "privacy": privacy,
         "uploaded_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "hook": script.beats[0].narration, "words": script.words, "duration_seconds": timeline.total,
         **({"publish_at": publish_at.isoformat(timespec="seconds")} if publish_at else {}),
     }
     entry.update(_publish_social(video, script, shorts))

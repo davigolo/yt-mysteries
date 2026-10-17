@@ -106,20 +106,55 @@ días y baja `max_ai_images` si hace falta.
 
 - `channel.language: "American English"`, y los prompts piden ortografía de EE. UU., millas, pies, libras, °F y fechas tipo
   "October 4, 1931".
-- Selector de temas (`_country_rule` en `longform/script.py`): 2 de cada 3 episodios son casos de EE. UU. Si alguno de los
-  dos últimos no lo fue, el siguiente lo es obligatoriamente; si no, se prefieren casos de EE. UU., UK, Canadá o Australia.
-  El país se guarda en `history.json` (`country`).
+- Selector de temas (`_country_rule` en `longform/script.py`): con `script.country_focus: "US"` todos los casos son de
+  EE. UU. (un solo avatar de audiencia). Sin esa clave vuelve la regla anterior: 2 de cada 3 episodios de EE. UU. y, si no,
+  UK, Canadá o Australia. El país se guarda en `history.json` (`country`).
+
+## Señales para el algoritmo
+
+Aplicado de "9 errores que el algoritmo de YouTube odia" (Mario Ruiz):
+
+- **Micronicho, no caos de temas**: el formato se mantiene `script.series_length` (6) episodios seguidos y el selector de
+  temas recibe los casos de la serie actual para elegir uno que haga clic el mismo espectador. Rota antes si, con 3
+  episodios o más, las analíticas dan al formato un peso < 0,7.
+- **Ángulo, no temas vagos**: el caso debe aportar un ángulo nuevo; los casos muy trillados solo valen con una prueba o
+  documento poco conocido.
+- **Personalidad en un canal faceless**: el narrador tiene carácter (`channel.host`) y da su opinión en primera persona una
+  vez a mitad y otra al final. Lo manual: un tráiler de canal de 30-60 s con tu voz o tu cara.
+- **Gancho y promesa**: apertura de 40-60 palabras en 3-5 planos, con una primera frase de máximo 12 palabras. Entrega
+  una prueba concreta antes de plantear la pregunta; el primer capítulo continúa la investigación sin otra introducción,
+  rebobinado cronológico ni pausa de título. Los capítulos incorporan pistas o pequeñas respuestas cada 30-45 s.
+- **Packaging relevante y sin engaño**: tras cada guion, también en Shorts, Gemini contrasta la narración con su fuente
+  (dossier o episodio) y comprueba que entrega la promesa. Corrige título, texto e idea visual de miniatura cuando procede.
+  Si detecta afirmaciones sin respaldo o una promesa sin entregar, se regenera el guion con ese feedback, hasta tres
+  intentos; una revisión inválida detiene la generación antes de gastar en voz o imágenes. Esta revisión automática no
+  sustituye la comprobación humana de fuentes.
+- **Impacto de sesión**: la última frase enlaza con el episodio anterior de la misma serie, que va también como
+  "Watch next" en la descripción, y el vídeo termina con `video.end_screen_seconds` (20) de cola para la **pantalla final**.
+  La API no permite crearla: el log indica qué vídeo poner en Studio.
+- **Aprender rápido**: las estadísticas que recibe Gemini marcan los vídeos con retención < 40 % (problema de gancho o
+  guion). El CTR (< 5 % = problema de título/miniatura) no está en la API de Analytics: revísalo en Studio tras 3-4 vídeos.
 
 ## Aprendizaje de las analíticas
 
-Los episodios apenas reciben vistas directas y casi toda la audiencia llega por los Shorts, así que el pipeline aprende de ellos
-(`longform/insights.py`, YouTube Analytics, últimos 90 días, solo vídeos con más de 3 días de datos):
+El pipeline consulta los últimos 90 días, detecta el último día disponible en Analytics y comprueba en YouTube qué vídeos
+son públicos. Solo aprende de los publicados al menos tres días antes de ese corte; no usa la fecha de generación o subida
+ni considera maduros los programados o privados. Los días se comparan en la zona horaria de los informes de YouTube.
 
-- **Episodios** (`main.py`): si hay 3 episodios con 100 vistas o más, usa sus propias estadísticas. Si no, valora cada
-  caso por la media de vistas y el % visto de sus Shorts, y se lo pasa a Gemini para elegir el siguiente caso. Con 2 casos o
-  más de un formato, pondera la elección del formato.
-- **Shorts** (`short.py`): con 6 Shorts con datos, pasa a Gemini los 5 mejores y los 3 peores (título, vistas, % visto,
-  likes) para copiar el estilo de gancho y título que funciona.
+- **Episodios** (`main.py`): incorpora señales desde 20 vistas, aunque solo haya un episodio, señalando que la muestra es
+  preliminar. El objetivo de referencia es 40% visto, no un umbral que demuestre éxito. Sus señales se combinan con las de
+  los casos y Shorts, en lugar de descartarlas si faltan tres episodios grandes. El feedback llega tanto al selector de
+  temas como al escritor del guion.
+- **Shorts** (`short.py`): exige cuatro ejemplos con al menos 100 vistas y 50 vistas interesadas (`engagedViews`). La
+  puntuación combina retención (80%, limitada al 100%) y suscriptores por vista interesada (20%, saturado al 2%).
+  Muestra hasta tres ejemplos con retención >=75%, dos de rendimiento en suscriptores y tres con retención <60%;
+  no llama ganador a un Short solo porque haya recibido más distribución. Incluye título, ángulo o gancho, duración media
+  vista y suscriptores; los Shorts nuevos guardan también el gancho, las palabras y la duración real en el historial.
+- **Casos y formatos**: requieren al menos dos Shorts elegibles por caso; muestran mediana de vistas y retención ponderada
+  por vistas interesadas. Con dos casos por formato, su calidad media pondera la elección de formato. El resultado de un
+  Short no se presenta como prueba de retención del episodio ni como conversión medida entre ambos.
+- **Límites del diagnóstico**: sin impresiones, CTR o tasa de deslizamiento no se atribuyen pocas vistas al título o
+  miniatura. `engagedViews / views` tampoco equivale a la tasa de personas que decidieron ver frente a deslizar.
 - El selector de temas prioriza casos con **un detalle tangible e inquietante** (un código, una última nota, un objeto, un
   lugar vacío), y los títulos de episodio giran en torno a ese detalle (máximo 60 caracteres, sin el patrón "Caso: subtítulo").
 
@@ -138,7 +173,7 @@ vacíos en el canal. `publish.py` avisa (`::warning::`) de los vídeos que sigue
 
 ## Shorts del canal (2 al día)
 
-`short.py` genera Shorts verticales (~50 s) que promocionan los episodios ya publicados; `.github/workflows/shorts.yml`
+`short.py` genera Shorts verticales con un objetivo de 40 s que promocionan los episodios ya publicados; `.github/workflows/shorts.yml`
 los sube a las 13:17 y 18:17 UTC (GitHub los suele lanzar con 4-5 h de retraso).
 
 - Elige el episodio con menos Shorts de los 5 últimos (uno recién publicado tiene prioridad) y Gemini escribe un teaser
@@ -147,8 +182,12 @@ los sube a las 13:17 y 18:17 UTC (GitHub los suele lanzar con 4-5 h de retraso).
   recientes están completos, la ejecución no genera nada y espera al siguiente episodio.
 - El título no puede parecerse a ninguno ya publicado en el canal (`shorts.title_similarity`, 0,75 con `difflib`): si se
   parece, se regenera.
-- Estructura: gancho de máximo 8 palabras, desarrollo rápido, punto de inflexión, CTA "Watch the full investigation, linked right here."
-  con flecha animada y una última frase que enlaza con el gancho para que el vídeo haga bucle.
+- Estructura: 75-90 palabras en 12-14 beats, gancho de máximo 8 palabras, una sola pista o contradicción y un pequeño
+  desenlace que entrega el detalle del título antes del CTA "Watch the full investigation, linked right here.", con flecha
+  animada y una última frase que enlaza con el gancho. El misterio general puede quedar abierto, pero no se oculta la
+  respuesta prometida para forzar un clic. Los límites incluyen CTA y bucle y se comprueban antes de sintetizar la voz.
+- Tras sintetizar, se comprueba la duración real: si supera 45 s, se detiene antes de generar imágenes o publicar.
+  No se recorta el audio ni se acelera la voz; hay que acortar el guion y volver a ejecutar.
 - Cortes de máximo 2,4 s con Ken Burns, etalonaje frío desaturado, subtítulos de 1-2 palabras (palabras clave en amarillo/rojo),
   música de tensión de `music/shorts/`, drone sub-bass y efectos de `sfx/` (golpes de graves, whoosh, riser, tape stop;
   si la carpeta no existe se sintetizan con ffmpeg).
