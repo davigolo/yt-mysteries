@@ -288,5 +288,18 @@
     "privacy": "scheduled",
     "uploaded_at": "2026-10-17T20:50:36+00:00",
     "publish_at": "2026-10-19T16:00:00+00:00"
+  },
+  {
+    "date": "2026-10-18",
+    "episode_id": "1lHl8uo5IDw",
+    "angle": "Archaeologists on Hatteras Island uncovered an Elizabethan writing slate and stylus buried in Native soil, suggesting the Lost Colony never vanished in violence.",
+    "title": "The Elizabethan Slate Buried in Island Soil",
+    "video_id": "0XxGYrqJDR0",
+    "privacy": "scheduled",
+    "uploaded_at": "2026-10-18T16:45:36+00:00",
+    "hook": "An Elizabethan writing slate survived beneath the sand.",
+    "words": 85,
+    "duration_seconds": 38.01,
+    "publish_at": "2026-10-19T23:30:00+00:00"
   }
 ]
