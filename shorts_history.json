@@ -301,5 +301,18 @@
     "words": 85,
     "duration_seconds": 38.01,
     "publish_at": "2026-10-19T23:30:00+00:00"
+  },
+  {
+    "date": "2026-10-18",
+    "episode_id": "1lHl8uo5IDw",
+    "angle": "When Governor John White returned to Roanoke, he found the settlement calmly taken apart, yet his buried personal sea chests were unearthed and plundered in the sand.",
+    "title": "The Unearthed Chests of Roanoke",
+    "video_id": "kF1w1azedws",
+    "privacy": "scheduled",
+    "uploaded_at": "2026-10-18T20:57:35+00:00",
+    "hook": "Five buried chests were ripped from the sand.",
+    "words": 81,
+    "duration_seconds": 36.25,
+    "publish_at": "2026-10-20T16:00:00+00:00"
   }
 ]
