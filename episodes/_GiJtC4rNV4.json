@@ -1,0 +1,637 @@
+{
+  "topic": "The Lost Treasure of Victorio Peak",
+  "format": "lost",
+  "title": "The Gold Cavern That Sparked a Secret Military Dig",
+  "description": "In 1937, a prospector stumbled into a vertical fissure inside New Mexico's Hembrillo Basin, claiming to find dozens of human skeletons guarding stacks of gold bullion. Decades later, declassified telephone transcripts, Secret Service polygraph records, and Pentagon operations revealed that the U.S. Army quietly sealed Victorio Peak beneath the White Sands Missile Range.\n\nFrom a fatal 1939 dynamite blast and off-duty Air Force witnesses to Senate Watergate testimony and ground-penetrating radar scans developed for Egyptian pyramids, this documentary examines the documented paper trail behind America's most contested desert mountain.",
+  "tags": [
+    "Victorio Peak",
+    "Doc Noss",
+    "White Sands Missile Range",
+    "lost treasure",
+    "Operation Goldfinder",
+    "Secret Service polygraph",
+    "F Lee Bailey",
+    "John Dean Watergate",
+    "Hembrillo Basin",
+    "San Andres Mountains",
+    "Spanish gold",
+    "unsolved history",
+    "military coverup",
+    "Lambert Dolphin",
+    "Gaddis Mining"
+  ],
+  "thumbnail_text": "SEALED BY PENTAGON",
+  "thumbnail_prompt": "Cinematic wide angle shot of a solitary desert mountain in New Mexico under a harsh sun, surrounded by military barbed wire fences and warning perimeters, with a dark cavern fissure visible near the rocky summit, no people, dramatic lighting",
+  "chapters": [
+    {
+      "title": "",
+      "scenes": [
+        {
+          "narration": "Federal lie detectors proved two airmen saw underground stacks of gold.",
+          "kind": "ai",
+          "query": "Cinematic underground limestone cavern floor stacked with dull gold bars illuminated by a single flashlight beam dramatic shadows"
+        },
+        {
+          "narration": "Secret Service examiners concluded Captain Leonard Fiege was truthful when reporting a cavern beneath Victorio Peak.",
+          "kind": "archive",
+          "query": "Secret Service polygraph report 1961"
+        },
+        {
+          "narration": "Yet declassified military logs show commanders immediately sealed the mountain and secretly moved in heavy drill rigs.",
+          "kind": "stock",
+          "query": "military convoy desert"
+        },
+        {
+          "narration": "Why would the Pentagon spend years guarding a cavern they claimed was entirely empty?",
+          "kind": "ai",
+          "query": "High angle shot of a rugged desert mountain summit surrounded by security fences and military warning markers at dusk"
+        }
+      ]
+    },
+    {
+      "title": "The Fissure in the Basin",
+      "scenes": [
+        {
+          "narration": "In November 1937, Milton Ernest Noss, a local chiropodist known across New Mexico as Doc Noss, was deer hunting in the Hembrillo Basin.",
+          "kind": "stock",
+          "query": "desert mountain storm"
+        },
+        {
+          "narration": "Caught in a sudden rainstorm along the rocky slopes of the San Andres Mountains, Noss took shelter beside a stone-covered fissure atop Victorio Peak.",
+          "kind": "ai",
+          "query": "A lone hunter in 1930s canvas coat standing beside a rocky crevice on a desolate limestone peak under stormy skies"
+        },
+        {
+          "narration": "Curious, Noss cleared away loose rocks and squeezed himself down a precarious, nearly vertical chimney dropping deep into the limestone interior.",
+          "kind": "stock",
+          "query": "dark cave descent"
+        },
+        {
+          "narration": "What he found at the bottom was not an ordinary geological fault, but a series of natural chambers connected by hand-hewn passages.",
+          "kind": "ai",
+          "query": "Interior of a vast dark limestone cavern with rough cut passages illuminated by a dim carbide lamp lantern"
+        },
+        {
+          "narration": "According to Noss, the recesses held seventy-nine human skeletons, several of them eerily bound to upright wooden poles and stone pillars with preserved cordage.",
+          "kind": "ai",
+          "query": "Dimly lit cavern recess showing ancient weathered wooden stakes set in dry dust with distant shadows, cinematic atmosphere"
+        },
+        {
+          "narration": "Surrounding these remains were Spanish-era artifacts, ancient pack saddles, leather canteens, and stacks of dark, unrefined gold bullion.",
+          "kind": "ai",
+          "query": "Close up of weathered Spanish colonial pack saddles and heavy rectangular metal ingots resting on a cave floor"
+        },
+        {
+          "narration": "Over the next two years, Doc Noss and his wife, Ova, whom everyone called Babe, secretly retrieved a small number of artifacts and bars.",
+          "kind": "archive",
+          "query": "Hatch New Mexico historical street 1930s"
+        },
+        {
+          "narration": "Under the Gold Reserve Act of 1934, private possession of gold bullion was illegal, forcing Noss to bury his recovered bars in shallow desert caches.",
+          "kind": "stock",
+          "query": "shoveling desert soil"
+        },
+        {
+          "narration": "The narrow entrance made extracting heavy ingots nearly impossible, so in the fall of 1939, Noss hired a mining engineer named S.E. Montgomery.",
+          "kind": "ai",
+          "query": "Two 1930s men standing over a rocky mountain shaft opening with mining tools and crates, wide shot from distance"
+        },
+        {
+          "narration": "At the shaft mouth, the two men had a bitter dispute; Noss feared the mountain was unstable and wanted fractional charges.",
+          "kind": "stock",
+          "query": "dynamite fuse burning"
+        },
+        {
+          "narration": "Montgomery insisted on using several full sticks of dynamite, and when the blast went off, it shattered the fragile fracture lines above.",
+          "kind": "ai",
+          "query": "Dramatic underground rock collapse with falling limestone boulders and choking dust filling a stone tunnel"
+        },
+        {
+          "narration": "Tons of rock collapsed into the chimney, sealing access to the central cavern and trapping whatever lay inside beneath a mountain of rubble.",
+          "kind": "stock",
+          "query": "collapsed stone debris"
+        },
+        {
+          "narration": "For ten years, Doc Noss tried in vain to clear the blockage, until a desperate financial partnership turned deadly.",
+          "kind": "ai",
+          "query": "Silhouette of a lone man sitting on a desert boulder looking up at a towering rocky peak under a twilight sky"
+        }
+      ]
+    },
+    {
+      "title": "Gunfire and Barbed Wire",
+      "scenes": [
+        {
+          "narration": "By 1949, Doc Noss was running out of money, prompting him to partner with a Texas oilman named Charles Ryan to fund a new excavation.",
+          "kind": "archive",
+          "query": "New Mexico small town street 1940s"
+        },
+        {
+          "narration": "On March 5, 1949, a deal to sell a portion of the cached gold collapsed amid mutual accusations of a double-cross on a street in Hatch, New Mexico.",
+          "kind": "ai",
+          "query": "A dusty small town commercial street corner in 1949 with vintage pickup trucks parked outside storefronts under harsh sunlight"
+        },
+        {
+          "narration": "Ryan drew a pistol and shot Doc Noss dead; he was later tried and acquitted on the grounds of self-defense.",
+          "kind": "stock",
+          "query": "old courtroom vintage"
+        },
+        {
+          "narration": "His widow, Ova Noss, was left with her husband's hand-drawn field maps and an unyielding conviction that the cavern still held a fortune.",
+          "kind": "ai",
+          "query": "A woman's hands unfolding yellowed hand drawn cavern maps across a wooden table under lamplight"
+        },
+        {
+          "narration": "Between 1951 and 1955, the Department of Defense dramatically expanded the White Sands Proving Ground, later renamed the White Sands Missile Range.",
+          "kind": "archive",
+          "query": "White Sands Proving Ground historical entrance sign"
+        },
+        {
+          "narration": "Using federal leases and eminent domain, the military absorbed the Hembrillo Basin, evicting Ova Noss and permanently banning civilians from Victorio Peak.",
+          "kind": "stock",
+          "query": "barbed wire fence desert"
+        },
+        {
+          "narration": "For three years, the peak sat silent inside the active missile impact zone, until two off-duty airmen went exploring.",
+          "kind": "ai",
+          "query": "Two military airmen in late 1950s fatigue uniforms hiking up a barren desert mountain slope toward rocky outcrops"
+        },
+        {
+          "narration": "In February 1958, Captain Leonard V. Fiege and Airman Thomas Berlett from nearby Holloman Air Force Base climbed Victorio Peak.",
+          "kind": "archive",
+          "query": "Holloman Air Force Base 1950s"
+        },
+        {
+          "narration": "Squeezing through an open crevice, Fiege dropped into an intact natural cavern where his flashlight illuminated stacks of heavy gold bars and human bones.",
+          "kind": "ai",
+          "query": "First person perspective of a flashlight beam illuminating stacked rectangular ingots and ancient bone fragments on a limestone cave floor"
+        },
+        {
+          "narration": "Unaware of the Noss history, the two servicemen kept quiet for three years, trying to determine how to claim their find legally.",
+          "kind": "stock",
+          "query": "vintage desk lamp documents"
+        },
+        {
+          "narration": "When Captain Fiege finally filed an official report in the summer of 1961, it triggered an immediate reaction from the highest levels of the Pentagon.",
+          "kind": "ai",
+          "query": "A high ranking military officer sitting at a wooden desk holding an official telephone receiver in an austere office"
+        }
+      ]
+    },
+    {
+      "title": "The Classified Operation",
+      "scenes": [
+        {
+          "narration": "Declassified logs show that on July 31, 1961, White Sands commander Major General John Shinkle convened an urgent telephone conference.",
+          "kind": "archive",
+          "query": "Major General John W Shinkle military portrait"
+        },
+        {
+          "narration": "On the line were Dr. Leland Howard, acting director of the United States Mint, and Secret Service Agent Lilburn Pat Boggs.",
+          "kind": "archive",
+          "query": "United States Mint Washington DC historic building"
+        },
+        {
+          "narration": "The transcripts show these officials discussing a classified military mission scheduled for Victorio Peak the very next morning, on August 1, 1961.",
+          "kind": "stock",
+          "query": "classified document rubber stamp"
+        },
+        {
+          "narration": "The records explicitly state that both civilian claimants and the discoverers themselves had to be kept off the military reservation entirely.",
+          "kind": "stock",
+          "query": "military guard gate checkpoint"
+        },
+        {
+          "narration": "To verify the claim, the Secret Service brought Captain Fiege and Airman Berlett in for formal polygraph examinations on September 5, 1961.",
+          "kind": "ai",
+          "query": "Close up of vintage polygraph machine needles drawing ink lines on moving graph paper under harsh office lighting"
+        },
+        {
+          "narration": "Both men were asked if they had seen hundreds of gold bars inside Victorio Peak, and both passed without any indication of deception.",
+          "kind": "stock",
+          "query": "lie detector polygraph test"
+        },
+        {
+          "narration": "Yet when military escorts brought the airmen back to the mountain, officers abruptly declared the entrance unusable, revoking their clearance on the spot.",
+          "kind": "ai",
+          "query": "Military officers in green uniforms standing before a blocked rocky crevice, gesturing away two airmen in distance"
+        },
+        {
+          "narration": "Weeks later, on October 28, 1961, civilian associates watching through binoculars spotted heavy military equipment arriving at the peak.",
+          "kind": "ai",
+          "query": "View through vintage binoculars of olive drab military trucks and earthmovers gathered at the base of a desert peak"
+        },
+        {
+          "narration": "Uniformed personnel directed by base intelligence officer Captain William Orby Swanner, Jr., were actively drilling and shoring up mine openings.",
+          "kind": "ai",
+          "query": "Soldiers in utility fatigue uniforms operating heavy mechanical drill machinery on a dusty mountain terrace"
+        },
+        {
+          "narration": "Ova Noss filed an immediate protest, prompting investigator S.A. Floersheim from the New Mexico State Land Office to intervene.",
+          "kind": "archive",
+          "query": "New Mexico State Capitol building Santa Fe historic"
+        },
+        {
+          "narration": "Floersheim's official memo on November 6 documented that the military was conducting unpermitted excavations on state-claimed mineral acreage.",
+          "kind": "stock",
+          "query": "reading official memo paper"
+        },
+        {
+          "narration": "What I keep coming back to is that July 31 transcript. You simply do not assemble the Secret Service and the director of the Mint over campfire stories unless you believe there is metal in that mountain.",
+          "kind": "stock",
+          "query": "vintage telephone switchboard"
+        },
+        {
+          "narration": "Facing a state-federal jurisdictional fight, the Pentagon agreed to a compromise that brought commercial drillers into White Sands.",
+          "kind": "ai",
+          "query": "A long dirt access road winding into the rugged desert mountains towards an isolated limestone peak"
+        }
+      ]
+    },
+    {
+      "title": "The Ninety-Day Drift",
+      "scenes": [
+        {
+          "narration": "In June 1963, a joint agreement between the Museum of New Mexico, the Mint, and the Department of the Army granted an excavation contract to the Gaddis Mining Company.",
+          "kind": "archive",
+          "query": "Museum of New Mexico historic facade"
+        },
+        {
+          "narration": "The Denver-based firm was given exactly ninety days to tunnel horizontally into Victorio Peak and locate the central chamber.",
+          "kind": "stock",
+          "query": "tunnel drilling underground"
+        },
+        {
+          "narration": "Gaddis drove an exploratory drift deep into the rock, but progress was slow, and their operating budget ran out before they broke through.",
+          "kind": "ai",
+          "query": "Miners in hardhats with lamps standing inside a narrow rough rock drift looking at a solid stone wall"
+        },
+        {
+          "narration": "The company officially reported no gold, though claimant supporters insisted the drill had halted mere feet from the void.",
+          "kind": "stock",
+          "query": "abandoned mine tunnel interior"
+        },
+        {
+          "narration": "Victorio Peak was sealed once more, but Ova Noss refused to abandon her claim, enlisting one of the nation's most prominent defense attorneys.",
+          "kind": "ai",
+          "query": "An elderly woman in 1960s dress seated across from an attorney in a suit reviewing legal files"
+        },
+        {
+          "narration": "In 1972, F. Lee Bailey took up the cause, forming an umbrella coalition of more than fifty claimants, including Ova Noss and Captain Fiege.",
+          "kind": "archive",
+          "query": "F Lee Bailey lawyer portrait 1970s"
+        },
+        {
+          "narration": "Bailey bypassed local courts, lobbying Attorney General John Mitchell and Domestic Affairs Advisor John Ehrlichman directly inside the Nixon White House.",
+          "kind": "archive",
+          "query": "John Mitchell Attorney General portrait"
+        },
+        {
+          "narration": "The behind-the-scenes lobbying remained completely hidden until it erupted into the open during the June 1973 Senate Watergate hearings.",
+          "kind": "archive",
+          "query": "Senate Watergate hearings 1973 committee table"
+        },
+        {
+          "narration": "Under oath, former White House counsel John Dean testified that Nixon's inner circle had spent considerable time discussing Bailey's claims of billions in illegal gold under a military range.",
+          "kind": "archive",
+          "query": "John Dean testifying Watergate hearings 1973"
+        },
+        {
+          "narration": "With national newspapers and television networks reporting on Watergate's strangest subplot, public pressure on the Pentagon became unsustainable.",
+          "kind": "stock",
+          "query": "printing press vintage newspapers"
+        },
+        {
+          "narration": "By early 1977, the Department of the Army yielded, granting a brief, unprecedented window for civilian searchers under the eye of national television.",
+          "kind": "ai",
+          "query": "Television broadcast vans and reporters with cameras parked in a dusty desert staging area near a military fence"
+        }
+      ]
+    },
+    {
+      "title": "Operation Goldfinder",
+      "scenes": [
+        {
+          "narration": "Army brass dubbed the mission Operation Goldfinder, a sarcastic military nod to the classic James Bond film.",
+          "kind": "stock",
+          "query": "military base sign security"
+        },
+        {
+          "narration": "Between March 19 and April 1, 1977, the base turned into a media spectacle, with Dan Rather and CBS's 60 Minutes reporting live from the desert.",
+          "kind": "archive",
+          "query": "Dan Rather 1970s television broadcast"
+        },
+        {
+          "narration": "Florida marine salvage diver Norman Scott led the recovery team, monitored around the clock by armed military police and guard dogs.",
+          "kind": "ai",
+          "query": "Civilian excavation team in dusty work clothes unloading heavy gear beside an armed military guard in 1970s desert camouflage"
+        },
+        {
+          "narration": "Scott brought in Lambert Dolphin, a senior geophysicist from the prestigious Stanford Research Institute.",
+          "kind": "archive",
+          "query": "Stanford Research Institute building historical"
+        },
+        {
+          "narration": "Dolphin deployed a specialized prototype high-frequency ground-penetrating radar originally funded by the federal government to detect hidden chambers inside the Giza Pyramids.",
+          "kind": "ai",
+          "query": "A scientist operating a 1970s electronic radar cart across rocky desert limestone terrain with cables and monitoring screens"
+        },
+        {
+          "narration": "The radar readings and electromagnetic surveys detected unmistakable cavern echoes three to four hundred feet beneath the peak.",
+          "kind": "stock",
+          "query": "radar screen readout waves"
+        },
+        {
+          "narration": "Remarkably, the underground geometry mapped by the radar closely aligned with the original cave sketches Doc Noss had drawn in 1938.",
+          "kind": "ai",
+          "query": "Side by side comparison of a vintage hand drawn cave map and a modern geophysical subsurface density scan"
+        },
+        {
+          "narration": "Geologists confirmed the mountain was an anomalous block of fractured limestone and dolomite thrust over solid granite, naturally prone to deep karst voids.",
+          "kind": "stock",
+          "query": "geological rock strata cliff"
+        },
+        {
+          "narration": "When searchers finally descended an adjacent natural shaft, they did not find gold, but they discovered unmistakable signs of recent clandestine entry.",
+          "kind": "ai",
+          "query": "Looking down into a deep rocky chasm where wooden beams and hanging electrical cords emerge from the dark"
+        },
+        {
+          "narration": "Scattered across the cavern floor were fresh shoring timbers, modern electrical wiring, and discarded C-ration tin cans bearing military stamps.",
+          "kind": "ai",
+          "query": "Close up of an old military ration tin can and cut electrical wire resting in the dust of a subterranean cave floor"
+        },
+        {
+          "narration": "Before the team could penetrate the central void, their strict ten-day deadline expired, and the Army adamantly refused to grant an extension.",
+          "kind": "stock",
+          "query": "hands packing equipment case"
+        },
+        {
+          "narration": "The operation was shut down, leaving the true nature of the radar echoes unresolved as the gates of White Sands closed once again.",
+          "kind": "ai",
+          "query": "Heavy steel gate with military restricted area signs swinging shut against a backdrop of desert mountains"
+        }
+      ]
+    },
+    {
+      "title": "The Hollow Mountain",
+      "scenes": [
+        {
+          "narration": "In 1979, Ova Babe Noss died in Clovis, New Mexico, at the age of eighty-five, never having seen the cavern reopened.",
+          "kind": "archive",
+          "query": "Clovis New Mexico 1970s"
+        },
+        {
+          "narration": "Her grandson, Terry Delonas, formed the Ova Noss Family Partnership and secured congressional access under the 1989 Defense Authorization Act.",
+          "kind": "archive",
+          "query": "United States Capitol Washington DC exterior"
+        },
+        {
+          "narration": "From 1989 to 1996, the family spent millions in private funds conducting advanced radar tests and deep core drilling into the mountain.",
+          "kind": "ai",
+          "query": "Heavy core drilling rig mounted on a truck operating on a rocky mountain platform in the New Mexico desert"
+        },
+        {
+          "narration": "The drills repeatedly dropped into large interior voids, but following endless logistical constraints and safety delays, their permit expired in 1996.",
+          "kind": "stock",
+          "query": "drill bit boring stone"
+        },
+        {
+          "narration": "No gold was extracted, and the military permanently shut down all civilian excavation on the range.",
+          "kind": "stock",
+          "query": "desert mountain heat shimmer"
+        },
+        {
+          "narration": "To evaluate this case honestly, four competing explanations have emerged from the dossier over the decades.",
+          "kind": "ai",
+          "query": "A desert table covered with historical documents, legal briefs, and old topographic maps of Victorio Peak"
+        },
+        {
+          "narration": "The first suggests a Spanish colonial stash linked to Father Felipe LaRue, an eighteenth-century priest rumored to have operated untaxed mines in the San Andres range.",
+          "kind": "ai",
+          "query": "Atmospheric painting style scene of eighteenth century Spanish miners carrying wooden packs through a rugged desert canyon"
+        },
+        {
+          "narration": "While Doc Noss allegedly found eighteenth-century artifacts, Catholic church archives in Durango and Mexico City contain no records of such an operation.",
+          "kind": "archive",
+          "query": "Durango Cathedral Mexico historic archive exterior"
+        },
+        {
+          "narration": "The second points to Chief Victorio and the Apache Wars of 1880, suggesting the peak held ambushed payrolls and stagecoach plunder.",
+          "kind": "archive",
+          "query": "Victorio Apache chief historic portrait"
+        },
+        {
+          "narration": "Yet Apache warfare relied on speed and mobility; packing dozens of tons of smelted bullion down a cramped vertical fissure defies military logic.",
+          "kind": "stock",
+          "query": "arid canyon landscape vista"
+        },
+        {
+          "narration": "A third theory brands Doc Noss an elaborate con artist who salted a minor crevice to sell bogus mining stock, blowing the shaft in 1939 to cover his tracks.",
+          "kind": "ai",
+          "query": "Silhouette of a man in 1930s clothing counting dollar bills at a wooden table in low lamplight"
+        },
+        {
+          "narration": "Yet that dismissive theory fails to explain why two Air Force servicemen independently stumbled upon gold bars in 1958 and passed federal polygraphs.",
+          "kind": "archive",
+          "query": "Secret Service official badge vintage"
+        },
+        {
+          "narration": "The final theory alleges covert military removal between 1961 and the early 1970s, backed by eyewitness accounts of drilling and the military rations left in the cave.",
+          "kind": "ai",
+          "query": "Military trucks parked under desert camouflage netting at night with soldiers loading heavy wooden crates"
+        },
+        {
+          "narration": "Yet moving thousands of heavy bars without a single Treasury intake manifest, shipping order, or Fort Knox receipt remains a logistical paradox.",
+          "kind": "archive",
+          "query": "United States Bullion Depository Fort Knox historic exterior"
+        },
+        {
+          "narration": "If you ask me, the truth sits uncomfortably between two extremes: a modest historical cache likely existed, but the military's clumsy secrecy turned an ordinary anomaly into an enduring legend.",
+          "kind": "ai",
+          "query": "A scarred desert mountain summit marked by collapsed exploratory pits and old access tracks under an expansive sunset"
+        },
+        {
+          "narration": "Today, Victorio Peak remains completely off-limits inside an active missile range, holding its silence beneath broken limestone and forty years of barbed wire.",
+          "kind": "stock",
+          "query": "warning sign missile range"
+        },
+        {
+          "narration": "If this case stays with you, there is another file where early American pioneers vanished into thin air, leaving behind only seven cryptic letters carved into weathered timber.",
+          "kind": "ai",
+          "query": "A weathered wooden palisade post in a coastal forest with mysterious carved letters, soft morning mist, cinematic wide angle"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "title": "unsolved.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQESlHMfJ9zVA2BI6_xSNXMLgr78FsF8wfjNIQymj7EuTyychHgPzX25q6cTsn02VPnFBoRSQFFqrOmy2VTnjP1Z9sr9tpnMWW2WDv5iZXWr_dTi_qdsus12Ge8d3ATXUSoVkiD1WD2vmcSK4w=="
+    },
+    {
+      "title": "legendsofamerica.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQESQXBAlNhMQCi-sQoJQJiWpDxcHy-SPX15EV1op2XlS8g2smLVakhZEkTzSVOTFdAtc-cjTaff3RWC0UHHxgPJK9yyJZ1BqPS6KeCfEBtmwJ_bCZptGwnn-cta0VXqzCUh-pCRU1HIr0WlVT0CdQ=="
+    },
+    {
+      "title": "skeptoid.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQERPKUlS7ipRfo8Kbg3Sn7VmaidmPxip3ZLoorZfl7ZCknLERJGjj53f9Y2wzIqNaj8883t2xbW5Hxh3iuqkJIr2f3zmvvzP876aLoaSsbsuJIpvSp6MA=="
+    },
+    {
+      "title": "jasonrobertsonline.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEpBQIzKWRaZMBQajTNvJHLClStFSqCvvhDLa6VVaJPqOHksHMgr_C2C-Bq7dlEzyJwVbJ98PmOSExjrP-miL_o7SL0oyXfAKp1WIGhG7c0N01vOhBksIVVX-fiiJH76ZgkrBIGOEk2zESKUg=="
+    },
+    {
+      "title": "prweb.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFfhqPk6pyslgX6v97ReCVPe_baz7s_j9-0lJEgqWsjmmwPbLOKOIxiG5D_5J_c7nIgEVwHnzionZAGn8_-toCgtNLdeovYvuOxlL0b_sYUNMA3a06FxaTVBrqyw2sm7gEPSH-pS8g63WQLWASci_RhEwvcJOfT1S4QKPef_TPW0uTTUpX22i-fCaSLhIJuIEUUFMESnSVcT8nUXJB6yQS3DU0="
+    },
+    {
+      "title": "legendsofamerica.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGNYbCSGCEC4ecsxGsm_L4ZQFb0kvxOIeirDlrESEDnl5Bz52DRWoo-IDxj1GEMQprBUA66FospQgbMUwu-BTFPfSKEsiBTNkWWE58WytFHNnl3i-tCjBAK6PPZwO8tWhwxug5ImaUsOHXQf7dm"
+    },
+    {
+      "title": "mysterydelver.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFO0MnYdfaBmrOlejM9HomO1KxjYev4AUGFA9sU2VutNnloJxFr5fwNQ_7x11Eh4BKKE78BghrL3mvprrBhseV1nP6oNLG7bcAc5kqkBB1FU2chEI_lC9KsAgCw1JdGPo8="
+    },
+    {
+      "title": "coloradomagazineonline.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFDoUp5D2If_2OTo8Ydw6Z-4yxw7KET0pu5NCNQ3U9yLKOI6oyQxJxceCudwKoMXuyu02Yalc1lcNkZhTkfGcwuYOeQfM-CpBn3FLqo-0-NaKG05jCfx9iH9yygAK1_iTKEaFo9lta2ItMrKqnkDUDwmB3fSnYwUgR4olVq9PKrCzLGEe1y"
+    },
+    {
+      "title": "washingtonpost.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEzPFDNDiKoL4ASh6gQUeOIAxdl9s63AqGi25qhqY0R4WXY96SzCnQHjJPMzviNIV-gYJO_h5nPJq8rgacHwbRU7ihCHWJbo0qM5wZTu6avutgqOfCNO3jKVpTKV1czIhu_STxyo8Tj4ibocfoud5qzhrTBhyFqIGK4PkTb8sKuiWThsd3n_mfzGiuFj1sVRfRYBpYKNsOZTCxys-14t-hSqUci2QiggWUo36fOFw_nVDqI1HgFz3A3HUsy"
+    },
+    {
+      "title": "latimes.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFMmB4-XfQ50gQyuoVqKrwV4pLk5wPZv1DMl2cq7rSrrgmN3MucK_ICdCot5TvlRHlFWRO0yMktN1V4kC4G-0Y2PafvHDAVaCOUcKB9UdIwm0c4bFRii1C-XHar8D7yE5olpIAXnfJBisAcyE92f3iqqnHsjCzdMDcUuYk="
+    },
+    {
+      "title": "mentalfloss.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH7xARb5wDdyRh_1fSA-ynPrZwNrrKrUpsTKoG2KxEHxPX-Nu5BRTkTSd8El2pk3RR9aqDkcMvHtMrl9SU9kDut_m0RxdrCh8thOhXD6ylEJtpJKPLSuk9weBYREaVerIP5OaylKu6TiiseLakNKHaykODU6EH6VuhPFKg_Vp_Owg=="
+    },
+    {
+      "title": "elpasohistory.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHcumJlyn4W5_UiRM_jcih9BbGqrwtBSUeGC56GxVmmGzTP0lK3zAXRe0dOg_EOCRwPV71G4MxqB8g7uTfKEHI8dVOtmOgMQpbfMI_PPHZLI5nPieGH0hjcb9CTbJ8m_4xx6S4wS6Biu9_uZm8AN-rvdWiP62a4jPEZJDpr"
+    },
+    {
+      "title": "mysterydelver.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE6TkIv0OhXjjqgoGFvunKZQiMDvacmmHM-iJTNWRcVW4YPQ2KOH-wMwJ-cdaEa8dVLM-YgEssczNGRs28-aUiGNFIR-z7uZB1DpKfhATeKli-OWOJ6yrepq6SO4c7Agt7C"
+    },
+    {
+      "title": "ivy.fm",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHpZHD45AWY7PJEnkQe7ouAPblZHwBQsBB5EbZoanSY3Z-P42DFYsDnkiD_uyh68hsHJrkb--aKmQWPUQaWkYluQjOb2Zt2aAdC9fj4fQKn9vrGzimYo4w="
+    },
+    {
+      "title": "freedommag.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGo21etW7ltvLL6_XBmdXxDfZxqa7WzSGOa5NDezkv82-zcoI6FsQ4KiNJY8fjbjAK9SlGBxJbdFFHPZbS2C7s7nD5nYQJWgRK9KunVz_THtI4HAOjyznwTTkXpwSQY9K9YmegFkUe_hKk22A=="
+    },
+    {
+      "title": "jasonrobertsonline.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHAIZPgxe5bTuWEscMpUOLDerCe1pAmYF319aqcRjEY3Vh2_aqBK2UAk9nJE_GYUObNeh3lZGijdSRy1YZU2v-XoXLWWvfMTnnzSuFHieGDnJQ5mBf0k215iLMexbbR0-6hoeci_t2liHy0"
+    },
+    {
+      "title": "ivy.fm",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH1dGsikIP9w4lrt9lJdK4vSEwr0dUOUU2lJzXnkHbX5f_fzKqL1UqVj0iDJrHobkgc3EZyfykaYrcKycS0DnicsN0F4ey_UhEKbufQiXLmtZMKSxuWYQ=="
+    },
+    {
+      "title": "allthatsinteresting.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE0sfQmsv9_rqb0LsDvGyN9tBmhbq5TshFdJCmvTntD3b9YVXYQc_0WUopKYhOkfTBkqU7Irog8tahBTP6H3liwW6YL07wmVzy2PugdkytDzUr5ijjNwpxCZtdrsXBRJR2MTHk="
+    },
+    {
+      "title": "freedommag.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGT9KF1Tf8MrrivpShZQtIs0W1ylOOnef9iiNkhBg7Rg66OZzQVzHjykILjoRYamxpctpmUN_5-36_LrrFEJ37ihQM5CPIvZjW1XLLW5UtvUb42cpXONjYcXY074h2q0TQOp7jBqeUMrtwuKQ=="
+    },
+    {
+      "title": "mysterydelver.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGmgOP9lepzIdbfH0pO7w3020-9hEWKzR3_OfjqfZ8RrBgrbAP41cwsdT2bGV4WRbD7sAO3z32bIqu7pscTT6akmrDqos4jRfQyH3g4PuTFVVuXjZt1ekMHb78A1kyjnyib"
+    },
+    {
+      "title": "legendsofamerica.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE2dv-iu3xfnhCK-YC2VVT70T_oY45fpHUkfTlQCIGWeCqx6PonAylgKwq9IwL-LxRTYM7FYaOZUt8VakQbvuA95y1vLG3M9D4SFAuwjONfgZx0epeEnijYlkWuUYKRabFrbvz0O7P6CiApms5FpQ=="
+    },
+    {
+      "title": "coloradomagazineonline.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFHF33HiTHALs53Wq4m8PZ4I6RwdIJe0Kgd8ZIbAc1w_N-Ffmtu0hcnJF9ERG_HM8BRfRGL1fcOr6S8AFdaFBV7zev6212GRKeGaeZWuv2TB9qaActpO2ge-tGHgDHm_EIl5XafmxhTSNNIVt-45gBaVe_X1SMID0ugypY1DYSfRSpSJqCDvw=="
+    },
+    {
+      "title": "skeptoid.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFq6Jzl2Jt_m_GrcBTQp5pQupWjMtc1HD33SfCSn_jWtrvRrpghuddnfuBMlZgntkWpSdY18EiIbdll8Ei-5mtVjwuiHlxEhmc3sY2XWyI8EIO62pVQjmg="
+    },
+    {
+      "title": "treasurenet.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEysZ6EWO2CxJKNu1eoxbk1fcGOI7sleuoNPqlcwAZirpBug9epltux97kcKjxJb2g4jvps29U1PlJO-WcvEdqR2OREJmF9-GE-XzT71BLn2YjWzUJEsVZTrcDxdxf5nwOJ_VdBDauU1OeYqs5ksRACQGSpYKhhwJLcYyWNIhzQ8Dg-Sw=="
+    },
+    {
+      "title": "latimes.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEpV1Bv_SXMsqJVM_20fn4WI4LrvtiPh5n6z-JA_huWtPD-bVi1-Swqabht8_TDal30XNQfFsrnjxhl1NbYUrt1LlOF8T7jygly56gRNB455VYzSLiIW2MQA-CgF98WJN_wPUPtrFqpLxckgXbAikKdVJ_rttB6bayAGCg="
+    },
+    {
+      "title": "mentalfloss.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGO2ogwazB2IMiq00AkqonmSmagvlOEfQ_8h1jy4fBavZr-lYrlIJ6Yx1HWm2N0_bV0XVOm5rzxJhK4f26S2hLPO6EsDeynnNeklWjx94Nhwf8usW6OH2HDLDJJIln4l9riIFoimoT5xNeY7WibFZs6_aqkarID21YbeMS4FvnM5Q=="
+    },
+    {
+      "title": "washingtonpost.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGyxhlS1C3wiLkj3rxCdQNa133fH2MgA80hCykDcmYQSo1zhRA7YkEhOn3eRiaoujCt0DI6F-Wcudi3wc8IE6MazsLAapyh4cEiUD5vLoIkEwDOWXSD8pjSrHALqIxJl_BVpQh4s1D1yBj_gk29tXBx6Nue0Q8iXDVrM_dyIjR4z2-HqdgO-BPJRT5pUdpjfkLObVr28nlwX9CARe60lI4FVLEAR2X8yCH_gU4uOqC_g8ccpEoN"
+    },
+    {
+      "title": "latimes.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEI1T828GNJtEe2wzw7oeUvAZX34An5wYEz4cw6hseEZu2I7RILjATE-0BKhDp-uTHzV-C5Hkz1cpe2yrHcA8zAik-_2XpIgQ4vjypOIwCmKvHPMG_2_7RrBxbR2DgO8d5HoULBB7iBjbETZvb0YmQWHYcLCYIZF_PkaT8="
+    },
+    {
+      "title": "freedommag.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH4XZ2rf9ihKwvzq-2BWDP-jjvpw2lCyEOth1jveSX1xDlywrdCqZd-x0uPBvq47mjxARJ5sSk3asNsEWTtsnp_6jpMQcchfNQL_qvb_d3-IJ-9tJWsVi9daLNBEAgVDH_J6FCO10QT1gQX"
+    },
+    {
+      "title": "latimes.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGtoonDd0wIAGJIHMnMDGCvW-soBIytN7cF_xvqN-JU-Azw10w2fu0696PjOx-I4gxw8soGSb66YOv34rTA7_utBQMNkP_3Qv70EIwVGuJ1Gywux_MgYadWdjIPaHNQJ6TvgtNqRGrs2ZsN_Q3NVDKUdM309xK7rLNUX1w="
+    },
+    {
+      "title": "wordpress.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEBNFdczjtGPz1t9DqWvMty17IkohvRCGhJwnTevViGRT8TuTYNy3eRla2wJxMKB7smpRrmRfB56UrSMCYgEtwBSAG2VDPOG9HQP4fO02XWlbBw-vfG3kfSlpkFzlkElAyT-2_5SW2ITRXO-eJxCgDZ_K4VKpNatMp0JdJdjwmXs1GE_7v-SxKt_KZMdaEMGnErrLH6AEejP6plXzZcCJQzAw6y5T3k22bEOTlBOs_c"
+    },
+    {
+      "title": "prezi.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHXBAwdKd_SQW3fcAa4eJlqPJaaUvjhTQguCtKsdvWI8u_96NHiE9aO5BUWEi0VhoNmoiJTQkYiPsOnvQR6_je0C-2uJ5bNC08NXvhtUYImuBpzuQJ_ywIr2Y_i6R2MuoUeWT56mEvxJJ06OJbRlPUN_70SqT3uZ0Afe-kpUs_5QKka1O0QGukKtq0AFXYTYSIhrJQVDNlqE_DFRmwWtdI="
+    },
+    {
+      "title": "tapatalk.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEOUritDLs80KLsJYVRDaN2PmnNC543oVLm8M0kEJiLrxcsDrj8z-VlwMfHkOfdHUJ48_T9DWLqZQsKO8k6LWBM7Phf0LTRnW0CusWXbon8Y3LWZPRUqCjGUGqelxpkiqDZIStHYYy09XrZrn5hhEV_F-sxb-Z19enHtLovbhOOJFcnsMqZKeOQMcsgXXmDl2CqgeI="
+    },
+    {
+      "title": "reddit.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFeNSceh_ZNH9IO62hZxTjY9xl9K7Yw1aS6-D7BQu6BFkaADspsSBxJFyB8J3dxuclMFuHA3QcRnpLjLB9emu4cYJJ03RR9Ik6kaFtKseEH3V-B-wlCCGze6Ya7LAcrSyuVOIiyy8-oc1pIxVBa28dkTmZIVYZYrtw7t0cDpXSvGMhxJ43XF2B6N2PSwikcpKdeCYXCCVhLn2Kpfx3l71NqF8hV"
+    },
+    {
+      "title": "skeptoid.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFqCzwQeJMhi4bgnVVLEj6-XioId0XdyeudDmG1piNe6viNvPI8gDG8jFvVYaK9ubnPTzCWO_sKLKg0N5bbB_xbg4lO4Cd6FxVBlyGTryUKQQ1hV8XTIiADwphs1A=="
+    },
+    {
+      "title": "treasurenet.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH1fUXu7hgkdq2evh6KhaXPNJ6B2hTA07KzzccIK_tDkzJLeS5LJsCoFHai6xI7l13pdUF60iAM5FUo_7-RaCAR5tMAzie_AJ-3WvSFFd_Q1RsnI5bhFhjgdkFjl_i63xC22TLqeeHEDGMRtA-u9TIthv3lEfXbhUZZkiJTvLldqjTqkQ3OMzPmGDwBQ5Uhzw=="
+    },
+    {
+      "title": "unsolved.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFr2BNjA0WLDKlq21cyt1o9YgOhyJlvON2RvANQI309-u9WrjO4wKjbg3BCUWjWUgxpQNas5oL7myl-oteAMmAwZnNgGhBdu368574820GkTIsAS8C_46gGKt1ZGy4yryOMcxULNDYgK86vWg=="
+    },
+    {
+      "title": "town.news",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGCyfg6UADrHypau2WdKLUMnHVWRwPQ7M2PfyCUzuTI0O25285W3XS9D1ypDusJb619K93AWvaQ0nCfrSnl53EPEJBJIjCdQw_L3MvBqAdO02pONd5dVn8D4rkoSun6PRHdu_D0DykGHcao0JtASs823RUt-7BfB3tKv9iXn8Z21nvdvG6pHtr8WF4N7s70ML5OnQSl-JHs6A8zJL-BqwoN7rw4FOwHjN_epzqk2Um1g3B3dgsQ_3hg2m9HJPCB"
+    },
+    {
+      "title": "mcguiresplace.net",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFO_2yhgmBEmn72xqR3mTAhWH_uuo70h4ZOh6I8pbTezYOOBNItMQKB76KbLBhuIAezfdTZ7pVOFObp0GhN8nVu-FCgjz8NP_VumMNGiWenoJjHDuxOIEsgEGCSI2P91b-Bs9QGLEbieEUYDzmRRpKmYR9oWO9uHqJD"
+    }
+  ],
+  "hashtags": [
+    "VictorioPeak",
+    "WhiteSands",
+    "UnsolvedHistory",
+    "ColdCase"
+  ],
+  "country": "US",
+  "watch_next": {
+    "video_id": "1lHl8uo5IDw",
+    "title": "The Carving on the Tree That Left No Cross",
+    "topic": "The Lost Colony of Roanoke"
+  }
+}
