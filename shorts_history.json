@@ -340,5 +340,18 @@
     "words": 82,
     "duration_seconds": 38.97,
     "publish_at": "2026-10-21T16:00:00+00:00"
+  },
+  {
+    "date": "2026-10-20",
+    "episode_id": "_GiJtC4rNV4",
+    "angle": "When civilian searchers descended into Victorio Peak, they found modern electrical wiring and military rations instead of gold, fueling theories of covert removal that official records cannot prove.",
+    "title": "The Military Rations Inside Victorio Peak",
+    "video_id": "nEx5uBQss8A",
+    "privacy": "scheduled",
+    "uploaded_at": "2026-10-20T18:11:47+00:00",
+    "hook": "Sealed caverns should not contain fresh wiring.",
+    "words": 90,
+    "duration_seconds": 43.53,
+    "publish_at": "2026-10-21T23:30:00+00:00"
   }
 ]
