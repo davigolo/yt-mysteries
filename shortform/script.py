@@ -5,6 +5,7 @@ from difflib import SequenceMatcher
 
 from longform.gemini import Gemini
 from longform.script import Script, review_packaging
+from longform.series import microniche_scope
 
 CTA_LINE = "Watch the full investigation, linked right here."
 
@@ -14,6 +15,7 @@ Audience: {audience}. Tone: deep, cinematic true-crime documentary narrator; {to
 The Short is a teaser for this long-form episode already published on the channel:
 Episode title: "{title}"
 Case: "{topic}"
+{series_rule}
 Episode narration (the ONLY source of facts you may use):
 <episode>
 {narration}
@@ -23,6 +25,8 @@ Angles already used in previous Shorts of this episode (pick a DIFFERENT cliffha
 Titles already used on the channel (your title must NOT reuse their wording or main noun phrase): {used_titles}
 
 {insights}
+Treat individual best or worst episodes as limited observations, not universal formulas or retention guarantees.
+Use relevant feedback to improve this angle's clarity within the episode's microniche, not to change its subject.
 {revision}
 
 Write ONE Short of {min_words}-{max_words} spoken words INCLUDING the CTA and loop (target {target_seconds} seconds;
@@ -30,8 +34,10 @@ NEVER exceed {max_words} words), split into {min_beats}-{max_beats} beats.
 Each beat is 3-10 words of narration (about 1-3 seconds on screen) with ONE visual. Structure:
 1. Hook (beat 1, max 8 words): a scroll-stopping, concrete statement or quote that opens a question. No greetings, no
    context, no dates, never "In", "On", "Imagine" or "This is". Its visual is the most striking image of the Short.
-   Strongest when it breaks something the viewer already believes about the case. The next beat confirms what the
-   title promises and raises the stakes with a bigger promise.
+   State a source-verifiable anomaly about a tangible object, message or recorded observation, not generic dread.
+   A contradiction must be documented, not invented to sound impossible. The next beat gives evidence that confirms
+   the title's promise; raise a further question only if supported by the episode. Defer names and biography unless
+   needed to understand the clue.
 2. Development (middle half): follow ONE person, object or message. Use at most two unfamiliar proper names.
    Every beat adds information needed for this angle; no inventory of unrelated eerie details or long setup.
 3. Payoff (before the last two beats): deliver the specific verified detail promised by the title. Explain what makes
@@ -91,6 +97,8 @@ class ShortScript:
     beats: list[Beat]
     hashtags: list[str] = field(default_factory=list)
     thumbnail_text: str = ""
+    microniche: str = ""
+    series_id: str = ""
 
     @property
     def words(self) -> int:
@@ -155,6 +163,7 @@ def generate_short(
             **config["channel"],
             title=episode.title,
             topic=episode.topic,
+            series_rule=microniche_scope(episode.microniche) if episode.microniche else "",
             narration=narration,
             used_angles="; ".join(used_angles[-20:]) or "none",
             used_titles="; ".join(used_titles[-40:]) or "none",
@@ -178,6 +187,8 @@ def generate_short(
             beats=beats,
             hashtags=[str(h) for h in data.get("hashtags", [])][:5],
             thumbnail_text=data.get("thumbnail_text") or data["title"],
+            microniche=episode.microniche,
+            series_id=episode.series_id,
         )
         print(f"Short: {script.words} palabras, {len(beats)} beats\nÁngulo: {script.angle}")
         if not (
@@ -196,10 +207,14 @@ def generate_short(
             continue
         review = review_packaging(
             gemini, script.title, script.thumbnail_text, "\n".join(b.narration for b in beats), narration,
+            short=True,
         )
-        if not review["narration_supported"] or not review["promise_delivered"]:
-            revision = f"Fix the source or promised-payoff issue from the previous draft: {review.get('issue', '')}"
-            print(f"Short rechazado por fuentes o promesa, se regenera: {revision}")
+        if not review["narration_supported"] or not review["promise_delivered"] or not review["opening_valid"]:
+            revision = (
+                "Fix the source, promised-payoff or opening issue from the previous draft: "
+                f"{review.get('issue') or 'deliver a verified anomaly in the hook and substantiate the title in beat two'}"
+            )
+            print(f"Short rechazado por fuentes, promesa o apertura, se regenera: {revision}")
             continue
         script.title = review["title"].strip()
         script.thumbnail_text = review["thumbnail_text"].strip()

@@ -1,8 +1,12 @@
 import json
-import random
+import re
 from dataclasses import dataclass, field
+from uuid import uuid4
 
 from longform.gemini import Gemini
+from longform.series import (
+    MICRONICHES, Series, active_series, choose_series, microniche_scope, neighbor_microniches, series_rule,
+)
 
 FORMATS = {
     "disappearance": "An unsolved disappearance of a person, group, ship or aircraft.",
@@ -33,9 +37,40 @@ Rules:
 - Do NOT repeat any of these published topics: {history}
 
 {insights}
+{availability}
+{revision}
+
+The locked microniche is mandatory. If you cannot find a suitable, documented, unused case inside it, return
+exhausted=true with a specific reason instead of inventing evidence, repeating a case or changing the microniche.
 
 Return ONLY JSON:
-{{"topic": "case name in 3-8 words", "angle": "one sentence with the new, specific angle that a viewer has not seen in other videos about this case", "country": "ISO 3166 alpha-2 code of the country where the case happened, e.g. US"}}"""
+{{"exhausted": false, "exhaustion_reason": "", "microniche": "the locked microniche id", "topic": "case name in 3-8 words, empty if exhausted", "angle": "one sentence with the new, specific angle that a viewer has not seen in other videos about this case", "country": "ISO 3166 alpha-2 country code, e.g. US"}}"""
+
+AVAILABILITY_PROMPT = """Search the web for suitable UNUSED cases for this locked documentary microniche:
+{series_rule}
+Country requirement: {country_rule}
+Already covered cases (exclude the same incident under any alternative name): {history}
+
+Find up to three DISTINCT real cases with core events before 1990, enough documented evidence for a full investigation
+and a genuinely new concrete angle. Exclude central figures who are minors, sexual violence, accusations against living
+unconvicted people and cases outside the locked boundaries. Give source links and explain how each fits.
+If you cannot find one, explain the specific evidence or scope limitation. Do not claim to have proved that no case exists.
+Do not silently widen the microniche or invent a case to fill the quota."""
+
+TOPIC_FIT_PROMPT = """Check a proposed documentary against its researched dossier.
+{series_rule}
+Country requirement: {country_rule}
+Proposed case: {topic}
+Proposed angle: {angle}
+Already covered cases (including other names for the same incident): {history}
+Dossier:
+{dossier}
+
+Return eligible=true ONLY if the dossier supports the core premise and shows this is a distinct, unused case inside the
+locked microniche and country requirement. Its events must be before 1990, central figures must not be minors, and it
+must not revolve around sexual violence or accuse a living unconvicted person. A token mention of a note, vessel or
+expedition does not make an unrelated case fit. Do not invent a missing clue or unresolved fate to make it fit.
+Return ONLY JSON: {{"eligible": true, "reason": "specific explanation"}}"""
 
 RESEARCH_PROMPT = """Research this real case using web search: "{topic}".
 Angle of the episode: {angle}
@@ -55,8 +90,10 @@ HOOK_RULES = """The cold open has 40-60 words TOTAL, split into 3-5 short scenes
      instant question. NEVER start with a date, a year, "In", "On", "Back in", "Imagine" or background context.
      The first scene contains ONLY that sentence. Use a documented contradiction, not a vague claim of impossibility.
      Good: "Ten letters carved in stone have beaten the men who broke Enigma."
-  2. Within the next two scenes, show the actual evidence behind {title_promise}. Give the viewer one verified detail
-     immediately, rather than a list of things you will reveal later.
+  2. Within the first 50 spoken words (about 20 seconds at 150 words per minute), show the actual evidence behind
+     {title_promise} AND the title you return. Identify the tangible object, message or recorded observation and what
+     is unusual about it. Give one source-supported detail now, not just a promise to reveal it later.
+     Defer names, dates and biography unless essential to understanding that evidence.
   3. State ONE clear question raised by that evidence, then move straight into investigating it.
   No greetings, channel name, trailer montage, title-card announcement, "in this video", "let's dive in",
   "to understand why" or "we must go back". Do not restart the story after the opening.
@@ -73,6 +110,9 @@ Write the full narration of an episode about "{topic}" ({angle}), using ONLY fac
 Channel feedback to apply to this narration, not just the topic selection:
 {insights}
 Treat Shorts examples as hypotheses about clarity and curiosity, not proof that a long documentary will retain viewers.
+Treat individual best or worst episodes as limited observations, not universal formulas or guarantees of improvement.
+Apply relevant feedback within the locked microniche; a weaker opening is not a reason to change the series.
+{series_rule}
 {revision}
 
 Length: about {target_words} words in total (12-14 minutes). Structure:
@@ -131,6 +171,12 @@ Narration:
 <narration>
 {narration}
 </narration>
+Opening excerpt:
+<opening>
+{opening}
+</opening>
+Opening requirements for this format:
+{opening_rule}
 
 Check that:
 1. Every factual statement in the narration is supported by the source, and disputed claims remain attributed.
@@ -138,6 +184,13 @@ Check that:
 2. The narration delivers exactly what the title and the thumbnail text promise, without exaggeration.
 3. Title and thumbnail text speak to the viewer's curiosity about the case, not about tools or the channel (no AI).
 4. Both are specific and tangible: a concrete detail that feels new, never a generic statement.
+5. The opening meets ALL the format requirements above. Check the returned title and thumbnail too, not just the
+   original packaging. No greeting, channel introduction, empty suspense or unnecessary names, dates or biography.
+   The investigation must continue after the hook, not restart with a second introduction or chronological rewind.
+Set opening_valid=false if the evidence or title connection is delayed, the anomaly is unsupported or the opening
+needs rewriting. A title correction alone must not conceal a weak opening. In issue, identify the missing evidence
+or delayed promise and give a concrete narration revision. Never invent evidence, amplify uncertainty into
+impossibility, withhold the promised detail for a click or prescribe engagement tricks.
 If the narration is unsupported, set narration_supported=false and explain what must change. Do not hide that by
 rewriting the title. If only the packaging fails, return corrected packaging that the narration fully delivers.
 Always return a title of at most 60 characters, no colon, never "The Mystery of"; thumbnail text of 2-4 words that
@@ -146,7 +199,7 @@ no text or recognizable real faces. Set promise_delivered=true only if the narra
 specific promise. For a Short, that detail must be delivered BEFORE the final CTA; otherwise set promise_delivered=false.
 
 Return ONLY JSON:
-{{"narration_supported": true, "promise_delivered": true, "issue": "empty if no problem, otherwise the problem in one sentence", "title": "...", "thumbnail_text": "...", "thumbnail_prompt": "aligned image idea, or empty for Shorts"}}"""
+{{"narration_supported": true, "promise_delivered": true, "opening_valid": true, "issue": "empty if no problem, otherwise the problem and concrete narration fix", "title": "...", "thumbnail_text": "...", "thumbnail_prompt": "aligned image idea, or empty for Shorts"}}"""
 
 MIN_WORDS = 1300
 
@@ -178,6 +231,9 @@ class Script:
     hashtags: list[str] = field(default_factory=list)
     country: str = ""
     watch_next: dict = field(default_factory=dict)
+    microniche: str = ""
+    series_id: str = ""
+    series_reason: str = ""
 
     @property
     def words(self) -> int:
@@ -193,47 +249,13 @@ class Script:
         return Script(**data)
 
 
-UNDERPERFORMING_WEIGHT = 0.7
-MIN_SERIES_BEFORE_EARLY_ROTATION = 3
-
-
-def _streak(recent_formats: list[str]) -> int:
-    count = 0
-    for name in reversed(recent_formats):
-        if name != recent_formats[-1]:
-            break
-        count += 1
-    return count
-
-
-def _pick_format(recent_formats: list[str], weights: dict[str, float], series_length: int = 1) -> str:
-    recent_formats = [f for f in recent_formats if f in FORMATS]
-    if recent_formats:
-        current, streak = recent_formats[-1], _streak(recent_formats)
-        underperforming = streak >= MIN_SERIES_BEFORE_EARLY_ROTATION and weights.get(current, 1.0) < UNDERPERFORMING_WEIGHT
-        if streak < series_length and not underperforming:
-            return current
-    options = [f for f in FORMATS if f not in recent_formats[-1:]] or list(FORMATS)
-    return random.choices(options, weights=[weights.get(f, 1.0) for f in options])[0]
-
-
-def _series_rule(history: list[dict], video_format: str) -> str:
-    series = []
-    for entry in reversed(history):
-        if entry.get("format") != video_format:
-            break
-        series.append(entry["topic"])
-    if not series:
-        return ""
-    return (
-        "This episode continues the channel's current series. Pick a case that the same viewer who watched these would "
-        f"click next (same kind of mystery, same audience), without repeating them: {'; '.join(reversed(series))}"
-    )
-
-
-def _watch_next(history: list[dict], video_format: str) -> dict:
+def _watch_next(history: list[dict], series: Series) -> dict:
     published = [h for h in history if h.get("video_id")]
-    related = [h for h in published if h.get("format") == video_format] or published
+    related = (
+        [h for h in published if h.get("series_id") == series.series_id and h.get("microniche") == series.microniche]
+        or [h for h in published if h.get("microniche") == series.microniche]
+        or [h for h in published if not h.get("microniche") and h.get("format") == MICRONICHES[series.microniche]["format"]]
+    )
     if not related:
         return {}
     pick = related[-1]
@@ -253,13 +275,25 @@ def _watch_next_rule(watch_next: dict) -> str:
 
 def review_packaging(
     gemini: Gemini, title: str, thumbnail_text: str, narration: str, source: str, thumbnail_prompt: str = "",
+    *, short: bool = False,
 ) -> dict:
+    opening = "\n".join(narration.splitlines()[:2]) if short else " ".join(narration.split()[:50])
+    opening_rule = (
+        "The first beat is at most 8 words and states a concrete, source-verifiable anomaly, not generic suspense. "
+        "The next beat provides evidence connecting it to the title, not a larger unsupported promise. "
+        "The specific payoff must arrive before the final CTA and loop; the Short must stand on its own."
+        if short else
+        "Within the first 50 spoken words, identify the tangible evidence and deliver a source-supported detail "
+        "that substantiates the title's central promise. This word budget estimates 20 seconds at 150 words per "
+        "minute; it is not measured audio timing. Do not accept a promise of later evidence as delivery."
+    )
     data = json.loads(gemini.json(PACKAGING_PROMPT.format(
         title=title, thumbnail_text=thumbnail_text, thumbnail_prompt=thumbnail_prompt, narration=narration, source=source,
+        opening=opening, opening_rule=opening_rule,
     ), temperature=0.3))
-    if not all(isinstance(data.get(key), bool) for key in ("narration_supported", "promise_delivered")):
-        raise RuntimeError("La revisión no ha confirmado las fuentes y la entrega de la promesa")
-    if not data["narration_supported"] or not data["promise_delivered"]:
+    if not all(isinstance(data.get(key), bool) for key in ("narration_supported", "promise_delivered", "opening_valid")):
+        raise RuntimeError("La revisión no ha confirmado las fuentes, la promesa y la apertura")
+    if not data["narration_supported"] or not data["promise_delivered"] or not data["opening_valid"]:
         return data
     corrected_title, corrected_text = data.get("title"), data.get("thumbnail_text")
     if (
@@ -298,29 +332,95 @@ def _country_rule(history: list[dict], focus: str = "") -> str:
     )
 
 
-def generate_script(config: dict, history: list[dict], insights: str = "", weights: dict[str, float] | None = None) -> Script:
+def _pick_case(
+    gemini: Gemini, config: dict, history: list[dict], insights: str, series: Series, episodes: list[dict],
+) -> tuple[Series, dict, str, list[dict]]:
+    settings = config["script"]["microniche"]
+    current = active_series(history)
+    previous = current[-1]["microniche"] if current else None
+    origin = previous or series.microniche
+    candidates = [series.microniche] + [
+        name for name in neighbor_microniches(origin, history, episodes, settings)
+        if name != previous and name != series.microniche
+    ]
+    covered = "; ".join(h["topic"] for h in history) or "none"
+    country_rule = _country_rule(history, config["script"].get("country_focus", ""))
+    normalized = {re.sub(r"\W+", " ", h["topic"]).strip().casefold() for h in history}
+    transition_reason = ""
+    for name in candidates:
+        selected = series if name == series.microniche else Series(name, uuid4().hex, transition_reason)
+        scope = series_rule(name, history)
+        availability, revision, confirmed_exhausted = "", "", False
+        for _ in range(3):
+            pick = json.loads(gemini.json(TOPIC_PROMPT.format(
+                **config["channel"], format_rule=FORMATS[MICRONICHES[name]["format"]],
+                series_rule=scope, insights=insights, country_rule=country_rule, history=covered,
+                availability=availability, revision=revision,
+            ), temperature=0.8))
+            if not isinstance(pick.get("exhausted"), bool):
+                raise RuntimeError("El selector de temas no ha indicado si encontró un caso válido")
+            if pick["exhausted"]:
+                reason = str(pick.get("exhaustion_reason") or "").strip()
+                if not reason:
+                    raise RuntimeError("El selector declaró agotamiento sin explicar el motivo")
+                if not availability:
+                    evidence, evidence_sources = gemini.grounded(AVAILABILITY_PROMPT.format(
+                        series_rule=scope, country_rule=country_rule, history=covered,
+                    ))
+                    if not evidence.strip() or not evidence_sources:
+                        raise RuntimeError("No hay fuentes de búsqueda para justificar abandonar el micronicho")
+                    availability = f"Web search for unused cases; evaluate these findings before giving up:\n{evidence}"
+                    print(f"Se revisa la disponibilidad de casos de {name} con fuentes antes de cambiar")
+                    continue
+                transition_reason = (
+                    f"Adjacent pivot from {origin}: no suitable unused case was found in {name} "
+                    f"even after a sourced search: {reason}"
+                )
+                print(f"Cambio editorial de micronicho: {transition_reason}")
+                confirmed_exhausted = True
+                break
+            topic = pick.get("topic")
+            if (
+                pick.get("microniche") != name or not isinstance(topic, str) or not topic.strip()
+                or re.sub(r"\W+", " ", topic).strip().casefold() in normalized
+                or not isinstance(pick.get("angle"), str) or not pick["angle"].strip()
+                or (config["script"].get("country_focus") and pick.get("country") != config["script"]["country_focus"])
+            ):
+                revision = "Return a distinct unused case, the exact locked microniche id and the required country code."
+                print(f"Tema fuera de las reglas de la serie {name}; se vuelve a seleccionar")
+                continue
+            try:
+                dossier, sources = gemini.grounded(RESEARCH_PROMPT.format(**pick))
+            except RuntimeError as e:
+                print(f"Búsqueda web de Gemini no disponible ({e.__cause__}); se investiga sin ella")
+                dossier = gemini.text(RESEARCH_PROMPT.replace("using web search", "from your knowledge").format(**pick))
+                sources = []
+            fit = json.loads(gemini.json(TOPIC_FIT_PROMPT.format(
+                series_rule=scope, country_rule=country_rule, topic=topic, angle=pick["angle"],
+                history=covered, dossier=dossier,
+            ), temperature=0.2))
+            if not isinstance(fit.get("eligible"), bool):
+                raise RuntimeError("No se ha confirmado el encaje del caso con el micronicho")
+            if fit["eligible"]:
+                return selected, pick, dossier, sources
+            revision = f'Reject "{topic}" and choose another case. Dossier-based scope check: {fit.get("reason", "")}'
+            print(f"Caso rechazado para {name}: {revision}")
+        if not confirmed_exhausted:
+            raise RuntimeError(f"No se encontró un caso válido para {name}; eso no demuestra que el micronicho esté agotado")
+    raise RuntimeError("No se encontraron casos adecuados en el micronicho ni en sus vecinos; se requiere revisión editorial")
+
+
+def generate_script(
+    config: dict, history: list[dict], insights: str = "", episode_performance: list[dict] | None = None,
+) -> Script:
     gemini = Gemini(config["script"]["models"])
     channel = config["channel"]
-    video_format = _pick_format(
-        [h.get("format", "") for h in history], weights or {}, config["script"].get("series_length", 1),
-    )
-    watch_next = _watch_next(history, video_format)
-
-    pick = json.loads(gemini.json(TOPIC_PROMPT.format(
-        **channel,
-        format_rule=FORMATS[video_format],
-        series_rule=_series_rule(history, video_format),
-        insights=insights,
-        country_rule=_country_rule(history, config["script"].get("country_focus", "")),
-        history="; ".join(h["topic"] for h in history[-300:]) or "none",
-    ), temperature=1.0))
-    print(f"Formato: {video_format}\nTema: {pick['topic']}\nÁngulo: {pick['angle']}")
-
-    try:
-        dossier, sources = gemini.grounded(RESEARCH_PROMPT.format(**pick))
-    except RuntimeError as e:
-        print(f"Búsqueda web de Gemini no disponible ({e.__cause__}); se investiga sin ella")
-        dossier, sources = gemini.text(RESEARCH_PROMPT.replace("using web search", "from your knowledge").format(**pick)), []
+    episodes = episode_performance or []
+    series = choose_series(history, episodes, config["script"]["microniche"])
+    series, pick, dossier, sources = _pick_case(gemini, config, history, insights, series, episodes)
+    video_format = MICRONICHES[series.microniche]["format"]
+    watch_next = _watch_next(history, series)
+    print(f"Micronicho: {series.microniche}\nDecisión: {series.reason}\nTema: {pick['topic']}\nÁngulo: {pick['angle']}")
     print(f"Investigación: {len(dossier.split())} palabras, {len(sources)} fuentes")
 
     revision = ""
@@ -334,6 +434,7 @@ def generate_script(config: dict, history: list[dict], insights: str = "", weigh
             hook_rules=HOOK_RULES.replace("{title_promise}", "the single most intriguing concrete detail of the case"),
             watch_next_rule=_watch_next_rule(watch_next),
             insights=insights or "No eligible analytics yet. Do not invent performance claims.",
+            series_rule=microniche_scope(series.microniche),
             revision=revision,
         ), temperature=0.8))
         chapters = [Chapter("", _scenes(data["cold_open"]))]
@@ -351,6 +452,9 @@ def generate_script(config: dict, history: list[dict], insights: str = "", weigh
             hashtags=[str(h) for h in data.get("hashtags", [])][:5],
             country=str(pick.get("country", "")).upper()[:2],
             watch_next=watch_next,
+            microniche=series.microniche,
+            series_id=series.series_id,
+            series_reason=series.reason,
         )
         print(f"Guion: {script.words} palabras (~{script.words / 150:.1f} min), {len(script.chapters) - 1} capítulos")
         cold_words = sum(len(s.narration.split()) for s in chapters[0].scenes)
@@ -374,12 +478,12 @@ def generate_script(config: dict, history: list[dict], insights: str = "", weigh
             review = review_packaging(
                 gemini, script.title, script.thumbnail_text, narration, source, script.thumbnail_prompt,
             )
-            if review["narration_supported"] and review["promise_delivered"]:
+            if review["narration_supported"] and review["promise_delivered"] and review["opening_valid"]:
                 script.title = review["title"].strip()
                 script.thumbnail_text = review["thumbnail_text"].strip()
                 script.thumbnail_prompt = review["thumbnail_prompt"].strip()
                 return script
-            issues.append(f"Source or promise issue: {review.get('issue', 'check the source material and payoff')}")
+            issues.append(f"Source, promise or opening issue: {review.get('issue') or 'check the evidence, opening and payoff'}")
         revision = "Fix these problems from the previous draft:\n" + "\n".join(issues)
         print(f"Guion rechazado; se regenera: {revision}")
     raise RuntimeError(f"Gemini no generó un episodio válido: {revision}")

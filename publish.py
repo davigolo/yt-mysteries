@@ -33,7 +33,10 @@ def main() -> None:
     )
     overrides = {"selfDeclaredMadeForKids": False, "containsSyntheticMedia": config["upload"]["contains_synthetic_media"]}
     limit = config["publish"]["max_per_run"]
-    published = publish_due(youtube, episodes, statuses, after_hours, overrides, limit, dry_run=args.dry_run)
+    published = publish_due(
+        youtube, episodes, statuses, after_hours, overrides, limit, dry_run=args.dry_run,
+        weekdays=config["publish"]["episode_weekdays"], tz=config["publish"]["timezone"],
+    )
     published += publish_due(
         youtube, shorts, statuses, after_hours, overrides, limit - published, requires="episode_id", dry_run=args.dry_run,
     )

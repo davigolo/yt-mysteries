@@ -9,6 +9,7 @@ import yaml
 from longform.insights import build_short_insights, fetch_performance
 from longform.schedule import next_slot
 from longform.script import Script
+from longform.series import active_series
 from longform.visuals import VisualSource
 from longform.voice import remaining_characters, synthesize
 from main import _load_env
@@ -27,7 +28,8 @@ WORKDIR = ROOT / "build"
 
 
 def _pick_episode(history: list[dict], shorts_history: list[dict], window: int, max_per_episode: int) -> str | None:
-    published = [h["video_id"] for h in history if h.get("video_id") and (EPISODES / f"{h['video_id']}.json").exists()]
+    entries = active_series(history) or history
+    published = [h["video_id"] for h in entries if h.get("video_id") and (EPISODES / f"{h['video_id']}.json").exists()]
     if not published:
         raise RuntimeError("No hay episodios publicados con guion en episodes/ para promocionar")
     candidates = published[-window:]
@@ -36,9 +38,18 @@ def _pick_episode(history: list[dict], shorts_history: list[dict], window: int, 
     return min(open_candidates, key=lambda v: counts[v]) if open_candidates else None
 
 
-def _short_insights(shorts_history: list[dict]) -> str:
+def _short_insights(shorts_history: list[dict], episode: Script) -> str:
     try:
-        return build_short_insights(fetch_performance(shorts_history, min_views=0))
+        performance = fetch_performance(shorts_history, min_views=0)
+        if episode.microniche:
+            own = build_short_insights([s for s in performance if s.get("microniche") == episode.microniche])
+            if own:
+                return f"SHORTS FROM THIS MICRONICHE:\n{own}"
+        general = build_short_insights(performance)
+        return (
+            "Channel-wide storytelling examples only; do not change this episode's microniche:\n" + general
+            if general else ""
+        )
     except Exception as e:
         print(f"Sin estadísticas de Shorts ({type(e).__name__}: {e}); se genera sin ellas")
         return ""
@@ -77,7 +88,7 @@ def main() -> None:
             config, episode_id, episode,
             used_angles=[s["angle"] for s in previous],
             used_titles=[s["title"] for s in shorts_history],
-            insights=_short_insights(shorts_history),
+            insights=_short_insights(shorts_history, episode),
         )
     (WORKDIR / "short_script.json").write_text(script.to_json(), encoding="utf-8")
     print(f"Título: {script.title}")
@@ -128,7 +139,7 @@ def main() -> None:
     schedule = config["upload"].get("schedule")
     episode_entry = next((h for h in history if h.get("video_id") == script.episode_id), {})
     publish_at = next_slot(
-        schedule["short_slots"], schedule["timezone"], schedule["min_hours"],
+        schedule["short_slots"], config["publish"]["timezone"], schedule["min_hours"],
         [s.get("publish_at") for s in shorts_history], not_before=episode_entry.get("publish_at"),
     ) if schedule else None
     video_id = upload_short(video, thumbnail, title, description, script.tags, script.episode_id, playlists, config, publish_at)
@@ -139,6 +150,8 @@ def main() -> None:
         "title": script.title, "video_id": video_id, "privacy": privacy,
         "uploaded_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "hook": script.beats[0].narration, "words": script.words, "duration_seconds": timeline.total,
+        **({"pipeline_revision": config["reporting"]["rollout_id"]} if not reused else {}),
+        **({"microniche": script.microniche, "series_id": script.series_id} if script.microniche else {}),
         **({"publish_at": publish_at.isoformat(timespec="seconds")} if publish_at else {}),
     }
     entry.update(_publish_social(video, script, shorts))

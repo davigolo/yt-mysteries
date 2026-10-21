@@ -1,0 +1,54 @@
+name: Channel report
+
+on:
+  schedule:
+    - cron: "17 11 * * *"
+  workflow_dispatch:
+    inputs:
+      since:
+        description: "Fecha inicial del lote nuevo (YYYY-MM-DD, fecha de publicación en Pacífico)"
+        type: string
+        default: ""
+
+permissions:
+  contents: read
+
+concurrency:
+  group: channel-report
+  cancel-in-progress: false
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - run: pip install -r requirements.txt
+
+      - name: Read channel analytics
+        env:
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          REPORT_SINCE: ${{ inputs.since }}
+        run: |
+          if [ -n "$REPORT_SINCE" ]; then
+            python scripts/channel_report.py --since "$REPORT_SINCE"
+          else
+            python scripts/channel_report.py
+          fi
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: channel-report
+          path: build/channel_report.json
+          retention-days: 30
+          if-no-files-found: error

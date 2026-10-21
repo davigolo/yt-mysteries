@@ -14,7 +14,18 @@ RAW_URL = "https://raw.githubusercontent.com/davigolo/yt-mysteries/main"
 EDIT_URL = "https://studio.youtube.com/video/{}/edit"
 LABEL_RE = "/(v[ií]deo relacionado|related video)/i"
 
-FIELD_READY = "() => [...document.querySelectorAll('.label-text')].some(e => %s.test(e.textContent))" % LABEL_RE
+IDENTITY_CHALLENGE = r"""() => {
+  if (location.hostname === 'accounts.google.com' && location.pathname.includes('/challenge/')) {
+    return 'Google solicita verificar la identidad';
+  }
+  const text = document.body?.innerText || '';
+  const match = text.match(/(?:verifica|verificar|confirma|confirmar|comprueba|comprobar)\s+(?:que\s+eres\s+t[úu]|tu\s+identidad)|(?:verify|confirm)\s+(?:it['’]?s\s+you|your\s+identity)/i);
+  return match ? match[0] : '';
+}"""
+
+FIELD_READY = "() => (%s)() || [...document.querySelectorAll('.label-text')].some(e => %s.test(e.textContent))" % (
+    IDENTITY_CHALLENGE, LABEL_RE,
+)
 
 OPEN_PICKER = """async () => {
   for (let i = 0; i < 40; i++) {
@@ -32,22 +43,25 @@ OPEN_PICKER = """async () => {
 
 OPEN_DIALOG = """async () => {
   const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const identityChallenge = %s;
   const label = [...document.querySelectorAll('.label-text')].find(e => %s.test(e.textContent));
   const trigger = label.closest('ytcp-dropdown-trigger');
   trigger.scrollIntoView();
   trigger.click();
   for (let i = 0; i < 20; i++) {
     await sleep(500);
+    if (identityChallenge()) return false;
     if ([...document.querySelectorAll('ytcp-video-pick-dialog #inner-dialog')].some(d => d.offsetParent !== null)) {
       await sleep(2000);
       return true;
     }
   }
   return false;
-}""" % LABEL_RE
+}""" % (IDENTITY_CHALLENGE, LABEL_RE)
 
 CHOOSE = """async (title) => {
   const sleep = ms => new Promise(r => setTimeout(r, ms));
+  const identityChallenge = %s;
   const norm = s => s.trim().toLowerCase();
   const dialog = [...document.querySelectorAll('ytcp-video-pick-dialog #inner-dialog')].find(d => d.offsetParent !== null);
   const card = dialog && [...dialog.querySelectorAll('ytcp-entity-card')]
@@ -60,6 +74,7 @@ CHOOSE = """async (title) => {
   save.click();
   for (let i = 0; i < 20; i++) {
     await sleep(500);
+    if (identityChallenge()) return 'verificación de identidad requerida';
     if (save.getAttribute('aria-disabled') === 'true') return 'ok';
   }
   const dialogs = [...document.querySelectorAll('tp-yt-paper-dialog, ytcp-dialog, ytcp-confirmation-dialog, [role="dialog"], [role="alert"]')]
@@ -67,7 +82,31 @@ CHOOSE = """async (title) => {
     .map(d => d.innerText.replace(/\\s+/g, ' ').trim())
     .filter(Boolean);
   return 'no se confirmó el guardado' + (dialogs.length ? ' | diálogo: ' + dialogs.join(' / ').slice(0, 300) : '');
-}"""
+}""" % IDENTITY_CHALLENGE
+
+
+class IdentityVerificationRequired(RuntimeError):
+    pass
+
+
+def _check_identity(page) -> None:
+    try:
+        challenge = page.evaluate(IDENTITY_CHALLENGE)
+    except PlaywrightError:
+        return
+    if challenge:
+        raise IdentityVerificationRequired(
+            f"{challenge}. Se detienen los enlaces pendientes. Abre YouTube Studio manualmente con la cuenta del canal "
+            "y completa la verificación; si es necesario, renueva la sesión mediante el procedimiento autorizado. "
+            "Después vuelve a ejecutar con --days N para incluir los Shorts pendientes."
+        )
+
+
+def _positive_days(value: str) -> int:
+    days = int(value)
+    if days <= 0:
+        raise argparse.ArgumentTypeError("--days debe ser mayor que 0")
+    return days
 
 
 def _load(name: str, remote: bool = False) -> list[dict]:
@@ -85,15 +124,19 @@ def _recent(shorts: list[dict], days: int) -> list[dict]:
 
 
 def _pick(page, title: str) -> str:
-    if not page.evaluate(OPEN_DIALOG):
+    opened = page.evaluate(OPEN_DIALOG)
+    _check_identity(page)
+    if not opened:
         return "no se abrió el selector"
     result = page.evaluate(CHOOSE, title)
+    _check_identity(page)
     if result.startswith("episodio no encontrado"):
         search = page.locator("ytcp-video-pick-dialog #search-yours").first
         search.click()
         search.press_sequentially(title, delay=20)
         page.wait_for_timeout(3000)
         result = page.evaluate(CHOOSE, title)
+        _check_identity(page)
     return result
 
 
@@ -101,8 +144,10 @@ def _linked_after_reload(page, video_id: str, title: str) -> bool:
     try:
         page.goto(EDIT_URL.format(video_id), wait_until="load", timeout=60000)
         page.wait_for_function(FIELD_READY, timeout=45000)
+        _check_identity(page)
         state = page.evaluate(OPEN_PICKER)
     except PlaywrightError:
+        _check_identity(page)
         return False
     return state["found"] and title.lower() in state["current"].lower()
 
@@ -114,7 +159,7 @@ def main() -> None:
     session.add_argument("--profile", type=Path, help="Perfil persistente de Chrome con la sesión del canal (ejecución en local)")
     parser.add_argument("--remote", action="store_true", help="Lee el historial de GitHub en vez del repo local")
     parser.add_argument("--login", action="store_true", help="Abre Studio con --profile para iniciar sesión y termina")
-    parser.add_argument("--days", type=int, default=7, help="Revisa los Shorts de los últimos N días")
+    parser.add_argument("--days", type=_positive_days, default=7, help="Revisa los Shorts de los últimos N días (mayor que 0)")
     parser.add_argument("--headed", action="store_true", help="Muestra el navegador (depuración local)")
     args = parser.parse_args()
 
@@ -160,9 +205,11 @@ def main() -> None:
                     try:
                         page.goto(EDIT_URL.format(short["video_id"]), wait_until="load", timeout=60000)
                         page.wait_for_function(FIELD_READY, timeout=45000)
+                        _check_identity(page)
                         state = page.evaluate(OPEN_PICKER)
                         break
                     except PlaywrightError as e:
+                        _check_identity(page)
                         error = e.message.splitlines()[0]
                 if state is None:
                     print(f"{short['video_id']}: error de navegador ({error}) en {page.url[:70]}")
@@ -182,6 +229,9 @@ def main() -> None:
                     result = "Studio confirmó el guardado pero al recargar no aparece"
                 print(f"{short['video_id']} -> {title}: {result}")
                 failures += not result.startswith("ok")
+        except IdentityVerificationRequired as e:
+            print(f"{short['video_id']}: ERROR: {e}", file=sys.stderr)
+            failures += 1
         finally:
             if args.state:
                 context.storage_state(path=str(args.state))

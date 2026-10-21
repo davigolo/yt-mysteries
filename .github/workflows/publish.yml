@@ -12,6 +12,10 @@ on:
         description: "Solo mostrar qué se publicaría"
         type: boolean
         default: false
+      days:
+        description: "Ventana de Shorts a enlazar en días (entero mayor que 0; amplíala para recuperar pendientes)"
+        type: string
+        default: "7"
 
 permissions:
   contents: read
@@ -35,12 +39,14 @@ jobs:
       - run: pip install -r requirements.txt playwright==1.63.0
 
       - uses: actions/cache/restore@v4
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
         with:
           path: .studio/state.enc
           key: studio-state-${{ github.run_id }}
           restore-keys: studio-state-
 
       - name: Load YouTube Studio session
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
         env:
           STUDIO_STATE: ${{ secrets.STUDIO_STATE }}
           STUDIO_STATE_KEY: ${{ secrets.STUDIO_STATE_KEY }}
@@ -54,15 +60,18 @@ jobs:
 
       - name: Link Shorts to their episode (related video)
         id: related
+        if: ${{ !(github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
         continue-on-error: true
-        run: python scripts/link_related_videos.py --state .studio/state.json
+        env:
+          RELATED_DAYS: ${{ github.event_name == 'workflow_dispatch' && inputs.days || '7' }}
+        run: python scripts/link_related_videos.py --state .studio/state.json --days "$RELATED_DAYS"
 
       - name: Warn if Shorts could not be linked
         if: steps.related.outcome == 'failure'
-        run: echo "::warning::Algún Short no se pudo enlazar a su episodio; revisa el log del paso anterior"
+        run: echo "::warning::Fallaron enlaces de Shorts; revisa el log y completa manualmente cualquier verificación de identidad en Studio. Se intentará la publicación legacy, pero el job terminará en fallo."
 
       - name: Save YouTube Studio session
-        if: always()
+        if: ${{ always() && !(github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
         env:
           STUDIO_STATE_KEY: ${{ secrets.STUDIO_STATE_KEY }}
         run: |
@@ -71,7 +80,7 @@ jobs:
           rm -f .studio/state.json
 
       - uses: actions/cache/save@v4
-        if: always()
+        if: ${{ always() && !(github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
         with:
           path: .studio/state.enc
           key: studio-state-${{ github.run_id }}
@@ -84,3 +93,9 @@ jobs:
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && '--dry-run' || '' }}
         run: python publish.py $DRY_RUN
+
+      - name: Fail if related video linking failed
+        if: ${{ always() && steps.related.outcome == 'failure' }}
+        run: |
+          echo "::error::No se confirmaron todos los enlaces de Shorts. Revisa el paso de enlaces; si Studio pide verificar tu identidad, complétalo manualmente y reintenta con una ventana days suficiente."
+          exit 1

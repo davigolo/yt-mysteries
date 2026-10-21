@@ -1,6 +1,9 @@
 from datetime import datetime, timedelta, timezone
+from zoneinfo import ZoneInfo
 
 from googleapiclient.errors import HttpError
+
+from longform.schedule import publication_days
 
 WRITABLE_STATUS = ("embeddable", "license", "publicStatsViewable", "selfDeclaredMadeForKids", "containsSyntheticMedia")
 BROKEN_UPLOAD = {"failed", "rejected", "deleted"}
@@ -44,8 +47,12 @@ def make_public(youtube, video_id: str, status: dict, overrides: dict, dry_run: 
 def publish_due(
     youtube, entries: list[dict], statuses: dict[str, dict], after_hours: float, overrides: dict,
     limit: int, requires: str | None = None, dry_run: bool = False,
+    weekdays: list[int] | None = None, tz: str = "UTC",
 ) -> int:
     now = datetime.now(timezone.utc)
+    if now.astimezone(ZoneInfo(tz)).weekday() not in publication_days(weekdays):
+        print(f"Esperando al siguiente día permitido de publicación ({tz})")
+        return 0
     published = 0
     for entry in sorted(entries, key=_uploaded_at):
         video_id = entry["video_id"]

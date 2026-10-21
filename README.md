@@ -6,7 +6,8 @@ Hermano de `yt-autoshorts`, reutiliza la misma idea de pipeline:
 **Gemini** (tema → investigación → guion por capítulos) → **ElevenLabs** (voz con tiempos por carácter) →
 **Wikimedia Commons** (imágenes reales de archivo, con licencia libre) + **Pexels** (b-roll) + **Magnific** (reconstrucciones IA
 y miniatura) → **ffmpeg** (1920x1080, Ken Burns, rótulos de capítulo, etalonaje, música con ducking) →
-**YouTube Data API** (vídeo + miniatura + subtítulos SRT + capítulos en la descripción) → **GitHub Actions** (L/X/V 15:37 UTC).
+**YouTube Data API** (vídeo + miniatura + subtítulos SRT + capítulos en la descripción) → **GitHub Actions** (generación D/M/J
+15:37 UTC; publicación L/X/V a las 19:00 de Nueva York).
 
 ## Probar en local (recomendado antes de activar el cron)
 
@@ -54,15 +55,22 @@ activan el upscaler de Magnific para las fotos de archivo de baja resolución.
 ## Publicación programada a hora de EE. UU.
 
 El público principal es estadounidense, así que cada vídeo se sube en **privado con `publishAt`** y YouTube lo publica él
-solo a la hora exacta, sin depender de los cron de GitHub (que se retrasan hasta 4-5 h). Configuración en `upload.schedule`:
+solo a la hora exacta, sin depender de los cron de GitHub (que se retrasan hasta 4-5 h). Franjas y margen en
+`upload.schedule`; zona horaria y días de episodio en `publish`:
 
-- Franjas en `America/New_York` (con horario de verano automático): episodios a las 19:00 y Shorts a las 12:00 y 19:30.
+- Zona `publish.timezone: America/New_York`, con horario de verano automático. Episodios a las 19:00 exclusivamente
+  lunes, miércoles y viernes (`publish.episode_weekdays: [0, 2, 4]`; lunes = 0); Shorts todos los días a las 12:00 y 19:30.
+- Actions genera los largos domingo, martes y jueves para preparar su publicación al día siguiente. Si una ejecución
+  llega tarde, se elige el siguiente día permitido; no se publica en martes, jueves o fin de semana para recuperar el retraso.
 - Siempre al menos `min_hours` (22 h) después de la subida, para que YouTube procese el vídeo antes, y nunca dos vídeos en
   la misma franja: se busca la siguiente libre a partir de `publish_at` en `history.json` y `shorts_history.json`.
 - Un Short siempre sale al menos 30 min después de su episodio.
 - Para no usarla, quita `upload.schedule`: se vuelve a subir en oculto (`upload.privacy`) y `publish.py` lo pasa a público
-  al día siguiente (13:17, 15:37, 18:17 y 23:17 UTC, máximo `publish.max_per_run` por franja). `publish.yml` lo sigue
+  cuando cumple el margen y, para episodios, el día permitido (13:17, 15:37, 18:17 y 23:17 UTC,
+  máximo `publish.max_per_run` por franja). `publish.yml` lo sigue
   ejecutando para los vídeos antiguos en oculto y para enlazar los Shorts con su episodio.
+- La vía de vídeos antiguos en oculto también respeta los días de episodio en la zona de `publish.timezone`.
+  Las fechas ya programadas en YouTube no cambian retroactivamente al editar la configuración.
 - Para cancelar una publicación programada, quita la fecha en Studio o borra el vídeo.
 
 - `.venv/bin/python publish.py --dry-run` muestra qué se publicaría sin cambiar nada.
@@ -114,9 +122,10 @@ días y baja `max_ai_images` si hace falta.
 
 Aplicado de "9 errores que el algoritmo de YouTube odia" (Mario Ruiz):
 
-- **Micronicho, no caos de temas**: el formato se mantiene `script.series_length` (6) episodios seguidos y el selector de
-  temas recibe los casos de la serie actual para elegir uno que haga clic el mismo espectador. Rota antes si, con 3
-  episodios o más, las analíticas dan al formato un peso < 0,7.
+- **Micronicho, no caos de temas**: el canal mantiene una promesa concreta para el mismo espectador, no solo una categoría
+  amplia como «desapariciones». No cambia automáticamente al llegar a seis episodios. El selector y el escritor reciben
+  los límites del micronicho y los casos ya cubiertos; el dossier se revisa antes de escribir para rechazar casos fuera
+  de alcance o repeticiones del mismo incidente con otro nombre.
 - **Ángulo, no temas vagos**: el caso debe aportar un ángulo nuevo; los casos muy trillados solo valen con una prueba o
   documento poco conocido.
 - **Personalidad en un canal faceless**: el narrador tiene carácter (`channel.host`) y da su opinión en primera persona una
@@ -129,11 +138,57 @@ Aplicado de "9 errores que el algoritmo de YouTube odia" (Mario Ruiz):
   Si detecta afirmaciones sin respaldo o una promesa sin entregar, se regenera el guion con ese feedback, hasta tres
   intentos; una revisión inválida detiene la generación antes de gastar en voz o imágenes. Esta revisión automática no
   sustituye la comprobación humana de fuentes.
+- **Apertura revisada**: escritor y revisor comprueban una prueba tangible y la promesa del título en las primeras
+  50 palabras de los largos, difieren nombres y fechas innecesarios y rechazan un reinicio después del gancho. Es una
+  aproximación editorial al objetivo de los primeros 20 segundos, no una medición del audio. En Shorts, el gancho
+  tiene como máximo ocho palabras y el segundo beat entrega evidencia de la anomalía. `opening_valid` es obligatorio
+  en ambos revisores; una apertura rechazada devuelve feedback para regenerar el guion.
 - **Impacto de sesión**: la última frase enlaza con el episodio anterior de la misma serie, que va también como
   "Watch next" en la descripción, y el vídeo termina con `video.end_screen_seconds` (20) de cola para la **pantalla final**.
   La API no permite crearla: el log indica qué vídeo poner en Studio.
 - **Aprender rápido**: las estadísticas que recibe Gemini marcan los vídeos con retención < 40 % (problema de gancho o
   guion). El CTR (< 5 % = problema de título/miniatura) no está en la API de Analytics: revísalo en Studio tras 3-4 vídeos.
+
+## Continuidad de micronichos
+
+`longform/series.py` define cuatro promesas editoriales acotadas y sus vecinos:
+
+| Micronicho | Qué mantiene unido cada episodio |
+|---|---|
+| `last-messages` | Desapariciones reconstruidas a partir de una última nota, comunicación, diario o inscripción real |
+| `empty-vessels` | Barcos o aeronaves recuperados sin su tripulación y con una desaparición sin resolver |
+| `lost-expeditions` | Expediciones desaparecidas investigadas mediante sus campamentos, equipo o diarios recuperados |
+| `missing-prospectors` | Buscadores de minas o tesoros desaparecidos que dejaron un mapa, campamento o pertenencias |
+
+- El arranque editorial es `script.microniche.initial: last-messages`, manteniendo el enfoque en EE. UU. No se presenta
+  como un ganador estadístico. Los episodios antiguos conservan sus datos: no se les atribuye retroactivamente un
+  micronicho sin revisar el caso.
+- Cada episodio nuevo guarda `microniche`, `series_id` y `series_reason` en su guion y en `history.json`. El último bloque
+  etiquetado es la serie activa. Generar una prueba o usar `--no-upload` no cambia esa serie: se consolida al subir el
+  episodio y guardar el historial. Los guiones antiguos siguen siendo compatibles.
+- La revisión usa bloques de cuatro episodios, no una fecha de caducidad. Para un cambio por deterioro hacen falta
+  **ocho episodios públicos y maduros de la misma serie, cada uno con al menos 100 vistas**: los cuatro últimos deben
+  estar todos por debajo del 40% visto y su media debe caer al menos un 25% respecto a los cuatro anteriores, cuya media
+  debía alcanzar el 40%. Sin datos suficientes, con datos sanos o con una caída aislada, se continúa. Estos umbrales son
+  heurísticas editoriales configurables, no reglas conocidas del algoritmo ni prueba de causalidad.
+- Si el selector dice que no encuentra otro caso, se hace una búsqueda web con fuentes y se vuelve a evaluar dentro
+  de los mismos límites antes de considerar un cambio. Un primer fallo, una respuesta inválida o una búsqueda sin
+  fuentes no autorizan saltar de tema. No se inventan casos para completar una cuota; si tampoco hay candidatos adecuados
+  en los vecinos permitidos, la ejecución se detiene para revisión editorial.
+- Los cambios solo van a micronichos vecinos, priorizando sus señales maduras cuando existen y evitando volver
+  inmediatamente al que se acaba de abandonar. No se elige al azar entre todos los formatos.
+- El aprendizaje prioriza los episodios y Shorts de la serie activa. Si todavía no hay señales elegibles, las del resto
+  del canal se presentan únicamente como hipótesis de narrativa, nunca como permiso para salir del micronicho.
+- «Watch next» y la recomendación final priorizan la misma serie y después el mismo micronicho. En el arranque solo puede
+  usarse un episodio antiguo sin etiqueta del mismo formato como alternativa; no se enlaza otro micronicho etiquetado
+  solo por compartir formato. Cada episodio nuevo se añade también a una playlist estable de su micronicho.
+- Los Shorts automáticos promocionan exclusivamente el bloque activo y guardan sus identificadores. Si todos sus
+  episodios alcanzaron el máximo de Shorts, esperan en vez de rellenar con temas de series anteriores. `--episode`
+  sigue permitiendo una elección manual explícita.
+
+La continuidad busca facilitar que un espectador quiera ver el siguiente episodio. No garantiza más recomendaciones:
+hay que seguir revisando en Studio impresiones, CTR, retención y tráfico entre vídeos, sin confundir una caída de alcance
+con el agotamiento de un micronicho.
 
 ## Aprendizaje de las analíticas
 
@@ -150,9 +205,9 @@ ni considera maduros los programados o privados. Los días se comparan en la zon
   Muestra hasta tres ejemplos con retención >=75%, dos de rendimiento en suscriptores y tres con retención <60%;
   no llama ganador a un Short solo porque haya recibido más distribución. Incluye título, ángulo o gancho, duración media
   vista y suscriptores; los Shorts nuevos guardan también el gancho, las palabras y la duración real en el historial.
-- **Casos y formatos**: requieren al menos dos Shorts elegibles por caso; muestran mediana de vistas y retención ponderada
-  por vistas interesadas. Con dos casos por formato, su calidad media pondera la elección de formato. El resultado de un
-  Short no se presenta como prueba de retención del episodio ni como conversión medida entre ambos.
+- **Casos**: requieren al menos dos Shorts elegibles por caso; muestran mediana de vistas y retención ponderada por
+  vistas interesadas. Sirven para aprender de los ángulos y no para forzar una rotación entre formatos. El resultado de
+  un Short no se presenta como prueba de retención del episodio ni como conversión medida entre ambos.
 - **Límites del diagnóstico**: sin impresiones, CTR o tasa de deslizamiento no se atribuyen pocas vistas al título o
   miniatura. `engagedViews / views` tampoco equivale a la tasa de personas que decidieron ver frente a deslizar.
 - El selector de temas prioriza casos con **un detalle tangible e inquietante** (un código, una última nota, un objeto, un
@@ -161,6 +216,30 @@ ni considera maduros los programados o privados. Los días se comparan en la zon
 Las subidas se reintentan desde cero hasta 3 veces si YouTube corta la sesión resumible (410/5xx), para no dejar vídeos
 vacíos en el canal. `publish.py` avisa (`::warning::`) de los vídeos que siguen sin procesar o que han fallado.
 
+El [roadmap de mejora](ROADMAP.md) recoge las prioridades, las métricas de partida y los criterios para revisar el
+siguiente lote de 3–4 publicaciones maduras.
+
+### Seguimiento automático del despliegue
+
+`Channel Report` genera un informe diario a las 11:17 UTC y permite ejecución manual desde Actions. Solo consulta
+YouTube: no genera contenido, no gasta créditos de IA ni cambia vídeos. Guarda `build/channel_report.json` como
+artefacto y un resumen en la ejecución, con periodos de 28 y 90 días, corte disponible, muestras y formatos separados.
+Consulta también la curva de retención de los largos a los 30 y 60 segundos cuando hay datos.
+
+`reporting` identifica el lote de mejora iniciado el 21 de octubre de 2026. Los vídeos generados desde este despliegue
+guardan `pipeline_revision` en el historial; los ya programados y los guiones reutilizados no se etiquetan
+retroactivamente. La revisión del lote requiere la etiqueta coincidente, publicación desde `reporting.since` y
+madurez y muestra suficientes; espera cuatro piezas por formato (`reporting.batch_size`) antes de cerrar el lote.
+No mezcla el rendimiento de vídeos anteriores con el de las nuevas aperturas.
+
+Las impresiones, CTR y tasa de deslizamiento siguen requiriendo revisión en Studio. El informe no inventa esos valores
+ni atribuye conversiones entre Shorts y largos. Si aún no hay suficientes vídeos nuevos maduros, lo indica.
+
+```bash
+.venv/bin/python scripts/channel_report.py
+.venv/bin/python scripts/channel_report.py --since 2026-10-21 --no-retention
+```
+
 ## Políticas de YouTube a tener en cuenta
 
 - `containsSyntheticMedia: true` va siempre activado (voz IA + reconstrucciones).
@@ -168,16 +247,18 @@ vacíos en el canal. `publish.py` avisa (`::warning::`) de los vídeos que sigue
   en la descripción (CC BY / CC BY-SA lo exigen).
 - El selector de temas evita casos con menores, violencia sexual o acusaciones a personas vivas no condenadas, y el guion no
   describe violencia explícita, para no caer en "contenido no apto para la mayoría de anunciantes".
-- Para no ser marcado como contenido "producido en masa", conviene revisar los primeros episodios y variar formatos (`FORMATS` en
-  `longform/script.py`); el pipeline aprende de las analíticas del canal (ver *Aprendizaje de las analíticas*).
+- Conviene revisar los episodios y aportar evidencia, ángulos y narración distintos dentro de la serie, en lugar de
+  publicar versiones casi idénticas o cambiar de formato por calendario. Mantener un micronicho no convierte el contenido
+  repetitivo en original ni garantiza cumplir las políticas de monetización.
 
 ## Shorts del canal (2 al día)
 
 `short.py` genera Shorts verticales con un objetivo de 40 s que promocionan los episodios ya publicados; `.github/workflows/shorts.yml`
 los sube a las 13:17 y 18:17 UTC (GitHub los suele lanzar con 4-5 h de retraso).
 
-- Elige el episodio con menos Shorts de los 5 últimos (uno recién publicado tiene prioridad) y Gemini escribe un teaser
-  con un ángulo nuevo usando **solo los hechos del guion del episodio** (`episodes/<video_id>.json`, que `main.py` guarda al subir).
+- Elige el episodio con menos Shorts de los 5 últimos **de la serie activa** (uno recién publicado tiene prioridad).
+  Antes de existir series etiquetadas conserva la selección anterior. Gemini escribe un teaser con un ángulo nuevo usando
+  **solo los hechos del guion del episodio** (`episodes/<video_id>.json`, que `main.py` guarda al subir).
 - Máximo `shorts.max_per_episode` (5) Shorts por caso, para no saturar con el mismo caso. Si todos los episodios
   recientes están completos, la ejecución no genera nada y espera al siguiente episodio.
 - El título no puede parecerse a ninguno ya publicado en el canal (`shorts.title_similarity`, 0,75 con `difflib`): si se
@@ -201,13 +282,20 @@ los sube a las 13:17 y 18:17 UTC (GitHub los suele lanzar con 4-5 h de retraso).
   `scripts/link_related_videos.py` lo pone automáticamente desde YouTube Studio con un Chrome sin ventana en GitHub Actions:
   lo ejecuta `publish.yml` antes de pasar nada a público, sobre los Shorts de los últimos 7 días (los ya enlazados se saltan).
   Si Studio no confirma el guardado, recarga la página para comprobar si se guardó y, si no, deja en el log el texto de
-  cualquier diálogo visible. Un fallo de este paso deja un aviso en la ejecución, pero no la marca como fallida.
+  cualquier diálogo visible. Un fallo de enlaces marca la ejecución como fallida al terminar, aunque se ejecuta la
+  publicación de vídeos antiguos en oculto. Si aparece «Verifica que eres tú», se detiene el lote: no tiene sentido
+  repetir el guardado en todos los Shorts sin resolver primero la verificación.
   - La sesión de Studio es la del secret `STUDIO_STATE` (cookies de Google/YouTube, gzip + base64). Tras cada ejecución
     se guarda renovada y cifrada (`STUDIO_STATE_KEY`, AES-256) en la caché de Actions, así que no depende de ningún equipo.
-  - Si la sesión caduca, el paso falla (aviso en la ejecución) pero la publicación sigue. Para renovarla: inicia sesión
+  - Si la sesión caduca, la ejecución falla pero la publicación de vídeos antiguos se intenta igualmente. Para renovarla: inicia sesión
     en un Chrome con perfil vacío y Unsolved Archives activo, exporta las cookies de google.com/youtube.com con Playwright
     (`storage_state`) y súbelas con `gzip -9c state.json | base64 -w0 | gh secret set STUDIO_STATE`; borra la caché
     `studio-state-*` en Actions → Caches.
+  - Una verificación adicional de Google requiere intervención del propietario. Renovar cookies no garantiza que
+    desaparezca ese desafío en un runner distinto. No se intenta eludirlo.
+  - Para recuperar pendientes antiguos, el workflow manual `Publish` acepta `days` (por defecto 7, siempre positivo).
+    La ejecución con `dry_run` no accede a Studio ni renueva su sesión.
+    En local: `.venv/bin/python scripts/link_related_videos.py --profile /ruta/al/perfil --remote --days 30`.
   - Requiere las funciones avanzadas del canal activadas (verificación ya hecha).
 
 ```bash

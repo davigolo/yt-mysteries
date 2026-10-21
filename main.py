@@ -7,12 +7,11 @@ from pathlib import Path
 
 import yaml
 
-from longform.insights import (
-    build_case_insights, build_insights, build_short_insights, case_format_weights, case_performance, fetch_performance,
-)
+from longform.insights import build_series_insights, fetch_performance
 from longform.schedule import next_slot
 from longform.render import build_voice_track, render, write_ass, write_srt
 from longform.script import Script, generate_script
+from longform.series import microniche_playlist
 from longform.thumbnail import create_thumbnail
 from longform.upload import build_description, hashtags, upload
 from longform.visuals import VisualSource
@@ -56,24 +55,22 @@ def main() -> None:
     if reused:
         script = reused
     else:
-        insights, weights = "", {}
+        insights, episodes = "", []
         try:
             shorts_history = _load(SHORTS_HISTORY)
             performance = fetch_performance(history + shorts_history, min_views=0)
             episode_ids = {e["video_id"] for e in history if e.get("video_id")}
             episodes = [e for e in performance if e["video_id"] in episode_ids]
             shorts = [e for e in performance if e.get("episode_id")]
-            cases = case_performance(history, episodes, shorts)
-            insights = "\n\n".join(filter(None, [
-                build_insights(episodes), build_case_insights(cases), build_short_insights(shorts),
-            ]))
-            weights = case_format_weights(cases)
-            print(f"Estadísticas: {len(episodes)} episodios y {len(shorts)} Shorts con datos, pesos por formato {weights}")
+            insights = build_series_insights(history, episodes, shorts)
+            print(f"Estadísticas: {len(episodes)} episodios y {len(shorts)} Shorts con datos")
         except Exception as e:
             print(f"Sin estadísticas ({type(e).__name__}: {e}); se genera sin ellas")
-        script = generate_script(config, history, insights, weights)
+        script = generate_script(config, history, insights, episode_performance=episodes)
     (WORKDIR / "script.json").write_text(script.to_json(), encoding="utf-8")
     print(f"Título: {script.title}\nGuion guardado en build/script.json")
+    if script.microniche:
+        print(f"Serie: {script.microniche} ({script.series_id})\nMotivo: {script.series_reason}")
     if script.watch_next:
         print(f"Pantalla final: añade en Studio https://youtu.be/{script.watch_next['video_id']} ({script.watch_next['title']})")
     if args.script_only:
@@ -120,9 +117,12 @@ def main() -> None:
         return
     playlists = config["playlists"]["episodes"]
     targets = [p for p in (playlists.get("all"), playlists.get(script.format)) if p]
+    if script.microniche:
+        targets.append(microniche_playlist(script.microniche))
     schedule = config["upload"].get("schedule")
     publish_at = next_slot(
-        schedule["episode_slots"], schedule["timezone"], schedule["min_hours"], [h.get("publish_at") for h in history],
+        schedule["episode_slots"], config["publish"]["timezone"], schedule["min_hours"],
+        [h.get("publish_at") for h in history], weekdays=config["publish"]["episode_weekdays"],
     ) if schedule else None
     video_id = upload(video, thumbnail, captions, script.title, description, script.tags, targets, config, publish_at)
     privacy = "scheduled" if publish_at else config["upload"]["privacy"]
@@ -134,6 +134,10 @@ def main() -> None:
         "date": date.today().isoformat(), "format": script.format, "topic": script.topic,
         "title": script.title, "video_id": video_id, "privacy": privacy, "country": script.country,
         "uploaded_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        **({"pipeline_revision": config["reporting"]["rollout_id"]} if not reused else {}),
+        **({
+            "microniche": script.microniche, "series_id": script.series_id, "series_reason": script.series_reason,
+        } if script.microniche else {}),
         **({"publish_at": publish_at.isoformat(timespec="seconds")} if publish_at else {}),
     })
     HISTORY.write_text(json.dumps(history, ensure_ascii=False, indent=2), encoding="utf-8")

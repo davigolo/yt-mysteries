@@ -12,7 +12,12 @@ script:
     - "gemini-flash-latest"
   target_words: 1900
   chapters: 6
-  series_length: 6
+  microniche:
+    initial: "last-messages"
+    review_after: 4
+    min_episode_views: 100
+    retention_floor: 40
+    min_relative_drop: 0.25
   country_focus: "US"
 
 voice:
@@ -57,7 +62,6 @@ music:
 upload:
   privacy: "unlisted"
   schedule:
-    timezone: "America/New_York"
     min_hours: 22
     episode_slots: ["19:00"]
     short_slots: ["12:00", "19:30"]
@@ -67,8 +71,15 @@ upload:
   max_hashtags: 5
 
 publish:
+  timezone: "America/New_York"
+  episode_weekdays: [0, 2, 4]
   after_hours: 22
   max_per_run: 1
+
+reporting:
+  rollout_id: "retention-2026-10-21"
+  since: "2026-10-21"
+  batch_size: 4
 
 playlists:
   episodes:

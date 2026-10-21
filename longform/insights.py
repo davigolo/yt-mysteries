@@ -5,9 +5,9 @@ from zoneinfo import ZoneInfo
 from googleapiclient.discovery import build
 
 from longform.upload import credentials
+from longform.series import active_series
 
 MIN_VIDEOS_FOR_INSIGHTS = 2
-MIN_VIDEOS_PER_FORMAT = 2
 MIN_VIEWS = 100
 MIN_EPISODE_VIEWS = 20
 MIN_ENGAGED_VIEWS = 50
@@ -170,20 +170,6 @@ def build_case_insights(cases: list[dict]) -> str:
     return "\n".join(lines)
 
 
-def case_format_weights(cases: list[dict]) -> dict[str, float]:
-    by_format: dict[str, list[float]] = {}
-    for case in cases:
-        by_format.setdefault(case.get("format", ""), []).append(case["quality"])
-    if not by_format:
-        return {}
-    overall = mean(v for values in by_format.values() for v in values) or 1
-    return {
-        name: min(max(mean(values) / overall, 0.5), 2.0)
-        for name, values in by_format.items()
-        if len(values) >= MIN_VIDEOS_PER_FORMAT
-    }
-
-
 def _short_line(short: dict) -> str:
     evidence = short.get("hook") or short.get("angle", "")
     return (
@@ -217,3 +203,29 @@ def build_short_insights(shorts: list[dict]) -> str:
         "LOW RETENTION EXAMPLES:",
         *([_short_line(s) for s in worst] or ["No eligible Short below 60% viewed."]),
     ])
+
+
+def build_series_insights(history: list[dict], episodes: list[dict], shorts: list[dict]) -> str:
+    def combine(entries: list[dict], episode_rows: list[dict], short_rows: list[dict]) -> str:
+        return "\n\n".join(filter(None, [
+            build_insights(episode_rows),
+            build_case_insights(case_performance(entries, episode_rows, short_rows)),
+            build_short_insights(short_rows),
+        ]))
+
+    current = active_series(history)
+    if current:
+        ids = {e["video_id"] for e in current if e.get("video_id")}
+        own = combine(
+            current, [e for e in episodes if e["video_id"] in ids],
+            [s for s in shorts if s.get("episode_id") in ids],
+        )
+        if own:
+            return f'FEEDBACK FROM THE ACTIVE MICRONICHE: {current[-1]["microniche"]}\n{own}'
+    general = combine(history, episodes, shorts)
+    if not general:
+        return ""
+    return (
+        "Not enough eligible feedback from the active series yet. These channel-wide examples are only hypotheses "
+        "about storytelling, not permission to change the locked microniche:\n" + general
+    )
