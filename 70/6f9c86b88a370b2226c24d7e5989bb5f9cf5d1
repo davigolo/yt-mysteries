@@ -1,0 +1,102 @@
+short.py
+  s_7f010e2af756d0::t_901c177b27c8b8 153
+  s_7f010e2af756d0::t_62306efa3e9031 154
+  s_7f010e2af756d0::t_daa037611a28a4 12,31-32,41,43-52,91,142
+config.yaml
+  s_7f010e2af756d0::t_901c177b27c8b8 79-83
+  s_7f010e2af756d0::t_d6e1b100fc0175 15-20,74-75
+scripts/channel_report.py
+  s_06a08a4cea4f30::t_af8f00785c519e 15,33,61-76,148,161-162,182-183,186,188-190,198-201,214-215,232-234,243-244,262-263,309-310,340-341,369-381,403,408-411
+  s_06a08a4cea4f30::t_0ec31861c878e3 311,331,335-337
+  s_06a08a4cea4f30::t_a5b2dc9d7f3c0f 220-227,265-272,282,327-328,342-344
+  s_06a08a4cea4f30::t_67dd2202303d83 1-14,16-32,34-60,77-147,149-160,163-181,184-185,187,191-197,202-213,216-219,228-231,235-242,245-261,264,273-281,283-308,312-326,329-330,332-334,338-339,345-368,382-402,404-407,412-426
+.github/workflows/channel-report.yml
+  s_06a08a4cea4f30::t_af8f00785c519e 11,41-47
+  s_06a08a4cea4f30::t_67dd2202303d83 1-10,12-40,48-54
+ROADMAP.md
+  s_7f010e2af756d0::t_13a9dbaf7aac81 55-91
+  s_4ae070e50d3321::t_c2ba6c631a1e3e 1-54,92-95
+README.md
+  s_7f010e2af756d0::t_13a9dbaf7aac81 222-242
+  s_4ae070e50d3321::t_259adfa0d04dad 9-10,58-59,61-64,69-70,72-73,125-128,141-145,152-192,208-210,219-221,250-252,259-261,285-287,290,294-298
+main.py
+  s_7f010e2af756d0::t_901c177b27c8b8 137
+  s_7f010e2af756d0::t_e6427ec45b0913 138-140
+  s_7f010e2af756d0::t_fef7f86b36596d 10,14,58,65-66,69,72-73,120-121,124-125
+.github/workflows/episode.yml
+  s_4ae070e50d3321::t_36350f1e2a35a9 5
+longform/publish.py
+  s_4ae070e50d3321::t_1d9e7548f02d85 2,6-7,50,53-55
+longform/schedule.py
+  s_4ae070e50d3321::t_af90c525c61d8c 12-19,22,25,32-34,37
+longform/script.py
+  s_032d3292d447d4::t_794cc977b855c9 2,4,7-9,40-44,47-73,93-96,113-115,174-179,187-193,202,234-236,252,254-258,278,280-289,292,294-296,335-415,418-423,437,455-457,481,486
+publish.py
+  s_4ae070e50d3321::t_e3c6416bcab9e1 36-39
+scripts/link_related_videos.py
+  s_26193860c5cb3e::t_0cb4d875744588 17-28,46,53,60,64,77,85-109,127-129,132,139,147,150,162,208,212,232-234
+shortform/script.py
+  s_032d3292d447d4::t_dd2027e9a222f8 8,18,28-29,37-40,100-101,166,190-191,210,212-217
+.github/workflows/publish.yml
+  s_7f010e2af756d0::t_5e9461c924a5d6 15-18,42,49,63,65-67,71,74,83,96-101
+longform/insights.py
+  s_3559532afe8c27::t_27cab1101f90a1 8,206-231
+longform/series.py
+  s_3559532afe8c27::t_9c356a3562404e 1-149
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "706f9c86b88a370b2226c24d7e5989bb5f9cf5d1",
+  "prompts": {},
+  "sessions": {
+    "s_032d3292d447d4": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "74b7e996-9db4-4832-9f5e-bfb2b9fce2e9",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    },
+    "s_06a08a4cea4f30": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "9d6196d3-3f08-4abc-9938-44abd71a3736",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    },
+    "s_26193860c5cb3e": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "0344fef2-7d5d-4b3b-b003-2ed7fd963acc",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    },
+    "s_3559532afe8c27": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "eb82bcf0-df69-418e-b542-d8c307ca71fc",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    },
+    "s_4ae070e50d3321": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "e76ed858-9ae4-4af9-910d-2554e3a62f26",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    },
+    "s_7f010e2af756d0": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "74a71bda-f769-4c27-a329-4eaa12f32c91",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
