@@ -366,5 +366,19 @@
     "words": 87,
     "duration_seconds": 38.09,
     "publish_at": "2026-10-22T16:00:00+00:00"
+  },
+  {
+    "date": "2026-10-21",
+    "episode_id": "_GiJtC4rNV4",
+    "angle": "Ground-penetrating radar originally built to scan Egyptian pyramids detected deep cavern voids beneath Victorio Peak that matched Doc Noss's forgotten 1938 cave sketches.",
+    "title": "The Lost Cavern Found by Pyramid Radar",
+    "video_id": "N7CuseRx2LU",
+    "privacy": "scheduled",
+    "uploaded_at": "2026-10-21T18:16:36+00:00",
+    "hook": "A pyramid radar matched a forgotten cave map.",
+    "words": 88,
+    "duration_seconds": 39.69,
+    "pipeline_revision": "retention-2026-10-21",
+    "publish_at": "2026-10-22T23:30:00+00:00"
   }
 ]
