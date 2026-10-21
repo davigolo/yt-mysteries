@@ -1,0 +1,21 @@
+ROADMAP.md
+  s_7f010e2af756d0::t_449561d69442aa 34-36,84,92-93,102-105
+  s_7f010e2af756d0::t_fad765d8e2dca7 83,85-86,94-101,106-107
+  s_7f010e2af756d0::t_ca89086aab7775 108-111
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "8f10e1bdd0dbab726e02d9367f7bb9e04f5d58ee",
+  "prompts": {},
+  "sessions": {
+    "s_7f010e2af756d0": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "74a71bda-f769-4c27-a329-4eaa12f32c91",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
