@@ -31,9 +31,9 @@ Prioridad inmediata:
 Aceptación: ninguna fecha nueva de episodio fuera de L/X/V en Nueva York; ninguna franja duplicada; cada enlace
 se confirma al recargar o deja un fallo explícito. Una simulación no modifica el canal.
 
-Bloqueo operativo: Google exige completar «Verifica que eres tú» para guardar los enlaces. La verificación debe hacerla
-el propietario; el código no la evita ni garantiza que exportar cookies elimine futuros desafíos. Tras verificar,
-recuperar los pendientes en lotes y comprobarlos en Studio.
+Incidencia inicial: Google pedía «Verifica que eres tú» al guardar desde el runner. Los enlaces pendientes se recuperaron
+desde la sesión local autorizada y se comprobaron después desde Actions. Si vuelve a aparecer un desafío en futuras
+subidas, la verificación debe hacerla el propietario; el código no la evita ni garantiza que exportar cookies lo elimine.
 
 ## Fase 2 — Aperturas y promesas
 
@@ -80,16 +80,35 @@ continuar dentro del micronicho activo salvo que se cumplan sus criterios de cam
 
 | Entrega | Estado |
 |---|---|
-| Calendario L/X/V y generación anticipada | Implementado localmente; comprobado sin publicar |
-| Detección de desafíos, fallo visible y recuperación por ventana | Implementado localmente; enlaces reales pendientes de verificación humana |
-| Aperturas revisadas en largos y Shorts | Implementado localmente; validado con respuestas simuladas |
-| Informe diario/manual y cohorte del despliegue | Implementado; sin generación pagada ni cambios al canal |
+| Calendario L/X/V y generación anticipada | Desplegado en `main` el 21/10; simulación de Actions correcta |
+| Detección de desafíos, fallo visible y recuperación por ventana | Desplegado; 34/34 Shorts de la ventana de 14 días confirmados en Studio |
+| Aperturas revisadas en largos y Shorts | Desplegado; se aplica a los nuevos guiones, no reescribe vídeos existentes |
+| Informe diario/manual y cohorte del despliegue | Activo; primera consulta real y artefacto de Actions correctos |
 | Evaluación del siguiente lote | Automatizada la recopilación; decisión pendiente de cuatro muestras elegibles por formato |
 
 El despliegue en `main` fue solicitado el 21 de octubre de 2026. Las fases 1 y 2 y la instrumentación de la fase 3
 se activan al subir el código; su comprobación operativa utiliza `Publish` en simulación y `Channel Report` real.
 No hace falta generar vídeos adicionales para comprobar el despliegue.
-Las publicaciones ya programadas no se reescriben retroactivamente; revisar las futuras antes del despliegue.
+Las publicaciones ya programadas no se reescriben retroactivamente. En la comprobación previa no había largos privados
+programados fuera del nuevo calendario; se conservaron las fechas de los Shorts pendientes.
+
+Comprobación del 21/10:
+
+- Código desplegado: `706f9c8`.
+- [Informe real correcto](https://github.com/davigolo/yt-mysteries/actions/runs/39581222564):
+  corte del 18/10 y cero vídeos maduros de la nueva cohorte, sin comparación prematura.
+- [Publicación en simulación correcta](https://github.com/davigolo/yt-mysteries/actions/runs/39581226198):
+  no accede a Studio, no renueva la sesión y no publica vídeos.
+- Recuperados los enlaces pendientes y confirmados tras recargar los 34 Shorts de la ventana de 14 días, incluidos
+  los programados para hoy y mañana. Sin cambiar títulos, privacidad ni fechas.
+- [Publicación real correcta](https://github.com/davigolo/yt-mysteries/actions/runs/39581824687):
+  Actions reconoce como ya enlazados los 14 Shorts de los últimos siete días; no publicó vídeos adicionales.
+- Los cuatro workflows están activos. La primera nueva franja de largo disponible desde este despliegue es el viernes
+  23 de octubre a las 19:00 de Nueva York; no se reduce el margen de 22 horas para forzar un estreno el miércoles.
+- Pantalla final del último episodio, *The Gold Cavern That Sparked a Secret Military Dig*: añadido el episodio
+  *The Carving on the Tree That Left No Cross* previsto en su guion y el elemento de suscripción durante los últimos
+  20 segundos. Guardado y comprobado tras recargar Studio. Las pantallas finales de futuros episodios siguen
+  requiriendo Studio; la API de subida no las crea.
 
 La fase 3 queda pendiente de publicaciones nuevas y datos maduros. No se presentará una mejora editorial como una mejora
 estadística hasta observarla.
