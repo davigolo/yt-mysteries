@@ -380,5 +380,19 @@
     "duration_seconds": 39.69,
     "pipeline_revision": "retention-2026-10-21",
     "publish_at": "2026-10-22T23:30:00+00:00"
+  },
+  {
+    "date": "2026-10-22",
+    "episode_id": "_GiJtC4rNV4",
+    "angle": "During the 1973 Watergate hearings, John Dean testified that the White House had secretly debated claims of billions in buried bullion under Victorio Peak, forcing the military to briefly open the gates to civilian searchers.",
+    "title": "The Watergate File on Desert Gold",
+    "video_id": "81IEXxHqHH4",
+    "privacy": "scheduled",
+    "uploaded_at": "2026-10-22T21:51:05+00:00",
+    "hook": "Watergate testimony exposed secret claims of desert gold.",
+    "words": 89,
+    "duration_seconds": 39.93,
+    "pipeline_revision": "retention-2026-10-21",
+    "publish_at": "2026-10-23T23:30:00+00:00"
   }
 ]
