@@ -1,0 +1,51 @@
+.github/workflows/episode.yml
+  s_31bbe00027c528::t_6632e8fd797453 23
+.github/workflows/shorts.yml
+  s_31bbe00027c528::t_beb6187972ac06 28
+README.md
+  s_31bbe00027c528::t_102ddd0a028eda 42,46-47,50,52,96,109-119
+ROADMAP.md
+  s_31bbe00027c528::t_d19df0d2523d25 115-131
+config.yaml
+  s_31bbe00027c528::t_85962d267f78ba 10-11,13,25-27,36,39,41,43-50,56-58,66,90-91,148,151,153,155,162-165
+episodes/Ly2Y_0gl5ho.json
+  s_31bbe00027c528::t_d7897c38077e3b 1-715
+history.json
+  s_31bbe00027c528::t_3faf24041a438b 66-80
+longform/magnific.py
+  s_31bbe00027c528::t_678fc2db5c5a5c 2,8,17,19-22,31,34,45,49,54-56,63-78,88-93,102-117
+longform/render.py
+  s_31bbe00027c528::t_890a552b163f74 195-205,216-219,290-292,295-299
+longform/script.py
+  s_31bbe00027c528::t_93ff72bf1f5478 3,25,119,206-209,267-269,279,435-436,470-488,490-492,507-512,515-517
+longform/thumbnail.py
+  s_31bbe00027c528::t_4b41e5e64fc2b1 1-3,9,15-26,46,50-52,54-55,72-112
+longform/visual_plan.py
+  s_31bbe00027c528::t_10c6d5366f20b9 42-44,49,72,145-148
+longform/visuals.py
+  s_31bbe00027c528::t_460665914888b0 7-8,33-37,56,75,106,114-176,210-211,366-367,370-380
+longform/voice.py
+  s_31bbe00027c528::t_f9470a7d22aca8 69,100-103
+main.py
+  s_31bbe00027c528::t_9d4f9ab33e993b 46-49,110-112,129-137
+shortform/render.py
+  s_31bbe00027c528::t_0737bb5958c8a0 9,153,178-181
+shortform/script.py
+  s_31bbe00027c528::t_972ad739e6b5cd 80-92,142-145,147-163,165-183,208,241-250
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "df5f0d0b5d479d07a2dc2f449ea17e4ff9643847",
+  "prompts": {},
+  "sessions": {
+    "s_31bbe00027c528": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "2505b57f-11c7-411d-9098-ddd804dc63e3",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
