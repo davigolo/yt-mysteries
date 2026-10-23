@@ -6,7 +6,7 @@ from pathlib import Path
 
 from longform.looks import film_look, mood_filter
 from longform.media import duration, run
-from longform.render import OVERSAMPLE, _image_filter, _ts
+from longform.render import OVERSAMPLE, _image_filter, _ts, animated_filter
 from longform.visuals import Visual
 from longform.voice import Word
 from shortform.script import Beat
@@ -150,7 +150,7 @@ def write_ass(beats: list[Beat], timeline: ShortTimeline, config: dict, out: Pat
 def plan_segments(visuals: list[Visual], timeline: ShortTimeline, max_seconds: float) -> list[Segment]:
     segments = []
     for visual, start, end in zip(visuals, timeline.beat_starts, timeline.beat_ends):
-        count = max(1, math.ceil((end - start) / max_seconds - 1e-6))
+        count = 1 if visual.animated else max(1, math.ceil((end - start) / max_seconds - 1e-6))
         step = (end - start) / count
         segments += [Segment(visual, start + k * step, start + (k + 1) * step) for k in range(count)]
     return segments
@@ -175,7 +175,10 @@ def _render_parts(segments: list[Segment], config: dict, workdir: Path) -> list[
         part = workdir / f"short_part_{i:03d}.mp4"
         same_image = i > 0 and segment.visual.path == segments[i - 1].visual.path
         repeats = repeats + 1 if same_image else 0
-        if segment.visual.is_video:
+        if segment.visual.animated:
+            inputs = ["-i", str(segment.visual.path)]
+            vf = animated_filter(duration(segment.visual.path), frames / fps, w, h, fps)
+        elif segment.visual.is_video:
             offset = random.uniform(0, max(duration(segment.visual.path) - frames / fps, 0))
             inputs = ["-ss", f"{offset:.3f}", "-stream_loop", "-1", "-i", str(segment.visual.path)]
             vf = f"setpts=PTS-STARTPTS,fps={fps},scale={w}:{h}:force_original_aspect_ratio=increase,crop={w}:{h},setsar=1"

@@ -1,5 +1,6 @@
 import json
 import re
+from pathlib import Path
 from dataclasses import dataclass, field
 from uuid import uuid4
 
@@ -21,7 +22,7 @@ Audience: {audience}. Language: {language}.
 Story type for the next episode: {format_rule}
 {series_rule}
 
-Pick ONE real, well-documented case for a 12-14 minute episode.
+Pick ONE real, well-documented case for a 15-18 minute episode.
 Rules:
 - The core events happened before 1990, so there is solid public documentation.
 - Do not pick cases whose central figures are minors or that revolve around sexual violence.
@@ -115,7 +116,7 @@ Apply relevant feedback within the locked microniche; a weaker opening is not a 
 {series_rule}
 {revision}
 
-Length: about {target_words} words in total (12-14 minutes). Structure:
+Length: about {target_words} words in total (about 16 minutes at 150 words per minute). Structure:
 - A cold open. {hook_rules}
 - Then exactly {chapters} chapters, each with a short evocative title (2-5 words).
 - Chapter 1 continues the opening investigation with the first concrete evidence; no second introduction or long
@@ -202,6 +203,10 @@ Return ONLY JSON:
 {{"narration_supported": true, "promise_delivered": true, "opening_valid": true, "issue": "empty if no problem, otherwise the problem and concrete narration fix", "title": "...", "thumbnail_text": "...", "thumbnail_prompt": "aligned image idea, or empty for Shorts"}}"""
 
 MIN_WORDS = 1300
+HARD_MIN_WORDS = 1100
+COLD_OPEN_WORDS = (40, 60)
+COLD_OPEN_HARD_WORDS = (30, 80)
+SCRIPT_ATTEMPTS = 4
 
 
 @dataclass
@@ -259,7 +264,9 @@ def _watch_next(history: list[dict], series: Series) -> dict:
     if not related:
         return {}
     pick = related[-1]
-    return {"video_id": pick["video_id"], "title": pick["title"], "topic": pick["topic"]}
+    episode = Path(__file__).parent.parent / "episodes" / f"{pick['video_id']}.json"
+    summary = json.loads(episode.read_text(encoding="utf-8")).get("description", "") if episode.exists() else ""
+    return {"video_id": pick["video_id"], "title": pick["title"], "topic": pick["topic"], "summary": summary[:600]}
 
 
 def _watch_next_rule(watch_next: dict) -> str:
@@ -269,6 +276,7 @@ def _watch_next_rule(watch_next: dict) -> str:
         f'- The very last scene (after the memorable line) is one sentence that bridges to another episode of the channel, '
         f'"{watch_next["title"]}" about {watch_next["topic"]}: connect it to what the viewer just felt and open a new '
         "question about it, without spoiling it (e.g. \"If this case stays with you, there is another file where ... \"). "
+        f'Use only facts from this summary of that episode: {watch_next.get("summary") or "none; mention only its subject"}. '
         "Never ask to subscribe or like."
     )
 
@@ -424,7 +432,8 @@ def generate_script(
     print(f"Investigación: {len(dossier.split())} palabras, {len(sources)} fuentes")
 
     revision = ""
-    for attempt in range(3):
+    fallback: Script | None = None
+    for attempt in range(SCRIPT_ATTEMPTS):
         data = json.loads(gemini.json(SCRIPT_PROMPT.format(
             **{**channel, "host": channel.get("host", "a calm, curious documentary narrator")},
             **pick,
@@ -458,16 +467,29 @@ def generate_script(
         )
         print(f"Guion: {script.words} palabras (~{script.words / 150:.1f} min), {len(script.chapters) - 1} capítulos")
         cold_words = sum(len(s.narration.split()) for s in chapters[0].scenes)
-        issues = []
-        if script.words < MIN_WORDS:
-            issues.append(f"The episode needs at least {MIN_WORDS} words; it had {script.words}.")
-        if not 40 <= cold_words <= 60 or not 3 <= len(chapters[0].scenes) <= 5:
-            issues.append(f"The cold open needs 40-60 words in 3-5 scenes; it had {cold_words} words.")
-        if chapters[0].scenes and len(chapters[0].scenes[0].narration.split()) > 12:
-            issues.append("The first scene must be a single hook of at most 12 words.")
+        cold_scenes = len(chapters[0].scenes)
+        hook_words = len(chapters[0].scenes[0].narration.split()) if chapters[0].scenes else 0
+        hard, soft = [], []
+        if script.words < HARD_MIN_WORDS:
+            hard.append(f"The episode needs at least {MIN_WORDS} words; it had {script.words}. Add verified detail, not filler.")
+        elif script.words < MIN_WORDS:
+            soft.append(f"The episode needs at least {MIN_WORDS} words; it had {script.words}. Add verified detail, not filler.")
+        cold_rule = (
+            f"The cold open needs {COLD_OPEN_WORDS[0]}-{COLD_OPEN_WORDS[1]} words in 3-5 scenes; "
+            f"it had {cold_words} words in {cold_scenes} scenes."
+        )
+        if not COLD_OPEN_HARD_WORDS[0] <= cold_words <= COLD_OPEN_HARD_WORDS[1] or not 2 <= cold_scenes <= 6:
+            hard.append(cold_rule)
+        elif not COLD_OPEN_WORDS[0] <= cold_words <= COLD_OPEN_WORDS[1] or not 3 <= cold_scenes <= 5:
+            soft.append(cold_rule)
+        if hook_words > 16:
+            hard.append(f"The first scene must be a single hook of at most 12 words; it had {hook_words}.")
+        elif hook_words > 12:
+            soft.append(f"The first scene must be a single hook of at most 12 words; it had {hook_words}.")
         if len(script.chapters) != config["script"]["chapters"] + 1:
-            issues.append(f"Use a cold open and exactly {config['script']['chapters']} nonempty chapters.")
-        if not issues:
+            hard.append(f"Use a cold open and exactly {config['script']['chapters']} nonempty chapters.")
+        issues = hard + soft
+        if not hard:
             narration = "\n".join(s.narration for c in script.chapters for s in c.scenes)
             source = dossier
             if watch_next:
@@ -482,8 +504,15 @@ def generate_script(
                 script.title = review["title"].strip()
                 script.thumbnail_text = review["thumbnail_text"].strip()
                 script.thumbnail_prompt = review["thumbnail_prompt"].strip()
-                return script
-            issues.append(f"Source, promise or opening issue: {review.get('issue') or 'check the evidence, opening and payoff'}")
+                if not soft:
+                    return script
+                if fallback is None or script.words > fallback.words:
+                    fallback = script
+            else:
+                issues.append(f"Source, promise or opening issue: {review.get('issue') or 'check the evidence, opening and payoff'}")
         revision = "Fix these problems from the previous draft:\n" + "\n".join(issues)
         print(f"Guion rechazado; se regenera: {revision}")
+    if fallback:
+        print(f"Se acepta el mejor guion revisado con desviaciones menores: {revision}")
+        return fallback
     raise RuntimeError(f"Gemini no generó un episodio válido: {revision}")

@@ -39,11 +39,14 @@ Narration units (index: text | writer's first visual idea):
      Brazilian cruzeiro banknotes). Every object, vehicle, garment and building must be authentic for the era and place:
      name the era on every object in the prompt (e.g. "a 1960s steel wristwatch") and keep the landscape and vegetation
      of the real place. Never illustrate a word metaphorically. No legible text, no faces, no gore.
+   - "motion": one short sentence of subtle, physically plausible motion if this still were animated for 5-10 seconds
+     (e.g. "slow push-in as fog drifts across the water and the lantern flame flickers"). Camera move plus ambient
+     movement only; people stay still or move slowly with their backs to the camera.
 
 Return ONLY JSON:
 {{"bible": {{"era": "...", "place": "...", "look": "...", "characters": [{{"id": "c1", "description": "..."}}]}},
   "anchors": [{{"id": "a1", "description": "detailed English image prompt of the location or object, with era-authentic details", "characters": ["c1"]}}],
-  "shots": [{{"i": 0, "source": "ai|reuse|stock|archive", "anchor": "a1", "also": [], "mood": "dread", "framing": "wide", "prompt": "...", "query": "..."}}]}}"""
+  "shots": [{{"i": 0, "source": "ai|reuse|stock|archive", "anchor": "a1", "also": [], "mood": "dread", "framing": "wide", "prompt": "...", "query": "...", "motion": "..."}}]}}"""
 
 PICK_PROMPT = """These are {count} candidate images (numbered 0 to {last} in order) for one shot of a documentary.
 Story: {context}. Era and place: {era}, {place}.
@@ -66,6 +69,7 @@ class Shot:
     query: str
     also: list[str] = field(default_factory=list)
     mood: str = ""
+    motion: str = ""
 
 
 @dataclass
@@ -138,7 +142,10 @@ def plan_visuals(
             source = "ai"
         also = [a for a in raw.get("also") or [] if a in anchor_ids and a != anchor][:2]
         mood = raw.get("mood") if raw.get("mood") in MOODS else ""
-        shots.append(Shot(source, anchor, raw.get("framing", "medium"), raw.get("prompt") or narrations[i], raw.get("query", ""), also, mood))
+        shots.append(Shot(
+            source, anchor, raw.get("framing", "medium"), raw.get("prompt") or narrations[i], raw.get("query", ""), also,
+            mood, str(raw.get("motion") or ""),
+        ))
     return VisualPlan(
         era=bible.get("era", ""), place=bible.get("place", ""), look=bible.get("look", ""),
         characters={c["id"]: c["description"] for c in bible.get("characters", []) if c.get("id") and c.get("description")},

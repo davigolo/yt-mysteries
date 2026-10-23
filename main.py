@@ -43,6 +43,10 @@ def main() -> None:
     parser.add_argument("--script-only", action="store_true", help="Solo genera build/script.json para revisarlo")
     parser.add_argument("--script", type=Path, help="Reutiliza un guion ya generado en vez de pedir uno nuevo")
     parser.add_argument("--preview", type=int, metavar="N", help="Renderiza solo las N primeras escenas, sin subir")
+    parser.add_argument(
+        "--publish-at", type=datetime.fromisoformat, metavar="ISO",
+        help="Fecha de estreno con zona horaria (p. ej. 2026-10-23T19:00:00-04:00); ignora el calendario automático",
+    )
     args = parser.parse_args()
 
     config = yaml.safe_load((ROOT / "config.yaml").read_text(encoding="utf-8"))
@@ -103,7 +107,9 @@ def main() -> None:
     render(visuals, timeline, chapter_of, voice_track, subtitles, config, WORKDIR, ROOT / "music", video)
     print(f"Vídeo generado: {video} ({timeline.total / 60:.1f} min)")
 
-    thumbnail = create_thumbnail(script.thumbnail_prompt, script.thumbnail_text, config, WORKDIR, WORKDIR / "thumbnail.jpg")
+    thumbnail = create_thumbnail(
+        script.thumbnail_prompt, script.thumbnail_text, config, WORKDIR, WORKDIR / "thumbnail.jpg", script.title,
+    )
     chapters = [(t, titles[i] or "Intro") for i, t in enumerate(timeline.chapter_starts)]
     description = build_description(
         script.description, chapters, script.sources, [v.credit for v in visuals if v.credit],
@@ -120,10 +126,15 @@ def main() -> None:
     if script.microniche:
         targets.append(microniche_playlist(script.microniche))
     schedule = config["upload"].get("schedule")
-    publish_at = next_slot(
-        schedule["episode_slots"], config["publish"]["timezone"], schedule["min_hours"],
-        [h.get("publish_at") for h in history], weekdays=config["publish"]["episode_weekdays"],
-    ) if schedule else None
+    if args.publish_at:
+        if args.publish_at.tzinfo is None or args.publish_at <= datetime.now(timezone.utc):
+            raise ValueError("--publish-at necesita zona horaria y una fecha futura")
+        publish_at = args.publish_at.astimezone(timezone.utc)
+    else:
+        publish_at = next_slot(
+            schedule["episode_slots"], config["publish"]["timezone"], schedule["min_hours"],
+            [h.get("publish_at") for h in history], weekdays=config["publish"]["episode_weekdays"],
+        ) if schedule else None
     video_id = upload(video, thumbnail, captions, script.title, description, script.tags, targets, config, publish_at)
     privacy = "scheduled" if publish_at else config["upload"]["privacy"]
     print(f"Subido ({privacy}{f', se publica el {publish_at.isoformat()}' if publish_at else ''}): https://youtu.be/{video_id}")

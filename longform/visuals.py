@@ -4,6 +4,8 @@ import math
 import os
 import random
 import re
+import threading
+from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, replace
 from pathlib import Path
 
@@ -28,6 +30,11 @@ GENERIC_WORDS = {"The", "A", "An", "Of", "In", "On", "And", "Old", "Historical",
 
 MIN_BRIGHTNESS = 62
 MIN_GAMMA = 0.55
+WORKERS = 6
+ANIMATION_STYLE = (
+    "Subtle, realistic documentary motion: a very slow camera push-in or drift, natural ambient movement only. "
+    "People move minimally and never turn toward the camera; nothing morphs or appears."
+)
 
 
 def _lift_shadows(path: Path) -> Path:
@@ -46,6 +53,7 @@ class Visual:
     is_video: bool
     credit: str | None = None
     mood: str = ""
+    animated: bool = False
 
 
 class VisualSource:
@@ -64,6 +72,7 @@ class VisualSource:
         self.plan: VisualPlan | None = None
         self.context = ""
         self.anchor_images: dict[str, Path] = {}
+        self.lock = threading.Lock()
 
     def fetch(self, scenes: list[Scene], durations: list[float], context: str = "") -> list[Visual]:
         if self.gemini:
@@ -94,6 +103,7 @@ class VisualSource:
         )
         counts = {k: sum(1 for s in self.plan.shots if s.source == k) for k in ("ai", "reuse", "stock", "archive")}
         print(f"Plan visual: {self.plan.era}, {self.plan.place}; {len(self.plan.anchors)} anclas, {counts}")
+        self._prefetch()
         visuals = []
         for i, (scene, shot, seconds) in enumerate(zip(scenes, self.plan.shots, durations)):
             visual = replace(self._for_shot(scene, shot, seconds), mood=shot.mood)
@@ -101,7 +111,69 @@ class VisualSource:
             self.produced.append(visual)
             print(f"\rVisuales: {i + 1}/{len(scenes)} (IA: {self.ai_count})", end="", flush=True)
         print()
-        return visuals
+        return self._animate(visuals, durations)
+
+    def _parallel(self, jobs: list) -> None:
+        def safe(job):
+            try:
+                job()
+            except Exception as e:
+                print(f"\nGeneración en paralelo fallida: {type(e).__name__}: {e}")
+        with ThreadPoolExecutor(WORKERS) as pool:
+            list(pool.map(safe, jobs))
+
+    def _prefetch(self) -> None:
+        used = {a for s in self.plan.shots for a in (s.anchor, *s.also) if a in self.plan.anchors}
+        self._parallel([lambda a=a: self._anchor(a) for a in used])
+        print(f"Anclas generadas: {len(self.anchor_images)}")
+        self._parallel([lambda s=s: self._planned_ai(s) for s in self.plan.shots if s.source == "ai"])
+        print(f"Imágenes IA precargadas: {self.ai_count}")
+
+    def _animation_targets(self, visuals: list[Visual]) -> list[int]:
+        settings = self.config.get("animate") or {}
+        limit, first = settings.get("max_clips", 0), settings.get("first_scenes", 0)
+        candidates = [i for i, v in enumerate(visuals) if not v.is_video and not v.credit]
+        if not limit or not candidates:
+            return []
+        chosen, seen = [], set()
+        for i in candidates:
+            if i < first and visuals[i].path not in seen:
+                chosen.append(i)
+                seen.add(visuals[i].path)
+        rest = [i for i in candidates if i >= first and visuals[i].path not in seen]
+        slots = max(limit - len(chosen), 0)
+        if rest and slots:
+            step = len(rest) / slots
+            for k in range(min(slots, len(rest))):
+                i = rest[int(k * step)]
+                if visuals[i].path not in seen:
+                    chosen.append(i)
+                    seen.add(visuals[i].path)
+        return sorted(chosen)[:limit]
+
+    def _animate(self, visuals: list[Visual], durations: list[float]) -> list[Visual]:
+        settings = self.config.get("animate") or {}
+        targets = self._animation_targets(visuals)
+        if not targets:
+            return visuals
+        clips: dict[int, Path] = {}
+
+        def job(i: int) -> None:
+            shot = self.plan.shots[i] if self.plan else None
+            motion = (shot.motion if shot and shot.motion else "slow cinematic push-in with subtle ambient movement")
+            prompt = f"{motion}. {ANIMATION_STYLE}"
+            seconds = 10 if durations[i] > 5.5 else 5
+            model = settings.get("model", "kling-v2-6-pro")
+            name = cache.key("anim", visuals[i].path.name, prompt, seconds, model, self.portrait) + ".mp4"
+            if not (clip := cache.get(name)):
+                clip = cache.put(name, magnific.animate(
+                    visuals[i].path, prompt, self.workdir / name, seconds, self.portrait, model,
+                ))
+            clips[i] = clip
+
+        self._parallel([lambda i=i: job(i) for i in targets])
+        print(f"Planos animados: {len(clips)}/{len(targets)}")
+        return [replace(v, path=clips[i], is_video=True, animated=True) if i in clips else v for i, v in enumerate(visuals)]
 
     def _for_shot(self, scene: Scene, shot: Shot, seconds: float) -> Visual:
         wanted = shot.prompt if shot.source == "ai" else shot.query or scene.query
@@ -135,7 +207,8 @@ class VisualSource:
             visual = self._ai(self.plan.anchor_prompt(anchor_id))
             if not visual:
                 return None
-            self.anchor_images[anchor_id] = visual.path
+            with self.lock:
+                self.anchor_images.setdefault(anchor_id, visual.path)
         return Visual(self.anchor_images[anchor_id], False, None)
 
     def _planned_ai(self, shot: Shot) -> Visual | None:
@@ -290,11 +363,18 @@ class VisualSource:
     def _ai(self, prompt: str, references: list[Path] | None = None) -> Visual | None:
         full_prompt = f"{prompt}. {self.config['ai_style']}"
         model = self.config.get("plan_model", self.config["ai_model"]) if self.plan else self.config["ai_model"]
-        name = cache.key("ai", full_prompt, model, *(r.name for r in references or [])) + ".jpg"
+        upscale = bool(self.config.get("ai_upscale"))
+        name = cache.key("ai", full_prompt, model, *(r.name for r in references or []), *(["up"] if upscale else [])) + ".jpg"
         if cached := cache.get(name):
             return Visual(cached, False, None)
-        if self.ai_count >= self.config["max_ai_images"]:
-            return None
-        out = _lift_shadows(magnific.generate(full_prompt, model, self.config["ai_width"], self.config["ai_height"], self.workdir / name, references))
-        self.ai_count += 1
-        return Visual(cache.put(name, out), False, None)
+        with self.lock:
+            if self.ai_count >= self.config["max_ai_images"]:
+                return None
+            self.ai_count += 1
+        out = magnific.generate(full_prompt, model, self.config["ai_width"], self.config["ai_height"], self.workdir / name, references)
+        if upscale:
+            try:
+                out = magnific.upscale(out, self.workdir / f"up_{name}")
+            except Exception as e:
+                print(f"\nUpscale fallido, se usa la imagen original: {e}")
+        return Visual(cache.put(name, _lift_shadows(out)), False, None)

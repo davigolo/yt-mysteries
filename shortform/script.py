@@ -77,6 +77,19 @@ Return ONLY JSON:
 }}"""
 
 
+TIGHTEN_PROMPT = """You are editing the narration of a YouTube Short. Rewrite ONLY the "narration" of each beat so that:
+- The total is {target} words (hard range {min_words}-{max_words}) counting every beat, including the CTA.
+- Beat 1 (the hook) has at most 8 words and keeps its concrete anomaly.
+- The beat whose narration is exactly "{cta}" stays exactly as it is, in the same position.
+- Keep the same number of beats, the same order and the same facts; cut filler, adjectives and repeated context
+  instead of evidence. Never add facts. Each beat keeps 3-10 words and still matches its visual.
+- Keep each beat's "highlight" words only if they are still in its narration.
+Return ONLY JSON: {{"beats": [{{"narration": "...", "highlight": ["..."]}}]}} with exactly {count} beats.
+
+Beats:
+{beats}"""
+
+
 @dataclass
 class Beat:
     narration: str
@@ -126,14 +139,48 @@ def _beat(raw: dict) -> Beat:
     return Beat(narration, kind, raw.get("query", "").strip(), [h for h in raw.get("highlight", []) if h][:2], sfx)
 
 
+def _is_cta(beat: Beat) -> bool:
+    return CTA_LINE.rstrip(".").lower() in beat.narration.lower()
+
+
 def _with_cta(beats: list[Beat]) -> list[Beat]:
-    for beat in beats:
-        if beat.narration.rstrip(".").lower() == CTA_LINE.rstrip(".").lower():
-            beat.cta = True
-    if any(b.cta for b in beats):
+    ctas = [b for b in beats if _is_cta(b)]
+    rest = [b for b in beats if not _is_cta(b)]
+    cta = ctas[0] if ctas else Beat(CTA_LINE, "stock", "old archive files", [], "whoosh")
+    cta.narration, cta.cta = CTA_LINE, True
+    if not rest:
+        return [cta]
+    return [*rest[:-1], cta, rest[-1]]
+
+
+def _tighten(gemini: Gemini, beats: list[Beat], shorts: dict) -> list[Beat]:
+    target = (shorts["min_words"] + shorts["max_words"]) // 2
+    data = _parse(gemini.json(TIGHTEN_PROMPT.format(
+        target=target, min_words=shorts["min_words"], max_words=shorts["max_words"], cta=CTA_LINE, count=len(beats),
+        beats=json.dumps([{"narration": b.narration, "highlight": b.highlight} for b in beats], ensure_ascii=False),
+    ), temperature=0.3))
+    edited = data.get("beats") or []
+    if len(edited) != len(beats):
         return beats
-    beats.insert(max(len(beats) - 1, 0), Beat(CTA_LINE, "stock", "old archive files", [], "whoosh", True))
-    return beats
+    result = []
+    for beat, new in zip(beats, edited):
+        narration = CTA_LINE if beat.cta else str(new.get("narration") or beat.narration).strip()
+        highlight = [h for h in new.get("highlight") or [] if h and h.lower() in narration.lower()][:2]
+        result.append(Beat(narration, beat.kind, beat.query, highlight, beat.sfx, beat.cta))
+    return result
+
+
+def _issues(script: "ShortScript", shorts: dict) -> list[str]:
+    beats, issues = script.beats, []
+    if not shorts["min_words"] <= script.words <= shorts["max_words"]:
+        issues.append(
+            f"Use {shorts['min_words']}-{shorts['max_words']} words including the CTA; the draft had {script.words}."
+        )
+    if not shorts["min_beats"] <= len(beats) <= shorts["max_beats"]:
+        issues.append(f"Use {shorts['min_beats']}-{shorts['max_beats']} beats; the draft had {len(beats)}.")
+    if beats and len(beats[0].narration.split()) > 8:
+        issues.append(f"The hook (beat 1) must have at most 8 words; it had {len(beats[0].narration.split())}.")
+    return issues
 
 
 def _normalize_title(title: str) -> str:
@@ -158,7 +205,7 @@ def generate_short(
     min_words, max_words = shorts["min_words"], shorts["max_words"]
     used_titles = used_titles or []
     revision = ""
-    for _ in range(3):
+    for _ in range(4):
         data = _parse(gemini.json(PROMPT.format(
             **config["channel"],
             title=episode.title,
@@ -191,18 +238,16 @@ def generate_short(
             series_id=episode.series_id,
         )
         print(f"Short: {script.words} palabras, {len(beats)} beats\nÁngulo: {script.angle}")
-        if not (
-            min_words <= script.words <= max_words
-            and shorts["min_beats"] <= len(beats) <= shorts["max_beats"]
-            and len(beats[0].narration.split()) <= 8
-            and sum(b.cta for b in beats) == 1
-            and len(beats) >= 2 and beats[-2].cta
-        ):
-            revision = (
-                f"The previous draft had {script.words} words and {len(beats)} beats. Use exactly "
-                f"{min_words}-{max_words} words including the CTA, {shorts['min_beats']}-{shorts['max_beats']} beats, "
-                "a hook of at most 8 words and exactly one CTA in the penultimate beat."
-            )
+        issues = _issues(script, shorts)
+        for _ in range(2):
+            if not issues or not shorts["min_beats"] <= len(script.beats) <= shorts["max_beats"]:
+                break
+            print(f"Short fuera de las reglas, se recorta: {' '.join(issues)}")
+            script.beats = beats = _tighten(gemini, script.beats, shorts)
+            print(f"Short recortado: {script.words} palabras, {len(beats)} beats")
+            issues = _issues(script, shorts)
+        if issues:
+            revision = "Fix these problems from the previous draft:\n" + "\n".join(issues)
             print(f"Short fuera de las reglas, se regenera: {revision}")
             continue
         review = review_packaging(

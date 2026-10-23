@@ -112,3 +112,20 @@ Comprobación del 21/10:
 
 La fase 3 queda pendiente de publicaciones nuevas y datos maduros. No se presentará una mejora editorial como una mejora
 estadística hasta observarla.
+
+## Fase 4 — Máxima calidad (23/10/2026)
+
+Decisión del propietario: todo el presupuesto de Magnific y ElevenLabs va a este canal (yt-autoshorts queda parado).
+
+- Fiabilidad: el validador de episodios acepta la mejor versión revisada si solo hay desviaciones menores (palabras,
+  cold open de 61-80 palabras, gancho de 13-16); el de Shorts informa del fallo real y recoloca el CTA en el penúltimo
+  beat en lugar de regenerar por ello. El 22/10 ambos fallaron por eso (1.244 palabras / 65 en el cold open; un Short
+  de 88 palabras y 12 beats rechazado con un mensaje que no decía el motivo).
+- El puente al siguiente episodio recibe su resumen; antes Gemini inventaba detalles y el revisor rechazaba el guion.
+- Guion con `gemini-4-argon`; voz `eleven_v4` a 192 kbps; imágenes Flux 2 Pro con upscale Precision 2x; 18 planos
+  animados con Kling 2.6 Pro por episodio y 4 por Short; salida 1440p; 3 miniaturas candidatas elegidas por Gemini Vision.
+- Duración objetivo ~16 min (2.400 palabras): la audiencia 45+ ve sobre todo en TV y los vídeos de 20+ min concentran
+  el 57 % del tiempo de visualización (Tubular, 2025). Se sube por pasos; no pasar a 25-30 min sin ver la retención
+  al 30/60 s del nuevo lote.
+- Pendiente manual: verificación de identidad en Studio (los enlaces de Shorts fallan desde el 22/10), pantalla final
+  de cada episodio, y Test & Compare de miniaturas en Studio para el vídeo con más impresiones.

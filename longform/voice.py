@@ -66,7 +66,7 @@ def _request(text: str, previous: str, following: str, voice: dict) -> dict:
     for attempt in range(4):
         response = requests.post(
             f"{API}/text-to-speech/{voice['voice_id']}/with-timestamps",
-            params={"output_format": "mp3_44100_128"},
+            params={"output_format": voice.get("output_format", "mp3_44100_128")},
             headers=_headers(),
             json={
                 "text": text,
@@ -97,7 +97,10 @@ def synthesize(narrations: list[str], config: dict, workdir: Path) -> list[Scene
     for i, text in enumerate(narrations):
         previous = narrations[i - 1] if i > 0 else ""
         following = narrations[i + 1] if i + 1 < len(narrations) else ""
-        name = cache.key("tts", text, voice["voice_id"], voice["model_id"], voice["stability"], voice["style"])
+        name = cache.key(
+            "tts", text, voice["voice_id"], voice["model_id"], voice["stability"], voice["style"],
+            *([voice["output_format"]] if voice.get("output_format") else []),
+        )
         audio, alignment = cache.get(f"{name}.mp3"), cache.get(f"{name}.json")
         if not (audio and alignment):
             data = _request(text, previous, following, voice)

@@ -63,5 +63,20 @@
     "country": "US",
     "uploaded_at": "2026-10-19T21:53:55+00:00",
     "publish_at": "2026-10-20T23:00:00+00:00"
+  },
+  {
+    "date": "2026-10-23",
+    "format": "disappearance",
+    "topic": "The Disappearance of Everett Ruess",
+    "title": "The Latin Word Carved Before a 1934 Vanishing",
+    "video_id": "Ly2Y_0gl5ho",
+    "privacy": "scheduled",
+    "country": "US",
+    "uploaded_at": "2026-10-23T10:37:33+00:00",
+    "microniche": "last-messages",
+    "series_id": "e2f147112f2741e0aeedae23bd3215c1",
+    "series_reason": "Start the configured editorial microniche; no tagged series yet.",
+    "publish_at": "2026-10-23T23:00:00+00:00",
+    "pipeline_revision": "quality-2026-10-23"
   }
 ]

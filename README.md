@@ -39,17 +39,17 @@ Voz, imágenes IA y descargas se guardan en `cache/`, así que repetir un render
    `scripts/generate_sfx.py` genera impactos, whoosh, risers y tape stops en `sfx/`. Solo crea lo que falte, así que para
    añadir variedad basta con añadir prompts. También valen pistas de la Biblioteca de audio de YouTube. Haz commit de `music/` y `sfx/`.
 
-## Coste estimado por episodio (~13 min)
+## Coste estimado por episodio (~16 min, máxima calidad)
 
 | Servicio | Consumo |
 |---|---|
-| ElevenLabs | Voz **Connery** (narrador grave de documental, EE. UU.; elegida en una prueba a ciegas frente a otras 6) con `eleven_v4_turbo`, 0,5 créditos/carácter: ~11.500 caracteres = ~5.800 créditos por episodio. 3 vídeos/semana + 2 Shorts/día = ~100k/mes: cabe en **Creator** (236k). La voz está añadida a la biblioteca de la cuenta; si cambias de API key, añádela otra vez desde la Voice Library |
-| Magnific API | Hasta 30 imágenes Flux 2 Klein con referencia + 1 Mystic 2k para la miniatura. **La API consume créditos aunque tu plan tenga uso "ilimitado" en la web** |
+| ElevenLabs | Voz **Connery** (narrador grave de documental, EE. UU.; elegida en una prueba a ciegas frente a otras 6) con `eleven_v4` (calidad completa, no turbo) a 192 kbps, 1 crédito/carácter: ~14.000 créditos por episodio. 3 vídeos/semana + 2 Shorts/día = ~215k/mes: justo en **Creator** (236k); si se queda corto, vuelve a `eleven_v4_turbo`. La voz está añadida a la biblioteca de la cuenta; si cambias de API key, añádela otra vez desde la Voice Library |
+| Magnific API | Hasta 90 imágenes **Flux 2 Pro** con referencia, cada una con **upscale Precision** a 2880 px, ~18 planos animados con **Kling 2.6 Pro** (5-10 s) y 3 fondos Mystic 2k para elegir miniatura. **La API consume créditos aunque tu plan tenga uso "ilimitado" en la web** |
 | Gemini | Guion, plan visual y filtrado de candidatos con Gemini Vision (~1 llamada por plano de stock o archivo). La búsqueda web (grounding) puede no tener cuota gratis; en ese caso investiga sin búsqueda y lo avisa en el log |
 | Pexels / Wikimedia | 0 € |
-| GitHub Actions | ~40-70 min por episodio; mejor repo público o tendrás que vigilar los 2.000 min/mes |
+| GitHub Actions | ~90-180 min por episodio (timeout 300); mejor repo público o tendrás que vigilar los 2.000 min/mes |
 
-Ajusta `visuals.max_ai_images` para limitar el gasto en Magnific. `visuals.upscale_archive_below` (p. ej. `900`) y `max_upscales`
+Ajusta `visuals.max_ai_images`, `visuals.ai_upscale` y `visuals.animate.max_clips` para limitar el gasto en Magnific. `visuals.upscale_archive_below` (p. ej. `900`) y `max_upscales`
 activan el upscaler de Magnific para las fotos de archivo de baja resolución.
 
 ## Publicación programada a hora de EE. UU.
@@ -93,7 +93,7 @@ virales del nicho:
    de película común y personajes recurrentes, siempre de espaldas o en silueta) y entre 2 y 8 **anclas** (los lugares y
    objetos que se repiten; el objeto del título siempre es una). Cada frase recibe un plano que muestra **literalmente**
    lo que se dice, con plano general primero y detalles después, y nunca la misma imagen dos veces seguidas.
-2. **Magnific Flux 2 Klein** (`visuals.plan_model`) genera cada ancla y luego cada plano usando su ancla como
+2. **Magnific Flux 2 Pro** (`visuals.plan_model`) genera cada ancla y luego cada plano usando su ancla como
    **imagen de referencia**, así se mantienen el mismo lugar, la misma luz y la misma ropa. Si se acaba el presupuesto de
    imágenes (`max_ai_images`), se reutiliza el ancla con otro movimiento de cámara, nunca un plano al azar.
 3. **Stock y Wikimedia pasan por Gemini Vision**: se descargan hasta 6 candidatos en miniatura y Gemini elige el que
@@ -106,8 +106,17 @@ virales del nicho:
 6. **Look de película** en el pase final, para que no se note la imagen de IA: suavizado del exceso de nitidez, halo en
    las luces, ligera aberración cromática, negros lavados, grano animado y un parpadeo de proyector casi imperceptible.
 
-Si Gemini no responde, se usan los visuales del guion como antes. Presupuesto de Magnific: 12 imágenes por Short y
-30 por episodio. La API no devuelve el saldo de créditos, así que revisa el consumo en el panel de Magnific los primeros
+7. **Generación en paralelo** (6 a la vez): primero las anclas, luego todos los planos IA, con upscale Precision 2x
+   (`ai_upscale`). Después se **animan** con Kling 2.6 Pro los primeros planos del cold open (`animate.first_scenes`) y
+   otros repartidos por el episodio hasta `animate.max_clips` (solo reconstrucciones IA, nunca fotos reales). Gemini
+   escribe un movimiento sutil por plano (`motion`); si la escena dura más que el clip, se ralentiza hasta 1,25x y
+   congela el último fotograma.
+8. **Salida a 1440p** (`video.output_height`, x264 `medium`, CRF 18): YouTube sirve VP9/AV1 con más bitrate también a
+   quien lo ve en 1080p, sobre todo en televisores.
+9. **Miniatura**: 3 fondos Mystic con encuadres distintos y Gemini Vision elige la de más potencial de clic honesto.
+
+Si Gemini no responde, se usan los visuales del guion como antes. Presupuesto de Magnific: 16 imágenes y 4 planos
+animados por Short y 90 imágenes y 18 animaciones por episodio. La API no devuelve el saldo de créditos, así que revisa el consumo en el panel de Magnific los primeros
 días y baja `max_ai_images` si hace falta.
 
 ## Enfoque en EE. UU.

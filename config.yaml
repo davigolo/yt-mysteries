@@ -7,10 +7,10 @@ channel:
 
 script:
   models:
+    - "gemini-4-argon"
+    - "gemini-pro-latest"
     - "gemini-3.8-flash"
-    - "gemini-3.5-flash"
-    - "gemini-flash-latest"
-  target_words: 1900
+  target_words: 2400
   chapters: 6
   microniche:
     initial: "last-messages"
@@ -22,8 +22,9 @@ script:
 
 voice:
   voice_id: "vLZJLcQMJCqxjrHGEVDO"
-  model_id: "eleven_v4_turbo"
-  credits_per_char: 0.5
+  model_id: "eleven_v4"
+  output_format: "mp3_44100_192"
+  credits_per_char: 1.0
   stability: 0.45
   similarity_boost: 0.8
   style: 0.15
@@ -32,21 +33,29 @@ voice:
   title_pause: 0
 
 visuals:
-  ai_model: "flux-2-turbo"
+  ai_model: "flux-2-pro"
   ai_width: 2048
   ai_height: 1152
+  ai_upscale: true
   ai_style: "people only from behind, in silhouette or out of focus with no clear faces but always with complete heads and bodies, never an empty or headless suit, cinematic documentary still, moody but well-exposed lighting with the subject clearly visible, muted desaturated colors, subtle film grain, 35mm, realistic, no text, no watermark"
-  max_ai_images: 30
+  max_ai_images: 90
   plan: true
-  plan_model: "flux-2-klein"
-  plan_anchors: "4-8"
-  upscale_archive_below: 0
-  max_upscales: 0
+  plan_model: "flux-2-pro"
+  plan_anchors: "5-8"
+  upscale_archive_below: 1080
+  max_upscales: 20
+  animate:
+    model: "kling-v2-6-pro"
+    max_clips: 18
+    first_scenes: 5
 
 video:
   width: 1920
   height: 1080
   fps: 25
+  output_height: 1440
+  preset: "medium"
+  crf: 18
   zoom: 0.10
   burn_subtitles: true
   end_screen_seconds: 20
@@ -54,6 +63,7 @@ video:
 
 thumbnail:
   model: "mystic"
+  candidates: 3
   style: "dramatic cinematic thumbnail background, high contrast, dark moody atmosphere, single clear focal subject on the right, empty dark space on the left for text, no text"
 
 music:
@@ -77,8 +87,8 @@ publish:
   max_per_run: 1
 
 reporting:
-  rollout_id: "retention-2026-10-21"
-  since: "2026-10-21"
+  rollout_id: "quality-2026-10-23"
+  since: "2026-10-23"
   batch_size: 4
 
 playlists:
@@ -135,16 +145,21 @@ shorts:
     zoom: 0.06
     max_segment_seconds: 2.4
   visuals:
-    ai_model: "flux-2-turbo"
+    ai_model: "flux-2-pro"
     ai_width: 1152
     ai_height: 2048
+    ai_upscale: true
     ai_style: "vertical 9:16 composition, people only from behind, in silhouette or out of focus with no clear faces but always with complete heads and bodies, never an empty or headless suit, cinematic documentary still, dramatic but well-exposed lighting with the subject clearly visible and centred, desaturated tones, high contrast, film grain, realistic, no text, no watermark"
-    max_ai_images: 15
+    max_ai_images: 16
     plan: true
-    plan_model: "flux-2-klein"
+    plan_model: "flux-2-pro"
     plan_anchors: "2-3"
     plan_max_reuse: 2
     plan_stock: false
     archive: false
     upscale_archive_below: 0
     max_upscales: 0
+    animate:
+      model: "kling-v2-6-pro"
+      max_clips: 4
+      first_scenes: 2

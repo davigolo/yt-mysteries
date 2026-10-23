@@ -192,6 +192,17 @@ def _image_filter(motion: str, w: int, h: int, frames: int, zoom: float, fit_blu
     return f"{base}zoompan=z='{z}':x='{x}':y='{y}':d={frames}:s={w}x{h}:fps={{fps}},setsar=1"
 
 
+MAX_SLOWDOWN = 1.25
+
+
+def animated_filter(clip_seconds: float, seconds: float, w: int, h: int, fps: int) -> str:
+    factor = min(max(seconds / max(clip_seconds, 0.1), 1.0), MAX_SLOWDOWN)
+    return (
+        f"setpts={factor:.4f}*(PTS-STARTPTS),fps={fps},scale={w}:{h}:force_original_aspect_ratio=increase:flags=lanczos,"
+        f"crop={w}:{h},setsar=1,tpad=stop_mode=clone:stop_duration={seconds + 1:.2f}"
+    )
+
+
 def _render_parts(visuals: list[Visual], timeline: Timeline, chapter_of: list[int], config: dict, workdir: Path) -> list[Path]:
     video = config["video"]
     w, h, fps, zoom = video["width"], video["height"], video["fps"], video["zoom"]
@@ -202,7 +213,10 @@ def _render_parts(visuals: list[Visual], timeline: Timeline, chapter_of: list[in
         chapter_start = i > 0 and chapter_of[i] != chapter_of[i - 1]
         fade = ",fade=t=in:st=0:d=0.6" if chapter_start else ""
         part = workdir / f"part_{i:03d}.mp4"
-        if visual.is_video:
+        if visual.animated:
+            inputs = ["-i", str(visual.path)]
+            vf = animated_filter(duration(visual.path), seconds, w, h, fps)
+        elif visual.is_video:
             clip_length = duration(visual.path)
             offset = random.uniform(0, max(clip_length - seconds, 0))
             inputs = ["-ss", f"{offset:.3f}", "-stream_loop", "-1", "-i", str(visual.path)]
@@ -273,10 +287,14 @@ def render(
     else:
         mixed = voice
 
+    video = config["video"]
+    output = video.get("output_height", video["height"])
+    upscale = f"scale=-2:{output}:flags=lanczos," if output != video["height"] else ""
     run([
         "ffmpeg", "-y", "-i", str(joined.resolve()), "-i", str(mixed.resolve()), "-filter_complex",
-        f"[0:v]eq=saturation=0.62:contrast=1.08:gamma=0.96,{film_look(config['video']['width'], config['video']['height'], 9)},vignette=PI/5,"
-        f"ass={subtitles.name}:fontsdir={FONTS.resolve()},format=yuv420p[v]",
-        "-map", "[v]", "-map", "1:a", "-c:v", "libx264", "-preset", "fast", "-crf", "20",
-        "-c:a", "aac", "-b:a", "192k", "-t", f"{timeline.total:.3f}", "-movflags", "+faststart", str(out.resolve()),
+        f"[0:v]eq=saturation=0.62:contrast=1.08:gamma=0.96,{film_look(video['width'], video['height'], 9)},vignette=PI/5,"
+        f"{upscale}ass={subtitles.name}:fontsdir={FONTS.resolve()},format=yuv420p[v]",
+        "-map", "[v]", "-map", "1:a", "-c:v", "libx264", "-preset", video.get("preset", "fast"),
+        "-crf", str(video.get("crf", 20)), "-c:a", "aac", "-b:a", "256k", "-t", f"{timeline.total:.3f}",
+        "-movflags", "+faststart", str(out.resolve()),
     ], cwd=workdir)

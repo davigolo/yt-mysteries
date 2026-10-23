@@ -1,0 +1,715 @@
+{
+  "topic": "The Disappearance of Everett Ruess",
+  "format": "disappearance",
+  "title": "The Latin Word Carved Before a 1934 Vanishing",
+  "description": "In November 1934, 20-year-old artist Everett Ruess walked into the canyons of Escalante, Utah, and vanished without a trace. Months later, searchers in Davis Gulch found his two burros penned inside a makeshift brush corral, an undated final letter to his brother Waldo, and the Latin word NEMO 1934 chiseled into the sandstone.\n\nThis documentary investigates the disappearance of Everett Ruess through the physical evidence left behind in the Grand Staircase-Escalante backcountry, examining the timeline paradox of the Davis Gulch corral, his final messages, and the 2009 Comb Ridge DNA controversy.",
+  "tags": [
+    "Everett Ruess",
+    "Disappearance of Everett Ruess",
+    "NEMO 1934",
+    "Davis Gulch",
+    "Escalante Utah",
+    "Unsolved Disappearances",
+    "Historical Mysteries",
+    "1934 Cold Case",
+    "Hole in the Rock Trail",
+    "Waldo Ruess",
+    "Comb Ridge DNA",
+    "Vagabond for Beauty",
+    "Missing Persons Utah",
+    "Grand Staircase Escalante",
+    "Unsolved Archives"
+  ],
+  "thumbnail_text": "CARVED BY NOBODY",
+  "thumbnail_prompt": "Cinematic close-up of a weathered red sandstone cliff alcove in a narrow Utah desert canyon at dusk, four antique Ancestral Puebloan clay pottery jugs lined up neatly on a flat red rock ledge in the foreground, dramatic shadows, lonely pack burro standing behind a deadwood brush fence in the distant canyon floor, 1930s western atmosphere, no text, no faces",
+  "chapters": [
+    {
+      "title": "",
+      "scenes": [
+        {
+          "narration": "Two burros waited a hundred days behind a brush fence for nobody.",
+          "kind": "ai",
+          "query": "Two pack burros standing behind a crude deadwood brush fence inside a narrow towering red sandstone canyon in Utah, dramatic morning light, 1930s western wilderness, cinematic composition, no people"
+        },
+        {
+          "narration": "Nearby, chiseled into the Utah sandstone, stood one Latin word and a year: NEMO 1934.",
+          "kind": "archive",
+          "query": "NEMO 1934 inscription Davis Gulch Everett Ruess"
+        },
+        {
+          "narration": "Beside the corral lay the missing artist's pack saddle and bags, yet his bedroll, journal, and body were gone.",
+          "kind": "ai",
+          "query": "Weathered 1930s wooden pack saddle and two canvas pack bags resting on sandy red dirt inside a shaded sandstone canyon alcove, cinematic lighting, no text, no people"
+        },
+        {
+          "narration": "Did that carving mark a fatal camp, or a deliberate farewell?",
+          "kind": "stock",
+          "query": "Utah slot canyon shadow"
+        }
+      ]
+    },
+    {
+      "title": "The Hundred-Day Corral",
+      "scenes": [
+        {
+          "narration": "Before any search party knew someone had vanished, local cattleman Gail Bailey rode down into Davis Gulch in mid-February 1935 to check winter grazing conditions.",
+          "kind": "ai",
+          "query": "Silhouette of a 1930s cowboy on horseback descending an ancient steep sandstone stock trail into a deep red rock canyon in winter, seen from behind, wide cinematic shot"
+        },
+        {
+          "narration": "In the upper section of the canyon, a tributary of the Escalante River, someone had built a brushwork fence across a narrow pinch in the sandstone walls.",
+          "kind": "archive",
+          "query": "Davis Gulch Escalante River canyon"
+        },
+        {
+          "narration": "Inside that natural enclosure stood two pack burros in good condition, alongside a pack saddle, two halters, and two canvas pack bags known as kyaks.",
+          "kind": "ai",
+          "query": "Two grey and brown pack burros grazing near a small stream inside a red sandstone box canyon fenced with tangled dead brushwood, 1930s gear nearby, no people"
+        },
+        {
+          "narration": "Unaware that anyone was missing, Bailey simply thought to himself that it wasn't much of an outfit, left the animals and gear untouched, and rode away.",
+          "kind": "stock",
+          "query": "desert canyon wind"
+        },
+        {
+          "narration": "Three weeks later, on March 1, 1935, Garfield County Commissioner H. Jennings Allen led a twelve-man search party down the Hole-in-the-Rock Trail into that same gulch.",
+          "kind": "archive",
+          "query": "Hole-in-the-Rock Trail Garfield County Utah"
+        },
+        {
+          "narration": "They were looking for twenty-year-old California artist and printmaker Everett Ruess, whose parents had written to the Escalante postmaster on February 7 asking for help.",
+          "kind": "archive",
+          "query": "Everett Ruess Dorothea Lange portrait"
+        },
+        {
+          "narration": "When Allen's party reached Davis Gulch, they recovered Ruess's two burros, named Chocolatero and Leopard, still penned inside the makeshift corral.",
+          "kind": "ai",
+          "query": "Group of 1930s western searchers on horseback in heavy coats discovering two burros behind a brush fence in a deep sandstone canyon, seen from a distance, no faces"
+        },
+        {
+          "narration": "That corral created an immediate forensic timeline paradox that still divides investigators today.",
+          "kind": "stock",
+          "query": "canyon stream water"
+        },
+        {
+          "narration": "Ruess had last been seen alive near Soda Gulch on November 20 or 21, 1934, roughly one hundred days before the March searchers arrived.",
+          "kind": "archive",
+          "query": "Escalante River canyon Utah map"
+        },
+        {
+          "narration": "Had Ruess tethered his animals to a tree, they would have starved within days, fixing the time of his disappearance to late November.",
+          "kind": "ai",
+          "query": "Close-up of vintage leather burro halters hanging on a dry juniper branch in a red rock canyon, soft overcast winter light, no people"
+        },
+        {
+          "narration": "Instead, because the spacious canyon bottom held both grass and stream water, the burros survived for more than three months.",
+          "kind": "stock",
+          "query": "desert grass stream"
+        },
+        {
+          "narration": "Even the eyewitnesses in the 1935 search party sharply contradicted one another about what the animals looked like.",
+          "kind": "ai",
+          "query": "Two 1930s cowboys in winter coats and Stetson hats examining burro tracks in wet canyon sand, shot from low angle showing only boots and coats"
+        },
+        {
+          "narration": "While some searchers and later Doe Network files stated the burros were thin and nearly starved, search leader H. Jennings Allen and cattleman Gail Bailey insisted they were fat and healthy.",
+          "kind": "archive",
+          "query": "Everett Ruess burros Utah"
+        },
+        {
+          "narration": "Because the animals survived so long, searchers could not tell if Ruess had penned them in late November for a quick hike and died immediately, or if someone had tended them deep into winter.",
+          "kind": "stock",
+          "query": "red rock cliffs"
+        },
+        {
+          "narration": "Then, inside a sandstone alcove near the corral, the searchers found a chiseled inscription that proved Ruess had reached Davis Gulch before the year ended.",
+          "kind": "ai",
+          "query": "Dark sandstone alcove cave wall inside a towering red canyon, shafts of sunlight cutting through dust, 1930s atmosphere, no text, no people"
+        }
+      ]
+    },
+    {
+      "title": "The Signature of Nobody",
+      "scenes": [
+        {
+          "narration": "Carved into the wall of the alcove near the corralled burros were the characters NEMO 1934.",
+          "kind": "archive",
+          "query": "NEMO 1934 Davis Gulch"
+        },
+        {
+          "narration": "Climbing higher up the vertical sandstone near LaGorce Arch, the searchers found a second NEMO 1934 incised directly into the stone doorstep of an Ancestral Puebloan cliff dwelling.",
+          "kind": "archive",
+          "query": "LaGorce Arch Davis Gulch"
+        },
+        {
+          "narration": "Right next to that second carving, four intact ancient pottery jugs had been carefully lined up on a flat rock, a silent arrangement Ruess had curated before walking away.",
+          "kind": "ai",
+          "query": "Four intact ancient corrugated clay pottery jugs lined up in a neat row on a flat red sandstone ledge inside a high cliff ruin, overlooking a deep canyon, no text, no people"
+        },
+        {
+          "narration": "Official Utah Bureau of Criminal Identification summaries later recorded the text variant as NEMO Nov 1934, though photographs and primary field reports of the surviving rock art show NEMO 1934.",
+          "kind": "stock",
+          "query": "ancient cliff dwelling"
+        },
+        {
+          "narration": "At first, the Utah cowboys in Allen's party wondered if Nemo might be an Indigenous word.",
+          "kind": "ai",
+          "query": "Silhouettes of two 1930s searchers crouching inside a high sandstone cliff ruin doorway looking down at the stone threshold, backlit by canyon sun, no faces"
+        },
+        {
+          "narration": "When Commissioner Allen wired the discovery to Los Angeles on March 8, Everett's parents, Christopher and Stella Knight Ruess, knew its meaning instantly.",
+          "kind": "archive",
+          "query": "Los Angeles 1930s street"
+        },
+        {
+          "narration": "Nemo is Latin for no one or nobody.",
+          "kind": "stock",
+          "query": "dusty sunbeam canyon"
+        },
+        {
+          "narration": "For Everett, who had used trail pseudonyms including Evert Rulan and Lan Rameau, it was a dual homage to two of his favorite literary heroes.",
+          "kind": "archive",
+          "query": "Everett Ruess woodcut print"
+        },
+        {
+          "narration": "One was Captain Nemo from Jules Verne's Twenty Thousand Leagues Under the Sea, and the other was Odysseus, who told the Cyclops his name was Nobody in Homer's Odyssey.",
+          "kind": "archive",
+          "query": "Twenty Thousand Leagues Under the Sea Captain Nemo illustration"
+        },
+        {
+          "narration": "Around the camp, searchers found empty condensed milk cans, candy wrappers, and size-9 boot prints leading both up and down the canyon and toward the Hole-in-the-Rock Trail.",
+          "kind": "ai",
+          "query": "Close-up of lone size-9 boot footprints pressed into red desert sand beside an empty vintage 1930s tin can in a narrow canyon floor, no text on can"
+        },
+        {
+          "narration": "When the men dismantled the brush corral to herd Chocolatero and Leopard back to Escalante, the burros fought to stay in the gulch.",
+          "kind": "ai",
+          "query": "Two stubborn pack burros rearing and pulling back down a sandy canyon trail as a 1930s cowboy on horseback tries to herd them, distant shot, no faces"
+        },
+        {
+          "narration": "Having lived wild in the canyon for over three months, they repeatedly broke away from Gail Bailey and tried to bolt back down to the spot where Everett had left them.",
+          "kind": "stock",
+          "query": "snowstorm desert canyon"
+        },
+        {
+          "narration": "A severe blizzard struck on the sixth day of the search, and on March 15, after scouring the Kaiparowits Plateau, Commissioner Allen called off the first expedition.",
+          "kind": "archive",
+          "query": "Kaiparowits Plateau Utah"
+        },
+        {
+          "narration": "What baffled everyone was not just the Latin name in the stone, but a strange inventory of what was missing from the camp—and a final letter Everett had sent to his brother.",
+          "kind": "ai",
+          "query": "Vintage 1930s fountain pen resting beside a blank folded sheet of writing paper on a rough wooden camp table lit by a kerosene lantern, no text"
+        }
+      ]
+    },
+    {
+      "title": "The Undated Final Letter",
+      "scenes": [
+        {
+          "narration": "Born in Oakland, California, on March 28, 1914, Everett Ruess had spent the years since age sixteen on solo expeditions across the California coast, the Sierra Nevada, and the Four Corners.",
+          "kind": "archive",
+          "query": "Everett Ruess portrait"
+        },
+        {
+          "narration": "Along the way, the young wanderer befriended photographer Dorothea Lange, who took his famous portraits, and traded his original block prints for photographs with Ansel Adams and Edward Weston.",
+          "kind": "archive",
+          "query": "Dorothea Lange 1930s"
+        },
+        {
+          "narration": "In April 1934, his older brother Waldo drove him to Kayenta, Arizona, and dropped him off for what would become his final journey through the Southwest.",
+          "kind": "archive",
+          "query": "Kayenta Arizona 1930s"
+        },
+        {
+          "narration": "By early November 1934, leading his two burros, Everett stayed in Tropic, Utah, with Maurice and De Esta Cope before walking east into the town of Escalante.",
+          "kind": "archive",
+          "query": "Escalante Utah historic"
+        },
+        {
+          "narration": "There he camped under cottonwood trees, attended a local movie, bought supplies, and on November 11, 1934, wrote a final dated letter to his parents.",
+          "kind": "ai",
+          "query": "Lone 1930s canvas camp setup beneath golden autumn cottonwood trees near a small western town at twilight, silhouette of a young man by a small fire, no faces"
+        },
+        {
+          "narration": "He told Christopher and Stella he was heading south toward the Colorado River through wild country and would not reach a post office for about two months.",
+          "kind": "archive",
+          "query": "Colorado River Glen Canyon historic"
+        },
+        {
+          "narration": "Around the same time, he penned his famous final letter to his brother Waldo, saying he was heading southward where no one lives.",
+          "kind": "stock",
+          "query": "vintage envelope mail"
+        },
+        {
+          "narration": "In it, Everett wrote that as to when he would visit civilization, it would not be soon, adding that he enjoyed the wilderness and the vagrant life he led more keenly all the time.",
+          "kind": "ai",
+          "query": "Close-up of a young man's hand holding a fountain pen over a journal in the warm glow of a campfire in a desert canyon, no legible text"
+        },
+        {
+          "narration": "He closed with a haunting line: This has been a full, rich year, and I have left no strange or delightful thing undone that I wanted to do.",
+          "kind": "stock",
+          "query": "red desert sunset"
+        },
+        {
+          "narration": "While anthologies by historians W. L. Bud Rusho and Jon Krakauer standardize the letter's date to November 11, 1934, matching its Escalante postmark, case researchers have scrutinized its timeline.",
+          "kind": "archive",
+          "query": "Escalante River canyon"
+        },
+        {
+          "narration": "Scholars have debated whether the letter lacked an internal handwritten date and whether Everett actually wrote it out on the trail and handed it to a sheepherder to mail back in town.",
+          "kind": "ai",
+          "query": "1930s wanderer in a wide-brimmed Stetson hat handing a sealed blank envelope to a sheepherder near a flock of sheep in arid Utah scrubland, seen from behind"
+        },
+        {
+          "narration": "On November 12, Escalante resident Melem Alvey spoke with Ruess as he walked out of town, noting the twenty-year-old was traveling dangerously light for winter.",
+          "kind": "stock",
+          "query": "cold desert trail"
+        },
+        {
+          "narration": "Fifty miles southeast, at the head of Soda Gulch, Ruess camped for two nights with sheepherders Clayton Porter and Addlin Lay, declining an offer of mutton before walking toward Davis Gulch.",
+          "kind": "ai",
+          "query": "1930s sheepherder camp with a white canvas wagon and campfire at dawn in a rocky Utah gulch, lone figure leading two burros away into the distance"
+        },
+        {
+          "narration": "Porter and Lay were the last people confirmed to see him alive—yet later accounts revealed they had also gone through Ruess's belongings.",
+          "kind": "stock",
+          "query": "empty desert horizon"
+        }
+      ]
+    },
+    {
+      "title": "The Vanished Outfit",
+      "scenes": [
+        {
+          "narration": "According to case researchers cited by journalist David Roberts, sheepherders Clayton Porter and Addlin Lay later admitted to inspecting Ruess's gear.",
+          "kind": "ai",
+          "query": "Two 1930s sheepherders in worn wool coats standing near a herd of sheep in a rocky desert draw, looking toward a distant canyon rim, seen from behind"
+        },
+        {
+          "narration": "However, historical accounts conflict on a crucial point: whether they looked through his belongings while he was still camping with them, or found his unattended camp after he vanished.",
+          "kind": "stock",
+          "query": "dry desert brush"
+        },
+        {
+          "narration": "That ambiguity matters because of what was missing when searchers reached Davis Gulch in March 1935.",
+          "kind": "archive",
+          "query": "Davis Gulch Utah"
+        },
+        {
+          "narration": "While the pack saddle, halters, and canvas bags lay near the corral, Ruess's riding saddle—according to Gail Bailey—along with his bedroll, blankets, cooking kit, food, money, and Stetson sombrero were gone.",
+          "kind": "ai",
+          "query": "Empty sandy campsite inside a red sandstone alcove with only a wooden pack saddle and canvas bags left on the ground, dramatic shadows, no people"
+        },
+        {
+          "narration": "Also missing were all of his painting and block-printing supplies, his completed watercolors, and his 1934 field journal.",
+          "kind": "archive",
+          "query": "Everett Ruess print"
+        },
+        {
+          "narration": "Strangely, the 1934 diary is not the only volume of Ruess's original journals missing from archives today.",
+          "kind": "stock",
+          "query": "old archive boxes"
+        },
+        {
+          "narration": "An earlier journal was later stolen directly from the grieving Ruess family by a man posing as a prospective biographer, and eventually tracked to a private collector in Indiana.",
+          "kind": "ai",
+          "query": "Close-up of a locked glass display case in a dimly lit private study holding a closed leather-bound 1930s notebook, no text visible, moody lighting"
+        },
+        {
+          "narration": "Although Waldo Ruess and his daughter Michèle met the Indiana collector in person and explained the manuscript was stolen, he had paid a high price and refused to return it or let historians read it.",
+          "kind": "stock",
+          "query": "closed wooden door"
+        },
+        {
+          "narration": "Back in the summer of 1935, further searches—including an aerial survey from Lee's Ferry to Escalante and an August expedition reported by the Salt Lake Tribune—found no trace of Everett's camp gear.",
+          "kind": "archive",
+          "query": "Lees Ferry Colorado River historic"
+        },
+        {
+          "narration": "In their desperation, Christopher and Stella Ruess were exploited by an opportunistic drifter and trader named Neal Johnson, who contacted them in February 1935.",
+          "kind": "ai",
+          "query": "Silhouette of a 1930s man in a fedora leaning over a telegraph counter in a dusty southwestern trading post, dramatic noir lighting, no text, no faces"
+        },
+        {
+          "narration": "Claiming he had Navajo trackers who could find Everett south of the Colorado River, Johnson extracted money from the family across seventeen letters between March and August 1935 without producing any real evidence.",
+          "kind": "stock",
+          "query": "old coins table"
+        },
+        {
+          "narration": "Despite being rational, Harvard-educated progressives, the heartbroken parents even secretly consulted astrologers and hired handwriting specialists to scan magazines in case Everett was publishing under a new pen name.",
+          "kind": "ai",
+          "query": "Older 1930s couple sitting at a dining table covered in stacks of vintage magazines and magnifying glasses by lamplight, seen from behind, no readable text"
+        },
+        {
+          "narration": "On September 4, 1935, the Los Angeles Police Department officially listed Everett Ruess in its missing persons bulletin.",
+          "kind": "archive",
+          "query": "Los Angeles Police Department 1930s"
+        },
+        {
+          "narration": "What I keep coming back to is the split inventory at Davis Gulch: a lone hiker might carry a journal and paints on a short climb, but taking his heavy cooking kit, bedroll, and riding saddle while leaving his pack burros behind a fence defies a simple day-hike explanation.",
+          "kind": "stock",
+          "query": "narrow slot canyon"
+        },
+        {
+          "narration": "Seventy-four years later, in 2009, a discovery sixty miles east of Davis Gulch seemed to answer where that missing gear had gone—until the forensic science unraveled.",
+          "kind": "archive",
+          "query": "Comb Ridge Utah"
+        }
+      ]
+    },
+    {
+      "title": "The Comb Ridge False Match",
+      "scenes": [
+        {
+          "narration": "On April 30, 2009, National Geographic Adventure and anthropologists at the University of Colorado Boulder held a major press conference.",
+          "kind": "stock",
+          "query": "microphones press conference"
+        },
+        {
+          "narration": "They announced that skeletal remains found in 2008 by Navajo construction worker Denny Bellson inside a rock crevice at Comb Ridge, Utah, had been positively identified as Everett Ruess.",
+          "kind": "archive",
+          "query": "Comb Ridge San Juan County Utah"
+        },
+        {
+          "narration": "The identification relied on DNA testing and facial photo-superimposition, tied to a 1971 oral testimony from Navajo elder Aneth Nez about a young white man killed by Utes for his supplies.",
+          "kind": "ai",
+          "query": "Deep narrow sandstone crevice in the red rock ridge of Comb Ridge Utah under harsh desert sunlight, crime scene tape fluttering in wind, no people"
+        },
+        {
+          "narration": "For six months, it appeared the seventy-five-year-old mystery of NEMO 1934 was finally closed.",
+          "kind": "stock",
+          "query": "laboratory DNA pipette"
+        },
+        {
+          "narration": "Yet Utah State Archaeologist Kevin Jones and members of the Ruess family raised immediate doubts based on dental discrepancies.",
+          "kind": "ai",
+          "query": "Forensic investigator in white gloves examining vintage dental X-ray films against a bright light box in a modern laboratory, no faces, no text"
+        },
+        {
+          "narration": "Everett's dental records clearly noted a missing upper right tooth and gold fillings, details that did not align with the Comb Ridge skull.",
+          "kind": "stock",
+          "query": "medical x-ray light"
+        },
+        {
+          "narration": "When the Armed Forces DNA Identification Laboratory re-tested the bones on October 21, 2009, they proved the remains were not Everett Ruess.",
+          "kind": "ai",
+          "query": "Scientist in sterile protective gear working with DNA sequencing equipment in a high-security forensic laboratory, cool blue lighting, no faces"
+        },
+        {
+          "narration": "The University of Colorado Boulder false positive was traced to software interpretation errors on degraded DNA.",
+          "kind": "stock",
+          "query": "computer data screen"
+        },
+        {
+          "narration": "Remarkably, that scientific embarrassment ended up solving a completely different eighty-year-old cold case.",
+          "kind": "archive",
+          "query": "Monument Valley Navajo Nation Utah"
+        },
+        {
+          "narration": "In March 2010, the Armed Forces laboratory matched the Y-DNA of the Comb Ridge remains across seventeen markers to Joe Santistevan, a young Native American sheepherder who had vanished in 1929.",
+          "kind": "ai",
+          "query": "Solemn view of red rock mesas in southeastern Utah at sunset, long shadows stretching across desert sagebrush, cinematic wide shot, no people"
+        },
+        {
+          "narration": "Joe Santistevan's remains were returned to the Navajo Nation, giving his family closure after eighty-one years—and returning the Everett Ruess investigation directly back to the sandstone walls of Davis Gulch.",
+          "kind": "archive",
+          "query": "Davis Gulch arch Utah"
+        }
+      ]
+    },
+    {
+      "title": "Five Theories in the Stone",
+      "scenes": [
+        {
+          "narration": "Today, Everett Ruess remains an active cold case with the Garfield County Sheriff's Office under case number 0042753 and in the NamUs database under MP90057.",
+          "kind": "archive",
+          "query": "Garfield County Utah courthouse"
+        },
+        {
+          "narration": "With the Comb Ridge grave ruled out, historians and investigators weigh five main theories against the physical clues left in 1934.",
+          "kind": "stock",
+          "query": "canyon shadows timelapse"
+        },
+        {
+          "narration": "The first theory, favored by authors Jon Krakauer and Philip L. Fradkin as well as the 1935 searchers, is an accidental fall from a cliff or drowning in the Colorado River or a flash flood.",
+          "kind": "archive",
+          "query": "Glen Canyon Colorado River cliffs"
+        },
+        {
+          "narration": "Ruess was a reckless climber who wore smooth-soled boots and had lingering vision and balance issues from an earlier bout of poison ivy and bee stings, alongside an uncertain tentative diagnosis of pernicious anemia.",
+          "kind": "ai",
+          "query": "Close-up of smooth-soled 1930s leather boots scrambling up precarious ancient hand-and-toe-hold notches carved into a vertical red sandstone cliff face"
+        },
+        {
+          "narration": "However, decades of searching never uncovered a skeleton, a metal cooking kit, or wooden paintboxes below the cliffs, and a man camped at Hole-in-the-Rock from December 6, 1934, to April 1935 swore Ruess never passed his camp.",
+          "kind": "archive",
+          "query": "Hole-in-the-Rock Colorado River"
+        },
+        {
+          "narration": "The second theory, explored by Desert Magazine editor Randall Henderson and historian Bud Rusho, suggests Ruess was murdered by cattle rustlers who mistook the note-taking outsider for a rumoured undercover federal range detective.",
+          "kind": "ai",
+          "query": "Silhouettes of two 1930s cattle rustlers on horseback driving cattle through a shadowy canyon bottom at dusk, moody western atmosphere, no faces"
+        },
+        {
+          "narration": "A witness even told Rusho that a local drunk had once bragged in a bar about shooting the artist kid and dumping him in the river, though when Rusho interviewed the elderly man in 1982, he suffered from memory loss and yielded no proof.",
+          "kind": "stock",
+          "query": "dark river current"
+        },
+        {
+          "narration": "A third theory, considered by Waldo Ruess and David Roberts, proposes that outlaws killed Everett to steal his saddle, blankets, cash, and turquoise bracelet—yet neither murder theory explains why killers would leave his recognizable burros alive inside a corral.",
+          "kind": "ai",
+          "query": "Two pack burros standing alone inside a brushwood corral in a quiet red canyon under starlight, waiting by the fence, no people"
+        },
+        {
+          "narration": "A fourth theory suggests Ruess used the NEMO 1934 carving to stage his own vanishing into Mexico or among the Navajo, though biographers Rusho, Roberts, and Fradkin agree he was too close to his family and financially dependent on them to stay silent for decades.",
+          "kind": "archive",
+          "query": "Everett Ruess canyon"
+        },
+        {
+          "narration": "The fifth theory, examined by historian Gary Bergera, is wilderness suicide following romantic rejection and mood swings, echoing a July 12, 1932 postscript where Everett told Waldo that when the time came to die, he would find the wildest, loneliest spot there is.",
+          "kind": "stock",
+          "query": "lonely desert mesa"
+        },
+        {
+          "narration": "Yet if he intended to end his life in Davis Gulch, corralling his burros with food and water while hauling his heavy cooking kit and rations away makes little logistical sense.",
+          "kind": "ai",
+          "query": "Lone silhouette of a 1930s hiker carrying a heavy bedroll and pack walking away from a canyon alcove into vast red slickrock wilderness, seen from behind"
+        },
+        {
+          "narration": "If you ask me, the truth likely combines two of these paths: Everett Ruess walked out of Davis Gulch on a multi-day trek with his camping kit and fell or drowned in a remote side canyon or the river, while someone who later stumbled across his unattended camp quietly helped themselves to his saddle and gear without ever saying a word.",
+          "kind": "stock",
+          "query": "red canyon river"
+        },
+        {
+          "narration": "Until the desert gives up a metal cookpot, a leather journal, or bones matching the DNA on file in Utah, the young artist remains exactly what he chiseled into the stone in 1934: Nobody, nowhere to be found.",
+          "kind": "archive",
+          "query": "NEMO 1934 inscription"
+        },
+        {
+          "narration": "If this case stays with you, there is another file in our archives: the island lighthouse on Eilean Mòr, where three keepers vanished in December 1900.",
+          "kind": "archive",
+          "query": "Eilean Mor Flannan Isles lighthouse"
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "title": "americandarkbook.site",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG9eiOoiExX3q7fo4ftNsJMsUQIquaeG_Yn0kLxhBruXSFkUBi0PMD2ZkzOd0bQ5Tzeo_fCxrCMwnyyjI7agTHQpeLsNXc6dESQPtouaJ5hFB-5fBCmLJ-e6kKBdnJPZNhYxH384_eJ5HON"
+    },
+    {
+      "title": "wikipedia.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFiImYsufY7Oqh1G9z5oAbD0teb1tWjG4sriPl8kTNE1YxQ6PWHVS6fs-OuTau6K2RYxrWxNdxBWbj7IFXT5SaD9LX2TwhVuJgIjVbiAhraunxZ1c5OYGOdjK7tUI93pi9x"
+    },
+    {
+      "title": "redlandsfortnightly.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEWB9reh2_ZIhJv8axJB7rjp10f9iNx6viGYf6CNiOLITzaW4NN692MCi_0e4dRyITd6neV5laYzlKU9GEB9smgwQv2kMSiIDubcR2WBghQ0Ccm8MMO77pE9Hv1mwuH-TRAMK962wpBmubOzQzt4av-IlhnxpAk"
+    },
+    {
+      "title": "nickhuntscrutiny.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGEYokSYfpF0H8Qj6gOrVtasFy6R-u8oraCVuJy463VLp3ixI_xzK_W5Lp0eri5YGZ_dR5xdX_9GGOFKIN2qOTby3pAwbx_HMsVF5hrePRbjPP6E5uNChZiyOb9fkyWqnhDvJeH"
+    },
+    {
+      "title": "libbyapp.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHQQzJmVfktFP7XfNcbKGm4UorfBYrea6jCWP6Q_oOaR7oKFyYtAHk3ffeVSlP1b3RotBRKQ285mCPm9LMLE9HQm6krv-41yzRMsMezoZ4x0YMKvJJKt4xpwpt-Lw=="
+    },
+    {
+      "title": "lafayette.edu",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQELzVG47dlVnz3WWnUTkcsrlaoplz43M2JHs_HKxNxR7nQ8kdXJV-K956o_JgWz1NhbPiLNGnKSopK3l2uw99uvk4HeHA6yD9gAi8PGcUz8stAkG4L6uWUbt_zFfDs8aPWQiuXio9GxWCWq-QYlEBpGnfb3d8sv4XPC"
+    },
+    {
+      "title": "dokumen.pub",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG8pdBYkxPgffqDFDjq9mnqa-izGo_PzErBYKAjSrnjXP9JR_bGgK2dEjswHKw_ss1p24pCzSo91nvjju2_OU9ARPx-lGrbuyl2TfyjEARx0loT7g2CeWO5BpVikjgUK4LX2WQqetLk8F4Gb4mVPKRCiMwiTINMPbNlzeQDp6BgEtcXkRPjbz-jUvtNryCCWjx_4rnlUpnnzNGJ4OttWbTHVeUn6g=="
+    },
+    {
+      "title": "theamericansouthwest.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFSK18eVV0IH_D4_b8JKrZTssg8amFf22W_N5k_EZ_V1k6VRcVJiHFLUHDgpPiiPMnSZyn04rjmvcbm_rFZBIZFkeK4Ryv3fuYtcm8D2S08czGBSrf25MdVAb6P6Gfp6zSegZH3angrtQJKVAH_IBGTolAbZJsQyXk3ChIm59b6GBIHbN55esbMDeoYaccgmf-uLHmsIrVW24EomBVRKhXpzwj6vA829vJZHfDx4Lo="
+    },
+    {
+      "title": "theamericansouthwest.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGdh3In2Ql2lmaepVFaoO5wRJDJodzkQPmxPrfgxBWq8b9Lkdua_db5zWxa-CZMu1r6Pew56wNv0UtxHvbhxPcGb7BA0AM-cGeBzy99p_teum25gGsKyetug-d-cCc6KXP5QWHcpOUvSZphCsFxOHxkh7kdjRVyE2bJbGKoK_5Gmzf5RnchjxNGOxTuDvUW-0gncg9rDBSflqsDEi15odEBQlBzM6Xwoe9HhNN2NSoP"
+    },
+    {
+      "title": "issuu.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFcrgv277wh3AbMHGexBZCgmBYWyspaplQTBrUmv1DTBMHV8N-iCmMbPwqqFA0-bpi8rgWisKkMi73lu60Y6upfyTGfGHtEF_WVf0vF7KyavWkDwxW7vYG6bActQoZbDu8TabnUSATcWA=="
+    },
+    {
+      "title": "nationalgeographic.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF4gRoB0rWl1CxG-NPceiGesACCK0nb2r_Ns7qKSD5t5975TI19Uwwc-d-UvXEBncHdSDX2nFuf-znIBBPub1pJakNcJJChLrdXWv7fftl4mWl071hpGHQPrvHTHC7L-9CiEXkevlpc6I_VsLGdgVbqOa-VJJUpnHC4OIc2ciwoXrX3yJn3R2uA5dJtQ0GfTfGZJVh2SQ=="
+    },
+    {
+      "title": "redlandsfortnightly.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHYUaWmSl73IpuKDQbMfsuPigwxofzi9mIHGNCwCv5rsChURjJoU_yCtCFKXkSLaSHBgyQUF2Scab9fo09qQGUDbCZC5biycScLHYHj_JKDXYsPhk6nb56xXeuh4zsWEUyRuyJfwCDiAdZtdENvqfDBtfIKE5LX"
+    },
+    {
+      "title": "everettruess.net",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFq53jruI0IelGjZDPhMWELJ7FqPYfK1hm1gLr5Gyawx3Uu2TSxULZ80pJ7qG0NxZny-7XBHHHLSjVrKyfGhcrHDIZUpslFp4NdQDkk-z2L_OO_QCHgCfh13oNFsUq9i05l3f8iCZEUO2M="
+    },
+    {
+      "title": "redlandsfortnightly.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE6brRVMPudSlVv_VPAik1YbMGie3U8sg1CsvvBNzF8Fl4uBKSmhbXpNDxiTGyiGmHKaSdPT21zTVp4YrgenlO7rg7fr_OKSZJiyFcpmBIhb-CM02S_pbYh8zZzN_XhU_eQsRXOKukAe3Tt6k9w1J8JdXuppi6p"
+    },
+    {
+      "title": "powerappsportals.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGWzM1_wYT8h6YOPuiIdq8cL8D0IysJ9X_mFf5hyNZGhednUEIrG4rM7Y4aZ2MViSLY2OF4ayJaae8cZD3YekuZf-_doeiITz38XYnCfcIpJ6XGrxqQIWfqPuw9Rc590MECEdOE87jUppki_WZD95JiGD3JBqsQqh2mUbnIQL3JEP3vuv3LL46uAbOgmZ033GK1d-F31_OX3fp0DWInH6ll"
+    },
+    {
+      "title": "colorado.edu",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH-55Z-BfO66DTYLD1G0MsonxHOrBTBnAh9YS5jUFnEQKmcOsk8o18jAh9sLDurHrLFUG7ACnS0Bfjf4pPFWii-xfMcP-2xtjTYN54MjBUV1bEzo80JNpqTfZT2SbHkAgbN5-PvQJhys9BBki2PRId-S80glE5KYsbn0rxY-v0a-20NBec="
+    },
+    {
+      "title": "wordpress.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFNNYMsMo9Stooh0oXDlaetWF7QFNfAGilurW8IsMeFsS35N96V0vqQjskbetwOT2AAX0sgqoItWyT7K92forx1CZm91JEIiu7Rv5M4bQ7pP2rNHuXnuRVrD-VvEHR5kPGYZy-6LJDOvP5AVpNfZ1QS_bI-xcDBd_BbAr7jNqsRfHI-WRxY0ZUa5g=="
+    },
+    {
+      "title": "backcountrypost.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEIOxHTZa7ZQpllYET5ZswYpgtVp_8Y3FB60llCTI5l8lAta62bG-9jU88s3Tmf2pgsrGp1XjpPNTaT3HAUye8BmMLLhO1dLoES7UzDWK_PkVnQIiCS3IwaPesTcijfNGpIUOEnWyAhUPLGA68OuXPuMZjGbTFcldksR0xFYPSYhBGRS6PJag=="
+    },
+    {
+      "title": "nationalgeographic.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH4ITjXe-AIptcY6XtMaXyO-_MVQ1IESJ15IVfEl9wBLobrcQnnv4Lfxu2qMzr3wPpdEzWfv_j-9HOkKPJIGKZDTesz-ER_u9fd3XMPjD3P-HJ4-7t-cwxvH7RJdyfxj1F9gN5Dcf6Co5SLAwfv1ryLDiuUvUEc2WylRd4orNcNtRQnXMC4C-rrQZ090QZG6YKt73CtHQ=="
+    },
+    {
+      "title": "dokumen.pub",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEILjGJjMKrUVayirRW5QuGdizZ2LUkrAMNOTj-naackvNw-6zGVJ7JeivhnlFAp-sV7Jxlc-ND3sDhHQk7-OcvqPniiXTgCvf83kQRTJcL74XUBg0BdbhsDOiJ2Ck-z25qRnshDwDRmYVglD0HxatFkDg5_8xL1l-RQEI9r9Odw6yg43AkquwjzePtLY86kKybYB0ExrgomgmjMGk1v6OR6pGvkQ=="
+    },
+    {
+      "title": "redlandsfortnightly.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFIYECWie5HLjtPLsJD-2ahktBrPfOjq5Wyl9hbQ9fbLm4aNXp3Nts_XqWVXaT7nS3ObRSZONf69gaiUC0gKFu_KtSSyMSi1aZCeZ0pBqGWGnspsv-ALbEpp1Ox16PA7niSjwCOCK9zc88IncUKc3MrRplWCHQ="
+    },
+    {
+      "title": "doenetwork.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQF0a-wE7RSkoWDvcy090ZlPHd5TiwXCQdYPIzzjUKYrrqH90RrsZdvlQOOKL-zlcKp0-OcbyQ8h0bRnyRSRbWQVZxLMtF6bE9WAzSoRwgCSiRsMeUh3ASdl2kL1LMf7yERoRIRz"
+    },
+    {
+      "title": "circletocircle.blog",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEhJecZadGxM31jrknPV3oDrOJSp3WziNcT6fI3-Fv4MF4KAuGUn9KqcOs-taKU9iWPuT7QkyqcuInHuMhSymCcmxKGh4tPXeT-NrbLTQxBDB77rniaCXBzCjQ3qRBrVBi0_REZz0jWY3CgpQ=="
+    },
+    {
+      "title": "latimes.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGam2HUdYCZf9VBtkEtnWGiMxfXKvs6s6C-PyXrpdwsThEZcPJsGXgosuamykyYjNfRekXSZcguLeh_YJauyaR-EYlt0S5Mj3sDk-CIKQGx8Kt2c0FWvM3BEYU2CHveTnsWtfBqZ0anKcyBcUrI8jlV3PnNZBKBo5cM69wM"
+    },
+    {
+      "title": "nationalgeographic.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE10_Wjv2c_6N0F4MDqxWpbag4_M3UypQIZx1RIoDqIBEW6nXC385tnOrKYwWs7miQazsbx22fkDh_vV6-TlITQoeek1u9ByMsApJoyOFjAJlYgYTV7TueL7UmeZfVE_EyxfkWnyOEHikUCoK1auiFIH9Q4n5MB_bzD986ufW3bdjodjqSSoUXV582Enjhd0L0J1s33"
+    },
+    {
+      "title": "nationalgeographic.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG4yTiSiiSo9J_4YJ3A2Cww5wowrRmzFyATJkK1PZNSapKYXeyRqKgCQjVrUeAjrT8zsyKc8IVoVFBLUbvZWoKw_lu_UB1Dvw4v8m7SYovcKLSBBjY8WnPUIXhbm9eCc2jEnr55qb5XdG6FB6-UDIsPQRlRiuSsz0yDQMb8WhLO-Tj30Gjs4H4lBEgq29BKDYZOvMdUjSAnSoYh1lCCWZkq3p4_DzyuATds0vu3oKkG"
+    },
+    {
+      "title": "moabtimes.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGZxznKYACkkKJfsYiA8_PnQObGInJ1Mayr0zXw5wGP5LvOeYoutBwb7pABhXZZumsSbRZN8ijDzI1XvFbR_3jojHW9wOj7LSTFprWDNW9TeZbwRreWU5PBOWHNP7BY_hrW-Gjk2ADRzvDYJxyTHAz0QMgzF3ivaxj7EO-UL8PSRRRHnY0K6dnBJP9TSaim-49u4ubIUaez6UQ="
+    },
+    {
+      "title": "utah.gov",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFV0pzFK2YoMMh5pD9YSlkLVUCqlC_HNB2MObPqcFl1-4ExELNERBxad8ydXMXx4njYJlrUJRPJrR-eoMXdW3eioXKVKfEO57Bq_yhLYYdIGTRD66ZzRIOZVyQkcGgtaSHMe2o="
+    },
+    {
+      "title": "colorado.edu",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGrJwztaLg5h8JW3cJLEVwpaEfH2R4lFADPar1k8yDSK89bT3ChZUD2VobXE4ofzdvl55Fmtm4z_qyz9nfAlCpDOggfQ8tctF3v9uACuDRrf4ZCAwdX-Z-9uK20v89SKreqzooTHP_Ijist9-us3RANfsHsKnI72SL7IUPRmnmHruz2XDDIV6L7cFGiqCdHBrt2Z7Z7GJKEVqsD7s1AAY6bbdA="
+    },
+    {
+      "title": "ucpress.edu",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFybCkF6FyGQMjE8IPDPq3oLaUmZftue9jpUIuaBUcvQrL425sjnnsr0zCwuNMARfLWK9gnivTKr4indpBvj8rWDg_SBAMZzIjpZ-1dGXoq_h6s_9RKO-TUARi58ghD9OaDBydujg26FWDM"
+    },
+    {
+      "title": "nickhuntscrutiny.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFBJOUYchr_2KNDOfxXtNQlNNeTDrMPjTNWQ5KIR8zoMSwZySTA8X1VziceasWlD1oC5enYDi6d2OkW8_64Olt1TOus0-97VeW0yVkPf_-PWYhnsR7yLoRQJl2tM9DrEVNG4k_s"
+    },
+    {
+      "title": "smithsonianmag.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEhMb18Hx1i9fz2P20VBn4aT3mwhdgVvSjU-cevfWtYOO7Y2dcNgHq8L8VPhcAvAbGOjDLwI-jCLvwqnUwbsjB7KTYkQCATI3MVVP4Xf02Fqw2JBZ3OF-nDd2HECKOPoYGAnyUcVt0Mvw8SMp9wWRluOfnkb8aG1THYlQX0PlE5-bY07NvpQUvPZ_otbhHPBoBafw=="
+    },
+    {
+      "title": "weebly.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE4wN3JvrOIA4oYoLgOa6H2jkkZcQf6I8gDJ48BTptSWJ_lrWx0eqXIqUjlKJi-uqev5aFu1bj0EjNAdkSNYcpRnyTACY_Frr9jZUXT8bbdfGpvAia-QHi0npAdOD9Ai8GDFeSyZovRMYYRZwfSlJrb6hHFI-YxjdwM9SQhHDIAHRXx06_NfZOqOIWX"
+    },
+    {
+      "title": "scribd.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEB4jAYLwB4J--FEorTgbeMJczUspb0Ktve6lVMS90qGJm1vzA2OcLU__Et6wss1wQLrcYTJPeIl9NhxHnsfTOXKzHjbUC5Sn9b-2GxM8Hg5QzvULKlhgtgHNa3qdgLQ6Qx-MvxFgSAMZluxZv2gGG1l8rp_lh0rE4nu4PEIpfk6BR1ZBTkBOjBHW5J-w=="
+    },
+    {
+      "title": "everettruess.net",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFFhiu9BuOLHNoU-LPwPUZlOnTNK5OYHXekT_z0BDh9OKkF54DZ4LoEHCtskgH5FC8_Kk62W1fhRlRN7afI8NxCYE9c-Vq4mGJWlHgJN6KTLejAnrpI5iwmGGw="
+    },
+    {
+      "title": "theamericansouthwest.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE0rsKvNTmfS-Yhe8x3TrZmZ2nhPelEDTrABecxitzWHcXOv89ZkhJTgNjVNN3Exoolra5rPipeaGEfSVjYhCUaDppIoXv08jGeMTBkqNKiEQ7WFwAjhm0vu8qASOqcvKN0Ody5Z8GppDQozB0D0imAAGGXLEYF-YYqeZs9aVdNmhXxt3y6xODriMDqAPVtVvhTwN5xLTt-lPQHy9y5YNrUhBEbZDa6OGOhh9BjKM-E"
+    },
+    {
+      "title": "hcn.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE2CnKp_vuE_AAptparZICPjNg0aZWquia9aB_DOrlONds_Zp2Rz-TzGu2Eu-oSzSnpyD-IexhbpYEAIh47F3DHtR4xXHb-7Px-y1eARdyY0JXi6_6DfW_JCNoHJY9CgGUD9wX1_MmZOl4="
+    },
+    {
+      "title": "latimes.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQG03vihAavG81ODbr9sT6jICtLZh4RepjHVyTgmjZDx976jb-oC32-cA-whzbb6-4WRgBcBQVdUAb8NEF7R0BIVv4LCcl1Jhk5YEuvy2i-cADy4rRfJsTTRU_H1FRY7jopj0lJQYW1uBXQls9iEHsav_SSlTC8qx6h5pc-8-9eY"
+    },
+    {
+      "title": "eurekalert.org",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFODMQz_BaGT6GhzW5s3ozIumrh4GF5TdvfScFgyzbnpYq9xZsyChSuNX6Irkguzys3QZcAm-4llCJHxUC7JNxmc2_2d3yyWdrrofHqGogP_Sqacwx8tp-rfp-W7ivxsURLK2LOlw=="
+    },
+    {
+      "title": "rennyrussell.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGv5M3NAoCsFf2U5suRjjk0n2Kk3ubh2MVOd6IGUUhRaIM2rBWBYaGiGAqBjG6o_bWSKkC4BDWdAKg1ZAowd7WNYqzcAEMwe7o3y0LFM873eZAthJBTw0WpPNoqSquu2lOZprv6QepeZWQEE2Q5WYIStDgex4QrUA=="
+    },
+    {
+      "title": "wordpress.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQE38AOSQMyHF29SHG9IZ9uF5c_ZhjpbETshbSn54XSrCpQaKHrDafcbRTVQAf33KzyEJxLFTtgYxmp4yrApVyKNP5GBgyeu1M4xND8483vCZwGtMCub8IcWTRAt1VNqkaXacLjyCLrQGjPTDotPBWwDKfzW_a-Gr2ni06i4WNJVaQ=="
+    },
+    {
+      "title": "utah.edu",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHkAEP5xn9VwYOsJQkNcQiDgXfuXD5W0Newgd7hCJqfPIknAKWmF8Fj2D589ghYtJiHv7s5jMGTsD5OLHcQjPUqWk4vJCh0b0UpWBUKC7IWodLO8-GUWQsP9w9cHf7W"
+    },
+    {
+      "title": "issuu.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHgLNpqAR1jGkAjBzJpJFPIq7S-kLMFkYve6UcbvlLvXCeyRZjBhrIQvX9iw62fFe40vhl1WCpV5__gbU4yuLMQ3_dW9Yd5nN1Q9bs4Z0jGkFEK_jIbvQkynLTcwVY59dCxPWUlpumUI6Urtd1ajzkQ4a36-IPsLPhzNXCNIxjY51UDUw=="
+    },
+    {
+      "title": "well.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQGy6sJPvW5xSAtUVCWX3ibzSFLZZlBEC0HnNkJtk6KqfXL5j3BuUjH7ecZqJynkrq5fz8jjuXy9pIPrOBGfps-LCtnjprG1I5i7ZAkX2wNzEJRoLXUCaQh6bwOoZg0i3c25ZO_0iQra6H4egESxjiGVz51ecCfO073shDso5Lii2U7aLV1GhNYOie3lxKN1OKCV2T8m1rU="
+    },
+    {
+      "title": "scribd.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFcy2oIBTmZr1VRqBk55jrtruL4st3XtYPYK_4SuoEsDCYEGTNPeOB5ie_W1HJAbYcZ1aIF-JkUC5bYtKevrDfC4S8sOzFu1romfS_FHXed8vsEp8_CPmbi4rdC8bqedAAUZMlHpdXtwK-2ZA5O0QeDh31nTD_UmgtpI_G4h5WlltWQqG5VE7lCOT7dlA=="
+    },
+    {
+      "title": "wordpress.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQH_ZML_MDWUAZYGWinDV4P1wquPdl2A4RvYdOyR6hDGxIOwKua9sPRlKfCR359O2Tsf0r1oEc3p1JTa1idlaMwmb-VcfTqfZe0mL7P7Mo2DjurjdzNhx150oENxF-mQnyQGgBl76Ya7n4eW-FqWE9z9OBlLBwlLfZfXlm85URu-8M2Dss7B41dL"
+    },
+    {
+      "title": "dokumen.pub",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQEXvTQKM1hSi0pQgZ0YTcHxnXP1sQtIdHx6s_dTWyuR8zAU77BkD7FJ259N7e_6rm6uZM1xX5bg4pTTmDkEPfWAbYLMI1YucfL75NeknyMYoS0V9ua8Awqys1ayyMh3P9AN-dHbs6lTnUKdYvOWuWUfdEBm_o5ZVY1PXqUzFleYHWCYFI12wZipuD_LnApZi7o-8jPEiOuyUceDZw4dM479B4vv"
+    },
+    {
+      "title": "circletocircle.blog",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHSUGIAuIZke_Lt6RIKYagQaJKzK0HXqHUrNrrFMpOYpHqptDrpopHUvgV_g8kC2vnU_b-C--11fpMuyQOSkJ3XpLBTvhNzQIrMQaXuV-V7GIToClnZsbUPyrhLhORzC45AZNYmR0gvRWiK3A=="
+    },
+    {
+      "title": "rennyrussell.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQFP54DKHRyVlAp0padlvQPkp8su1Kvf2ZVya08lHjcxa9EF1FlzS0jk9pZOF-13Y-a7bA7pERkYdDCDbZAZ6sCKBuJIuBGWoqY1lOt3IVtSc5O9i17TDUbdYwnVvSf527lg7kJZpAOUxfhm085skrZ0F1mbBm9PecY="
+    },
+    {
+      "title": "issuu.com",
+      "uri": "https://vertexaisearch.cloud.google.com/grounding-api-redirect/AUZIYQHT7KzXgRLod7V6q7_Uo5GNYl6wknkKII9wsCotrWqZR_U7fItsySraiLLSL3TAvYIL-FrqxD68H8la6hF40ydpt2l33wLblMYxMvgM73_AOfen8N7E4Rf5FXD0mBiCcVNG"
+    }
+  ],
+  "hashtags": [
+    "EverettRuess",
+    "Nemo1934",
+    "ColdCase",
+    "UnsolvedMystery",
+    "UtahHistory"
+  ],
+  "country": "US",
+  "watch_next": {
+    "video_id": "34qsm0aTGaY",
+    "title": "The Ghostly Disappearance at Eilean Mòr Lighthouse",
+    "topic": "The Flannan Isles Lighthouse Disappearance"
+  },
+  "microniche": "last-messages",
+  "series_id": "e2f147112f2741e0aeedae23bd3215c1",
+  "series_reason": "Start the configured editorial microniche; no tagged series yet."
+}
