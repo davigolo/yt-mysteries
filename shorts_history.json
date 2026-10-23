@@ -394,5 +394,21 @@
     "duration_seconds": 39.93,
     "pipeline_revision": "retention-2026-10-21",
     "publish_at": "2026-10-23T23:30:00+00:00"
+  },
+  {
+    "date": "2026-10-23",
+    "episode_id": "Ly2Y_0gl5ho",
+    "angle": "Searchers climbed to an Ancestral Puebloan cliff dwelling in Davis Gulch and discovered a second NEMO 1934 carving incised into the stone doorstep right beside four intact ancient pottery jugs arranged on a flat rock.",
+    "title": "The Four Ancient Pots Left at a Missing Artist's Inscription",
+    "video_id": "YmyuB9hPIjc",
+    "privacy": "scheduled",
+    "uploaded_at": "2026-10-23T18:07:58+00:00",
+    "hook": "Four ancient pottery jugs sat lined up.",
+    "words": 89,
+    "duration_seconds": 40.09,
+    "pipeline_revision": "quality-2026-10-23",
+    "microniche": "last-messages",
+    "series_id": "e2f147112f2741e0aeedae23bd3215c1",
+    "publish_at": "2026-10-24T23:30:00+00:00"
   }
 ]
