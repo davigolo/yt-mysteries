@@ -426,5 +426,21 @@
     "microniche": "last-messages",
     "series_id": "e2f147112f2741e0aeedae23bd3215c1",
     "publish_at": "2026-10-25T16:00:00+00:00"
+  },
+  {
+    "date": "2026-10-24",
+    "episode_id": "Ly2Y_0gl5ho",
+    "angle": "Two pack burros survived penned for one hundred days next to a NEMO 1934 canyon carving, creating a forensic timeline paradox because searchers fiercely contradicted each other on whether the animals were starving or fat and healthy.",
+    "title": "The Burros Penned Beside a 1934 Canyon Carving",
+    "video_id": "bmr1LRsFb2Y",
+    "privacy": "scheduled",
+    "uploaded_at": "2026-10-24T21:36:00+00:00",
+    "hook": "Two burros waited 100 days for nobody.",
+    "words": 82,
+    "duration_seconds": 40.97,
+    "pipeline_revision": "quality-2026-10-23",
+    "microniche": "last-messages",
+    "series_id": "e2f147112f2741e0aeedae23bd3215c1",
+    "publish_at": "2026-10-25T23:30:00+00:00"
   }
 ]
