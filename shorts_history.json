@@ -442,5 +442,21 @@
     "microniche": "last-messages",
     "series_id": "e2f147112f2741e0aeedae23bd3215c1",
     "publish_at": "2026-10-25T23:30:00+00:00"
+  },
+  {
+    "date": "2026-10-25",
+    "episode_id": "Ly2Y_0gl5ho",
+    "angle": "Though postmarked November 11, 1934, Everett Ruess's final letter to his brother Waldo sparked a timeline dispute over whether it lacked a handwritten date and was mailed from the trail by a sheepherder before he carved NEMO 1934 and vanished.",
+    "title": "The Timeline Debate Over a Missing Artist's Final Letter",
+    "video_id": "kSmQZbo9N8o",
+    "privacy": "scheduled",
+    "uploaded_at": "2026-10-25T21:09:47+00:00",
+    "hook": "A missing artist's final letter sparked timeline disputes.",
+    "words": 90,
+    "duration_seconds": 38.25,
+    "pipeline_revision": "quality-2026-10-23",
+    "microniche": "last-messages",
+    "series_id": "e2f147112f2741e0aeedae23bd3215c1",
+    "publish_at": "2026-10-26T23:30:00+00:00"
   }
 ]
