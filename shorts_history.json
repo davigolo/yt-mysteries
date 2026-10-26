@@ -458,5 +458,21 @@
     "microniche": "last-messages",
     "series_id": "e2f147112f2741e0aeedae23bd3215c1",
     "publish_at": "2026-10-26T23:30:00+00:00"
+  },
+  {
+    "date": "2026-10-26",
+    "episode_id": "Ly2Y_0gl5ho",
+    "angle": "Official Utah Bureau of Criminal Identification files recorded the missing artist's final carving as NEMO Nov 1934, even though photographs and primary field reports of the sandstone wall show only NEMO 1934.",
+    "title": "The Extra Word in a 1934 Vanishing File",
+    "video_id": "m1cdgFZ951c",
+    "privacy": "scheduled",
+    "uploaded_at": "2026-10-26T19:36:30+00:00",
+    "hook": "A state file added one word to stone.",
+    "words": 90,
+    "duration_seconds": 41.37,
+    "pipeline_revision": "quality-2026-10-23",
+    "microniche": "last-messages",
+    "series_id": "e2f147112f2741e0aeedae23bd3215c1",
+    "publish_at": "2026-10-27T23:30:00+00:00"
   }
 ]
