@@ -78,5 +78,20 @@
     "series_reason": "Start the configured editorial microniche; no tagged series yet.",
     "publish_at": "2026-10-23T23:00:00+00:00",
     "pipeline_revision": "quality-2026-10-23"
+  },
+  {
+    "date": "2026-11-04",
+    "format": "disappearance",
+    "topic": "The 1943 Disappearance of the Hawaii Clipper",
+    "title": "The One-Minute Radio Pause Before a 1938 Vanishing",
+    "video_id": "-yYdqIJ6_Co",
+    "privacy": "scheduled",
+    "country": "US",
+    "uploaded_at": "2026-11-04T23:22:26+00:00",
+    "pipeline_revision": "opening-alerts-2026-11-04",
+    "microniche": "last-messages",
+    "series_id": "e2f147112f2741e0aeedae23bd3215c1",
+    "series_reason": "Continue: 1 settled episodes meet the sample threshold; need two blocks of 4 to assess a sustained decline. Episode count alone never ends a series.",
+    "publish_at": "2026-11-07T00:00:00+00:00"
   }
 ]
