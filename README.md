@@ -152,6 +152,10 @@ Aplicado de "9 errores que el algoritmo de YouTube odia" (Mario Ruiz):
   aproximación editorial al objetivo de los primeros 20 segundos, no una medición del audio. En Shorts, el gancho
   tiene como máximo ocho palabras y el segundo beat entrega evidencia de la anomalía. `opening_valid` es obligatorio
   en ambos revisores; una apertura rechazada devuelve feedback para regenerar el guion.
+- **Primer minuto sin reinicio**: escritor y revisor examinan las primeras 150 palabras de los largos. Antes de las
+  50 debe aparecer la prueba concreta del título; antes de las 150, otra pista documentada debe avanzar una pregunta
+  específica y explicar qué apoya, descarta o deja incierto. Repetir el gancho, presentar otra introducción o prometer
+  pruebas futuras no pasa la revisión. Los presupuestos de palabras aproximan 20/60 segundos, no miden el audio.
 - **Impacto de sesión**: la última frase enlaza con el episodio anterior de la misma serie, que va también como
   "Watch next" en la descripción, y el vídeo termina con `video.end_screen_seconds` (20) de cola para la **pantalla final**.
   La API no permite crearla: el log indica qué vídeo poner en Studio.
@@ -225,6 +229,31 @@ ni considera maduros los programados o privados. Los días se comparan en la zon
 Las subidas se reintentan desde cero hasta 3 veces si YouTube corta la sesión resumible (410/5xx), para no dejar vídeos
 vacíos en el canal. `publish.py` avisa (`::warning::`) de los vídeos que siguen sin procesar o que han fallado.
 
+### Estado de generación y publicación
+
+`Episode`, `Shorts` y `Publish` dejan un resultado explícito en el log, el resumen de Actions y el paso `Result`:
+
+| Estado | Significado |
+|---|---|
+| `uploaded` | Subida confirmada con enlace y, si existe, fecha programada; no significa que ya sea público. |
+| `published` | `Publish` confirmó el cambio de vídeos legacy de oculto a público. |
+| `generated` | Solo guion, previsualización o vídeo sin subida. |
+| `dry_run` | Simulación de publicación; no cambia YouTube. |
+| `waiting` | No hay un nuevo Short elegible o no se publicó ningún vídeo legacy; genera una advertencia. |
+| `blocked` | Gemini devolvió HTTP 402 por saldo prepago agotado; la ejecución falla e indica cómo desbloquearla. |
+| `failed` | Otro error; la ejecución falla y conserva el traceback. |
+
+Un workflow verde con `waiting` no es una publicación. Los historiales solo se guardan en Actions cuando el resultado
+es `uploaded`. Los fallos al hacer público un vídeo legacy no se convierten en un resultado de cero publicaciones.
+Si el proceso termina antes de registrar su estado, el paso `Result` lo señala como fallo sin resultado confirmado.
+El estado de publicación no sustituye al resultado global del job: guardar el historial o enlazar Shorts aún puede fallar.
+Estas señales son anotaciones y resúmenes de Actions, no avisos por Telegram ni correo configurados por el pipeline.
+
+Para un bloqueo HTTP 402, recarga el proyecto asociado a `GEMINI_API_KEY` en [AI Studio](https://ai.studio/projects)
+y lanza `Episode` manualmente desde Actions. Cambiar de modelo no repone el saldo. No aumentes el límite de Shorts
+ni abandones la serie para ocultar el bloqueo: tras subir un nuevo episodio de la serie, volverá a haber Shorts elegibles.
+La publicación sigue respetando el margen y los días configurados; relanzar no implica publicar inmediatamente.
+
 El [roadmap de mejora](ROADMAP.md) recoge las prioridades, las métricas de partida y los criterios para revisar el
 siguiente lote de 3–4 publicaciones maduras.
 
@@ -235,7 +264,8 @@ YouTube: no genera contenido, no gasta créditos de IA ni cambia vídeos. Guarda
 artefacto y un resumen en la ejecución, con periodos de 28 y 90 días, corte disponible, muestras y formatos separados.
 Consulta también la curva de retención de los largos a los 30 y 60 segundos cuando hay datos.
 
-`reporting` identifica el lote de mejora iniciado el 21 de octubre de 2026. Los vídeos generados desde este despliegue
+`reporting` identifica el lote de mejora `opening-alerts-2026-11-04`, iniciado el 4 de noviembre de 2026.
+Los vídeos generados desde este despliegue
 guardan `pipeline_revision` en el historial; los ya programados y los guiones reutilizados no se etiquetan
 retroactivamente. La revisión del lote requiere la etiqueta coincidente, publicación desde `reporting.since` y
 madurez y muestra suficientes; espera cuatro piezas por formato (`reporting.batch_size`) antes de cerrar el lote.

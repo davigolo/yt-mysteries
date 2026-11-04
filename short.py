@@ -10,6 +10,7 @@ from longform.insights import build_short_insights, fetch_performance
 from longform.schedule import next_slot
 from longform.script import Script
 from longform.series import active_series
+from longform.run_status import report_status, run_cli
 from longform.visuals import VisualSource
 from longform.voice import remaining_characters, synthesize
 from main import _load_env
@@ -79,7 +80,11 @@ def main() -> None:
             history, shorts_history, shorts["episode_window"], shorts["max_per_episode"],
         )
         if not episode_id:
-            print(f"Todos los episodios recientes tienen ya {shorts['max_per_episode']} Shorts; se espera al siguiente episodio")
+            report_status(
+                "waiting",
+                f"Los episodios de la serie activa ya tienen {shorts['max_per_episode']} Shorts cada uno. "
+                "No se ha generado ni subido ningun Short; revisa Episode y espera al siguiente episodio.",
+            )
             return
         episode = Script.from_json((EPISODES / f"{episode_id}.json").read_text(encoding="utf-8"))
         print(f"Episodio: {episode.title} (https://youtu.be/{episode_id})")
@@ -134,6 +139,7 @@ def main() -> None:
     )
     (WORKDIR / "short_description.txt").write_text(f"{title}\n\n{description}", encoding="utf-8")
     if args.no_upload:
+        report_status("generated", "Short generado localmente; no se ha subido a YouTube.")
         return
     playlists = [config["playlists"]["shorts"]] if config.get("playlists", {}).get("shorts") else []
     schedule = config["upload"].get("schedule")
@@ -157,6 +163,10 @@ def main() -> None:
     entry.update(_publish_social(video, script, shorts))
     shorts_history.append(entry)
     SHORTS_HISTORY.write_text(json.dumps(shorts_history, ensure_ascii=False, indent=2), encoding="utf-8")
+    report_status(
+        "uploaded", f"Short subido a YouTube con privacidad {privacy}; subida no equivale a publicacion.",
+        video_id=video_id, publish_at=publish_at,
+    )
 
 
 def _publish_social(video: Path, script: ShortScript, shorts: dict) -> dict:
@@ -179,4 +189,4 @@ def _publish_social(video: Path, script: ShortScript, shorts: dict) -> dict:
 
 
 if __name__ == "__main__":
-    main()
+    run_cli(main)

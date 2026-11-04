@@ -10,6 +10,7 @@ import yaml
 from longform.insights import build_series_insights, fetch_performance
 from longform.schedule import next_slot
 from longform.render import build_voice_track, render, write_ass, write_srt
+from longform.run_status import report_status, run_cli
 from longform.script import Script, generate_script
 from longform.series import microniche_playlist
 from longform.thumbnail import create_thumbnail
@@ -78,6 +79,7 @@ def main() -> None:
     if script.watch_next:
         print(f"Pantalla final: añade en Studio https://youtu.be/{script.watch_next['video_id']} ({script.watch_next['title']})")
     if args.script_only:
+        report_status("generated", "Guion generado para revision; no se ha subido ningun video.")
         return
 
     scenes = [scene for chapter in script.chapters for scene in chapter.scenes]
@@ -120,6 +122,7 @@ def main() -> None:
     print(f"Miniatura: {thumbnail}\nDescripción: build/description.txt")
 
     if args.preview or args.no_upload:
+        report_status("generated", "Video generado localmente; no se ha subido a YouTube.")
         return
     playlists = config["playlists"]["episodes"]
     targets = [p for p in (playlists.get("all"), playlists.get(script.format)) if p]
@@ -152,7 +155,11 @@ def main() -> None:
         **({"publish_at": publish_at.isoformat(timespec="seconds")} if publish_at else {}),
     })
     HISTORY.write_text(json.dumps(history, ensure_ascii=False, indent=2), encoding="utf-8")
+    report_status(
+        "uploaded", f"Episodio subido a YouTube con privacidad {privacy}; subida no equivale a publicacion.",
+        video_id=video_id, publish_at=publish_at,
+    )
 
 
 if __name__ == "__main__":
-    main()
+    run_cli(main)

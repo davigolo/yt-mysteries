@@ -41,7 +41,7 @@ def make_public(youtube, video_id: str, status: dict, overrides: dict, dry_run: 
         return True
     except HttpError as e:
         print(f"No se pudo publicar {video_id}: {e}")
-        return False
+        raise
 
 
 def publish_due(

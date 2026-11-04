@@ -6,6 +6,7 @@ import yaml
 from googleapiclient.discovery import build
 
 from longform.publish import fetch_statuses, pending, publish_due
+from longform.run_status import report_status, run_cli
 from longform.upload import credentials
 from main import _load_env
 
@@ -40,8 +41,17 @@ def main() -> None:
     published += publish_due(
         youtube, shorts, statuses, after_hours, overrides, limit - published, requires="episode_id", dry_run=args.dry_run,
     )
-    print(f"{published} vídeo(s) publicados")
+    if args.dry_run:
+        report_status("dry_run", f"Se publicarian {published} videos legacy; no se ha cambiado su privacidad.")
+    elif published:
+        report_status("published", f"{published} videos legacy confirmados como publicos en YouTube.")
+    else:
+        report_status(
+            "waiting",
+            "No se ha publicado ningun video legacy en esta ejecucion. Los videos programados con "
+            "publishAt los publica YouTube; esta ejecucion no confirma nuevas subidas.",
+        )
 
 
 if __name__ == "__main__":
-    main()
+    run_cli(main)

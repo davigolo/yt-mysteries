@@ -86,6 +86,7 @@ jobs:
           key: studio-state-${{ github.run_id }}
 
       - name: Make due unlisted videos public
+        id: publication
         if: always()
         env:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
@@ -93,6 +94,17 @@ jobs:
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run && '--dry-run' || '' }}
         run: python publish.py $DRY_RUN
+
+      - name: "Result: ${{ steps.publication.outputs.publication_status || 'failed_before_result' }}"
+        if: always()
+        env:
+          PUBLICATION_STATUS: ${{ steps.publication.outputs.publication_status }}
+        run: |
+          if [ -z "$PUBLICATION_STATUS" ]; then
+            echo "::error::Publish termino sin confirmar su resultado. Revisa los pasos anteriores."
+            printf '## Publication result: failed\n\nPublish no confirmo su resultado; revisa los pasos anteriores.\n' >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
 
       - name: Fail if related video linking failed
         if: ${{ always() && steps.related.outcome == 'failure' }}

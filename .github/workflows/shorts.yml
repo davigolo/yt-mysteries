@@ -40,6 +40,7 @@ jobs:
       - run: pip install -r requirements.txt
 
       - name: Generate and upload short
+        id: generation
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
@@ -58,8 +59,19 @@ jobs:
           EPISODE: ${{ inputs.episode }}
         run: python short.py $UPLOAD_FLAG ${EPISODE:+--episode "$EPISODE"}
 
+      - name: "Result: ${{ steps.generation.outputs.publication_status || 'failed_before_result' }}"
+        if: always()
+        env:
+          PUBLICATION_STATUS: ${{ steps.generation.outputs.publication_status }}
+        run: |
+          if [ -z "$PUBLICATION_STATUS" ]; then
+            echo "::error::Shorts termino sin confirmar su resultado. Revisa los pasos anteriores y YouTube antes de reintentar."
+            printf '## Publication result: failed\n\nShorts no confirmo su resultado; revisa los pasos anteriores.\n' >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
       - name: Save history
-        if: github.event_name != 'workflow_dispatch' || inputs.upload
+        if: steps.generation.outputs.publication_status == 'uploaded'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898333+github-actions[bot]@users.noreply.github.com"

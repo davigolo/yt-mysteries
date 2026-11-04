@@ -35,6 +35,7 @@ jobs:
       - run: pip install -r requirements.txt
 
       - name: Generate and upload episode
+        id: generation
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
@@ -45,8 +46,19 @@ jobs:
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
         run: python main.py ${{ github.event_name == 'workflow_dispatch' && !inputs.upload && '--no-upload' || '' }}
 
+      - name: "Result: ${{ steps.generation.outputs.publication_status || 'failed_before_result' }}"
+        if: always()
+        env:
+          PUBLICATION_STATUS: ${{ steps.generation.outputs.publication_status }}
+        run: |
+          if [ -z "$PUBLICATION_STATUS" ]; then
+            echo "::error::Episode termino sin confirmar su resultado. Revisa los pasos anteriores y YouTube antes de reintentar."
+            printf '## Publication result: failed\n\nEpisode no confirmo su resultado; revisa los pasos anteriores.\n' >> "$GITHUB_STEP_SUMMARY"
+            exit 1
+          fi
+
       - name: Save history
-        if: github.event_name != 'workflow_dispatch' || inputs.upload
+        if: steps.generation.outputs.publication_status == 'uploaded'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898333+github-actions[bot]@users.noreply.github.com"

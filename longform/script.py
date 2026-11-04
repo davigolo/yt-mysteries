@@ -100,6 +100,16 @@ HOOK_RULES = """The cold open has 40-60 words TOTAL, split into 3-5 short scenes
   "to understand why" or "we must go back". Do not restart the story after the opening.
   The first scene's visual must be the most striking image of the whole episode, and never an "ai" image of writing."""
 
+FIRST_MINUTE_RULES = """Within the first 50 spoken words, identify the tangible evidence and deliver a source-supported
+detail that substantiates the title's central promise. A promise to show the evidence later does not count.
+From that evidence, ask ONE focused question. Before the first 150 spoken words end, investigate that question using
+at least one ADDITIONAL verified detail from the dossier and explain what it supports, rules out or leaves uncertain.
+The first chapter must advance the investigation rather than paraphrase the cold open or repeat the title's mystery.
+Do not add a second introduction, a chronological rewind, a list of theories, biography or a list of future promises.
+Introduce a name, date or background detail only when the viewer needs it to understand the evidence being examined.
+Never fabricate a clue, claim a question is resolved when it is not, or inflate uncertainty into impossibility.
+The 50/150-word budgets estimate 20/60 seconds at 150 words per minute; they are not measured audio timing."""
+
 SCRIPT_PROMPT = """You are an award-winning scriptwriter for a faceless YouTube documentary channel about {niche}.
 Audience: {audience}. Language: {language}. Tone: {tone}.
 
@@ -121,6 +131,7 @@ Length: about {target_words} words in total (about 16 minutes at 150 words per m
 - Then exactly {chapters} chapters, each with a short evocative title (2-5 words).
 - Chapter 1 continues the opening investigation with the first concrete evidence; no second introduction or long
   chronological rewind. Add only the background needed to understand the next clue, when that clue appears.
+- First-minute delivery requirements: {first_minute_rules}
 - Deliver a new verified clue, a resolved small question or an evidence-based reversal roughly every 30-45 seconds.
   Do not repeat the central mystery, list promises or stretch the same detail to reach the word count.
 - End every chapter with an open loop that makes the viewer need the next one.
@@ -285,15 +296,13 @@ def review_packaging(
     gemini: Gemini, title: str, thumbnail_text: str, narration: str, source: str, thumbnail_prompt: str = "",
     *, short: bool = False,
 ) -> dict:
-    opening = "\n".join(narration.splitlines()[:2]) if short else " ".join(narration.split()[:50])
+    opening = "\n".join(narration.splitlines()[:2]) if short else " ".join(narration.split()[:150])
     opening_rule = (
         "The first beat is at most 8 words and states a concrete, source-verifiable anomaly, not generic suspense. "
         "The next beat provides evidence connecting it to the title, not a larger unsupported promise. "
         "The specific payoff must arrive before the final CTA and loop; the Short must stand on its own."
         if short else
-        "Within the first 50 spoken words, identify the tangible evidence and deliver a source-supported detail "
-        "that substantiates the title's central promise. This word budget estimates 20 seconds at 150 words per "
-        "minute; it is not measured audio timing. Do not accept a promise of later evidence as delivery."
+        FIRST_MINUTE_RULES
     )
     data = json.loads(gemini.json(PACKAGING_PROMPT.format(
         title=title, thumbnail_text=thumbnail_text, thumbnail_prompt=thumbnail_prompt, narration=narration, source=source,
@@ -441,6 +450,7 @@ def generate_script(
             target_words=config["script"]["target_words"],
             chapters=config["script"]["chapters"],
             hook_rules=HOOK_RULES.replace("{title_promise}", "the single most intriguing concrete detail of the case"),
+            first_minute_rules=FIRST_MINUTE_RULES,
             watch_next_rule=_watch_next_rule(watch_next),
             insights=insights or "No eligible analytics yet. Do not invent performance claims.",
             series_rule=microniche_scope(series.microniche),
