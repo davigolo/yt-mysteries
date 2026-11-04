@@ -1,0 +1,39 @@
+.github/workflows/episode.yml
+  s_6dde2b23869d63::t_c8ac69ebcf2531 38,49-59,61
+.github/workflows/publish.yml
+  s_6dde2b23869d63::t_d6b9a06ed36ea7 89,98-108
+.github/workflows/shorts.yml
+  s_6dde2b23869d63::t_50080d0c925576 43,62-72,74
+README.md
+  s_6dde2b23869d63::t_9bdb80f810201c 155-158,232-256,267-268
+config.yaml
+  s_6dde2b23869d63::t_15b009fc2f90d8 90-91
+longform/publish.py
+  s_6dde2b23869d63::t_ffec7fb8a23f8a 44
+longform/run_status.py
+  s_6dde2b23869d63::t_6e619fe3a0856d 1-48
+longform/script.py
+  s_6dde2b23869d63::t_a03b58a099f986 103-112,134,299,305,453
+main.py
+  s_6dde2b23869d63::t_21b847f9fed202 13,82,125,158-161,165
+publish.py
+  s_6dde2b23869d63::t_e9bfcde415ef55 9,44-53,57
+short.py
+  s_6dde2b23869d63::t_be53c758d90671 13,83-87,142,166-169,192
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "52ad140bec49941bf94ae16f6372286593e66250",
+  "prompts": {},
+  "sessions": {
+    "s_6dde2b23869d63": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "7a37c641-1ca6-458a-9a53-082a74306437",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
