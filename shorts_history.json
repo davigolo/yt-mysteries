@@ -474,5 +474,21 @@
     "microniche": "last-messages",
     "series_id": "e2f147112f2741e0aeedae23bd3215c1",
     "publish_at": "2026-10-27T23:30:00+00:00"
+  },
+  {
+    "date": "2026-11-04",
+    "episode_id": "-yYdqIJ6_Co",
+    "angle": "Flight Radio Officer William McGarty tapped out a routine eight-word request to stand by for rain static, after which the Hawaii Clipper vanished without a trace.",
+    "title": "The Eight-Word Hold Before a 1938 Vanishing",
+    "video_id": "7LKWLWfiH6o",
+    "privacy": "scheduled",
+    "uploaded_at": "2026-11-04T23:57:02+00:00",
+    "hook": "One radio pause silenced an airliner forever.",
+    "words": 82,
+    "duration_seconds": 42.25,
+    "pipeline_revision": "opening-alerts-2026-11-04",
+    "microniche": "last-messages",
+    "series_id": "e2f147112f2741e0aeedae23bd3215c1",
+    "publish_at": "2026-11-07T00:30:00+00:00"
   }
 ]
