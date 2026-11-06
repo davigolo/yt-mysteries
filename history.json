@@ -93,5 +93,20 @@
     "series_id": "e2f147112f2741e0aeedae23bd3215c1",
     "series_reason": "Continue: 1 settled episodes meet the sample threshold; need two blocks of 4 to assess a sustained decline. Episode count alone never ends a series.",
     "publish_at": "2026-11-07T00:00:00+00:00"
+  },
+  {
+    "date": "2026-11-06",
+    "format": "disappearance",
+    "topic": "The 1928 Disappearance of Glen and Bessie Hyde",
+    "title": "The Dry Diary Found in an Empty 1928 River Boat",
+    "video_id": "Z08owVo06YY",
+    "privacy": "scheduled",
+    "country": "US",
+    "uploaded_at": "2026-11-06T00:13:44+00:00",
+    "pipeline_revision": "opening-alerts-2026-11-04",
+    "microniche": "last-messages",
+    "series_id": "e2f147112f2741e0aeedae23bd3215c1",
+    "series_reason": "Continue: 1 settled episodes meet the sample threshold; need two blocks of 4 to assess a sustained decline. Episode count alone never ends a series.",
+    "publish_at": "2026-11-10T00:00:00+00:00"
   }
 ]
