@@ -490,5 +490,21 @@
     "microniche": "last-messages",
     "series_id": "e2f147112f2741e0aeedae23bd3215c1",
     "publish_at": "2026-11-07T00:30:00+00:00"
+  },
+  {
+    "date": "2026-11-06",
+    "episode_id": "-yYdqIJ6_Co",
+    "angle": "Three hours after the Hawaii Clipper's final radio hold for rain static over the open ocean, a witness on Lahuy Island reported hearing its heavy engines droning above the clouds.",
+    "title": "The Engine Sound After a 1938 Radio Cutoff",
+    "video_id": "qIZ-6ckLXQo",
+    "privacy": "scheduled",
+    "uploaded_at": "2026-11-06T00:18:32+00:00",
+    "hook": "Engines droned three hours after radio silence.",
+    "words": 90,
+    "duration_seconds": 42.41,
+    "pipeline_revision": "opening-alerts-2026-11-04",
+    "microniche": "last-messages",
+    "series_id": "e2f147112f2741e0aeedae23bd3215c1",
+    "publish_at": "2026-11-07T17:00:00+00:00"
   }
 ]
