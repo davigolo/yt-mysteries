@@ -538,5 +538,21 @@
     "microniche": "last-messages",
     "series_id": "e2f147112f2741e0aeedae23bd3215c1",
     "publish_at": "2026-11-10T17:00:00+00:00"
+  },
+  {
+    "date": "2026-11-08",
+    "episode_id": "Z08owVo06YY",
+    "angle": "Two years after Bessie Hyde's recovered diary stopped on November 30, 1928, searchers found a prospectors' cabin inscription dated November 31st, proving the wall carving was a hoax because November only has thirty days.",
+    "title": "The Impossible Date Written After a 1928 Canyon Vanishing",
+    "video_id": "ekrp7hqDzu4",
+    "privacy": "scheduled",
+    "uploaded_at": "2026-11-08T18:35:54+00:00",
+    "hook": "A canyon cabin wall held an impossible date.",
+    "words": 89,
+    "duration_seconds": 43.69,
+    "pipeline_revision": "opening-alerts-2026-11-04",
+    "microniche": "last-messages",
+    "series_id": "e2f147112f2741e0aeedae23bd3215c1",
+    "publish_at": "2026-11-11T00:30:00+00:00"
   }
 ]
