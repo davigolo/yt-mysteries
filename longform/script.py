@@ -22,7 +22,7 @@ Audience: {audience}. Language: {language}.
 Story type for the next episode: {format_rule}
 {series_rule}
 
-Pick ONE real, well-documented case for a 15-18 minute episode.
+Pick ONE real, well-documented case for a focused documentary episode.
 Rules:
 - The core events happened before 1990, so there is solid public documentation.
 - Do not pick cases whose central figures are minors or that revolve around sexual violence.
@@ -110,6 +110,20 @@ Introduce a name, date or background detail only when the viewer needs it to und
 Never fabricate a clue, claim a question is resolved when it is not, or inflate uncertainty into impossibility.
 The 50/150-word budgets estimate 20/60 seconds at 150 words per minute; they are not measured audio timing."""
 
+PACING_RULES = """Keep investigating the ONE question established by the opening.
+Every 75-110 spoken words, advance it with a source-supported detail, a comparison of evidence, or an answer to a
+specific small question. Explain why that information changes or limits an interpretation. Atmosphere, a repeated
+mystery, a rhetorical question and a promise of later evidence do not count as progress.
+Resolve small questions as soon as the evidence permits; do not save all useful answers for the last chapter.
+Introduce context only beside the clue that requires it. Do not retell the timeline or summarize earlier chapters.
+Discuss each theory beside the evidence that supports or weakens it, not in a separate repeated list.
+A chapter transition must follow a concrete finding into the next unresolved question, not repeat a cliffhanger formula.
+Keep the final synthesis brief: state the strongest supported interpretation and its remaining limit, then the
+next-episode bridge. Do not replay all the clues or repeat a goodbye.
+Use calm, complete, connected sentences for this audience; do not manufacture excitement with fragmented speech,
+faster narration, unrelated imagery or invented twists.
+The 75-110-word intervals approximate 30-45 seconds at 150 words per minute, not measured audio timing."""
+
 SCRIPT_PROMPT = """You are an award-winning scriptwriter for a faceless YouTube documentary channel about {niche}.
 Audience: {audience}. Language: {language}. Tone: {tone}.
 
@@ -126,7 +140,9 @@ Apply relevant feedback within the locked microniche; a weaker opening is not a 
 {series_rule}
 {revision}
 
-Length: about {target_words} words in total (about 16 minutes at 150 words per minute). Structure:
+Length: aim for {target_words} words in total; NEVER exceed {max_words}, including the opening and final bridge.
+These are word budgets, not measured audio duration. Cut repetition and optional context before cutting evidence.
+Do not stretch a shorter, complete investigation to reach the target. Structure:
 - A cold open. {hook_rules}
 - Then exactly {chapters} chapters, each with a short evocative title (2-5 words).
 - Chapter 1 continues the opening investigation with the first concrete evidence; no second introduction or long
@@ -134,7 +150,7 @@ Length: about {target_words} words in total (about 16 minutes at 150 words per m
 - First-minute delivery requirements: {first_minute_rules}
 - Deliver a new verified clue, a resolved small question or an evidence-based reversal roughly every 30-45 seconds.
   Do not repeat the central mystery, list promises or stretch the same detail to reach the word count.
-- End every chapter with an open loop that makes the viewer need the next one.
+- Full-episode pacing requirements: {pacing_rules}
 - The narrator has a personality: {host}. Once in the middle and once in the last chapter, add 1-3 sentences of
   first-person opinion, clearly framed as such ("What I keep coming back to is...", "If you ask me..."). Never more.
 - The last chapter weighs the theories honestly and ends with a memorable final line. No calls to subscribe or like.
@@ -189,6 +205,8 @@ Opening excerpt:
 </opening>
 Opening requirements for this format:
 {opening_rule}
+Pacing requirements for this format:
+{pacing_rule}
 
 Check that:
 1. Every factual statement in the narration is supported by the source, and disputed claims remain attributed.
@@ -205,13 +223,14 @@ or delayed promise and give a concrete narration revision. Never invent evidence
 impossibility, withhold the promised detail for a click or prescribe engagement tricks.
 If the narration is unsupported, set narration_supported=false and explain what must change. Do not hide that by
 rewriting the title. If only the packaging fails, return corrected packaging that the narration fully delivers.
+{pacing_check}
 Always return a title of at most 60 characters, no colon, never "The Mystery of"; thumbnail text of 2-4 words that
 complements the title. If an image idea was provided, return an aligned English thumbnail_prompt, one clear subject,
 no text or recognizable real faces. Set promise_delivered=true only if the narration delivers the returned packaging's
 specific promise. For a Short, that detail must be delivered BEFORE the final CTA; otherwise set promise_delivered=false.
 
 Return ONLY JSON:
-{{"narration_supported": true, "promise_delivered": true, "opening_valid": true, "issue": "empty if no problem, otherwise the problem and concrete narration fix", "title": "...", "thumbnail_text": "...", "thumbnail_prompt": "aligned image idea, or empty for Shorts"}}"""
+{{"narration_supported": true, "promise_delivered": true, "opening_valid": true{pacing_result}, "issue": "empty if no problem, otherwise the problem and concrete narration fix", "title": "...", "thumbnail_text": "...", "thumbnail_prompt": "aligned image idea, or empty for Shorts"}}"""
 
 MIN_WORDS = 1300
 HARD_MIN_WORDS = 1100
@@ -307,10 +326,25 @@ def review_packaging(
     data = json.loads(gemini.json(PACKAGING_PROMPT.format(
         title=title, thumbnail_text=thumbnail_text, thumbnail_prompt=thumbnail_prompt, narration=narration, source=source,
         opening=opening, opening_rule=opening_rule,
+        pacing_rule=(
+            "Deliver the promised detail before the CTA; every middle beat must advance this one angle."
+            if short else PACING_RULES
+        ),
+        pacing_check="" if short else (
+            "Audit the ENTIRE narration, not only the opening. Set pacing_valid=false if any stretch longer than "
+            "110 words adds no investigative progress, a chapter repeats earlier context or a theory list, or the "
+            "conclusion retells the case. In issue, quote the start of each failing passage and describe the "
+            "specific cut, move or source-supported comparison needed. Never require a new clue that the source "
+            "does not contain, or reject necessary reasoning merely because it revisits the same evidence."
+        ),
+        pacing_result="" if short else ', "pacing_valid": true',
     ), temperature=0.3))
-    if not all(isinstance(data.get(key), bool) for key in ("narration_supported", "promise_delivered", "opening_valid")):
-        raise RuntimeError("La revisión no ha confirmado las fuentes, la promesa y la apertura")
-    if not data["narration_supported"] or not data["promise_delivered"] or not data["opening_valid"]:
+    checks = ["narration_supported", "promise_delivered", "opening_valid"]
+    if not short:
+        checks.append("pacing_valid")
+    if not all(isinstance(data.get(key), bool) for key in checks):
+        raise RuntimeError("La revisión no ha confirmado todas las comprobaciones editoriales obligatorias")
+    if not all(data[key] for key in checks):
         return data
     corrected_title, corrected_text = data.get("title"), data.get("thumbnail_text")
     if (
@@ -448,9 +482,11 @@ def generate_script(
             **pick,
             dossier=dossier,
             target_words=config["script"]["target_words"],
+            max_words=config["script"]["max_words"],
             chapters=config["script"]["chapters"],
             hook_rules=HOOK_RULES.replace("{title_promise}", "the single most intriguing concrete detail of the case"),
             first_minute_rules=FIRST_MINUTE_RULES,
+            pacing_rules=PACING_RULES,
             watch_next_rule=_watch_next_rule(watch_next),
             insights=insights or "No eligible analytics yet. Do not invent performance claims.",
             series_rule=microniche_scope(series.microniche),
@@ -480,6 +516,11 @@ def generate_script(
         cold_scenes = len(chapters[0].scenes)
         hook_words = len(chapters[0].scenes[0].narration.split()) if chapters[0].scenes else 0
         hard, soft = [], []
+        if script.words > config["script"]["max_words"]:
+            hard.append(
+                f"The episode must not exceed {config['script']['max_words']} words; it had {script.words}. "
+                "Cut repeated setup, recaps and optional background, not the evidence or its explanation."
+            )
         if script.words < HARD_MIN_WORDS:
             hard.append(f"The episode needs at least {MIN_WORDS} words; it had {script.words}. Add verified detail, not filler.")
         elif script.words < MIN_WORDS:
@@ -510,16 +551,21 @@ def generate_script(
             review = review_packaging(
                 gemini, script.title, script.thumbnail_text, narration, source, script.thumbnail_prompt,
             )
-            if review["narration_supported"] and review["promise_delivered"] and review["opening_valid"]:
+            if all(review[key] for key in ("narration_supported", "promise_delivered", "opening_valid", "pacing_valid")):
                 script.title = review["title"].strip()
                 script.thumbnail_text = review["thumbnail_text"].strip()
                 script.thumbnail_prompt = review["thumbnail_prompt"].strip()
                 if not soft:
                     return script
-                if fallback is None or script.words > fallback.words:
+                if fallback is None or abs(script.words - config["script"]["target_words"]) < abs(
+                    fallback.words - config["script"]["target_words"]
+                ):
                     fallback = script
             else:
-                issues.append(f"Source, promise or opening issue: {review.get('issue') or 'check the evidence, opening and payoff'}")
+                issues.append(
+                    f"Source, promise, opening or pacing issue: "
+                    f"{review.get('issue') or 'check the evidence, opening, investigative progress and payoff'}"
+                )
         revision = "Fix these problems from the previous draft:\n" + "\n".join(issues)
         print(f"Guion rechazado; se regenera: {revision}")
     if fallback:

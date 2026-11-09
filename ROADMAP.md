@@ -129,3 +129,25 @@ Decisión del propietario: todo el presupuesto de Magnific y ElevenLabs va a est
   al 30/60 s del nuevo lote.
 - Pendiente manual: verificación de identidad en Studio (los enlaces de Shorts fallan desde el 22/10), pantalla final
   de cada episodio, y Test & Compare de miniaturas en Studio para el vídeo con más impresiones.
+
+## Ajuste de retención — 09/11/2026
+
+Lectura de Studio del 12 de octubre al 8 de noviembre: CTR del 2,2% en largos; el 54,9% de sus vistas procede de
+publicidad. Everett Ruess tiene 860 vistas, de las que el 86,2% procede de publicidad, y un CTR del 2,0%; no se usa
+como prueba de tracción orgánica. El Hawaii Clipper muestra aproximadamente 3.200 impresiones, CTR del 1,2%,
+68% de audiencia a los 30 segundos y 28,5% medio visto. Es una muestra reciente, no una comparación controlada.
+
+Cambios preparados para los nuevos episodios:
+
+- Objetivo de 1.800 palabras y máximo de 1.980, sin aceptar un guion largo como alternativa tras agotar los intentos.
+- Revisión obligatoria del progreso de toda la investigación: menos contexto repetido, respuestas parciales antes,
+  teorías junto a sus pruebas y cierre sin recapitular el episodio. Las reglas de apertura se conservan.
+- Máximo real de 14 minutos de pista completa, comprobado antes de generar imágenes o publicar. No se acelera la voz.
+- Continuación visual del gancho al primer capítulo sin la cartela intermedia cuando no hay pausa de título.
+- Exclusión del aprendizaje narrativo y de los cambios de micronicho de episodios con vistas publicitarias
+  o sin desglose de tráfico. Los informes mantienen sus totales; no deben interpretarse como métricas orgánicas.
+
+La nueva cohorte se identifica con `pacing-2026-11-09`. Los cambios locales no afectan a Actions hasta desplegarlos.
+No se modifican vídeos ya publicados o programados. La etiqueta compartida en Shorts identifica la versión del
+pipeline, no una modificación de su formato. No se aumenta la frecuencia ni se generan piezas pagadas para validar
+el código. Se mantiene la revisión de cuatro publicaciones maduras antes de atribuir una mejora a estos cambios.

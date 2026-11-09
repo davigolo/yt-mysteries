@@ -1,7 +1,6 @@
 import argparse
 import json
 import os
-import re
 import sys
 from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
@@ -24,6 +23,7 @@ from longform.insights import (
     SETTLE_DAYS,
     SHORT_RETENTION_TARGET,
     _score,
+    duration_seconds,
     fetch_performance,
 )
 from longform.upload import credentials
@@ -78,14 +78,6 @@ def error_label(error):
     if isinstance(error, HttpError):
         return f"HTTP {error.resp.status}"
     return type(error).__name__
-
-
-def duration_seconds(value):
-    match = re.fullmatch(r"PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+(?:\.\d+)?)S)?", value)
-    if not match or not any(match.groups()):
-        raise ValueError("Invalid video duration")
-    hours, minutes, seconds = (float(x or 0) for x in match.groups())
-    return hours * 3600 + minutes * 60 + seconds
 
 
 def query(analytics, start, end, **kwargs):

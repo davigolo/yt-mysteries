@@ -160,7 +160,33 @@ Aplicado de "9 errores que el algoritmo de YouTube odia" (Mario Ruiz):
   "Watch next" en la descripción, y el vídeo termina con `video.end_screen_seconds` (20) de cola para la **pantalla final**.
   La API no permite crearla: el log indica qué vídeo poner en Studio.
 - **Aprender rápido**: las estadísticas que recibe Gemini marcan los vídeos con retención < 40 % (problema de gancho o
-  guion). El CTR (< 5 % = problema de título/miniatura) no está en la API de Analytics: revísalo en Studio tras 3-4 vídeos.
+  guion). En los episodios largos también miden cuánta audiencia sigue a los 30 s (`OPENING_TARGET`, 65 %): si cae
+  antes, se revisa la apertura; si esta aguanta pero el porcentaje medio visto sigue bajo, se prioriza el ritmo
+  posterior. Son hipótesis editoriales, no diagnósticos causales. Los episodios con vistas publicitarias o sin
+  desglose de tráfico se excluyen de los ejemplos narrativos y de las decisiones de cambio de micronicho:
+  no se presenta su retención mezclada como rendimiento orgánico. El CTR no está en este informe de Analytics:
+  revísalo en Studio tras 3-4 vídeos, separando el tráfico pagado del orgánico.
+
+### Ritmo completo y duración de los nuevos episodios
+
+El objetivo es una investigación de unas 1.800 palabras, aproximadamente 12 minutos de voz, no rellenar 18–22 minutos.
+`script.max_words` limita los nuevos guiones a 1.980 palabras, incluyendo el gancho y el puente final. Ni el último
+intento ni la selección de una versión con desviaciones menores permiten superar ese máximo.
+
+Escritor y revisor comparten `PACING_RULES`: cada 75–110 palabras debe avanzar la investigación con evidencia,
+una comparación razonada o una respuesta parcial. No cuentan repetir el misterio, recapitular, crear ambiente
+o prometer una revelación futura. Se conserva la narración pausada; no se acelera artificialmente la voz.
+El revisor examina todo el texto y debe devolver `pacing_valid`; un rechazo o una revisión incompleta bloquean
+el guion antes de voz e imágenes. La revisión semántica es una comprobación del modelo, no una garantía de calidad.
+
+Después de sintetizar la voz, se mide la pista completa con sus pausas y cola de pantalla final. Si supera
+`script.max_seconds` (840 segundos, 14 minutos), el proceso falla antes de pedir imágenes o publicar, conservando
+`build/script.json` para corregirlo. Los presupuestos de palabras son aproximaciones; este límite usa el audio real.
+La primera transición del gancho al capítulo 1 no añade una cartela superpuesta cuando `voice.title_pause` es cero.
+Los demás capítulos conservan sus rótulos.
+
+Estos límites se aplican a episodios generados de nuevo; `--script` conserva el comportamiento de reutilización
+manual de guiones existentes. No reescriben vídeos publicados o programados, ni cambian el formato de los Shorts.
 
 ## Continuidad de micronichos
 
@@ -212,7 +238,9 @@ ni considera maduros los programados o privados. Los días se comparan en la zon
 - **Episodios** (`main.py`): incorpora señales desde 20 vistas, aunque solo haya un episodio, señalando que la muestra es
   preliminar. El objetivo de referencia es 40% visto, no un umbral que demuestre éxito. Sus señales se combinan con las de
   los casos y Shorts, en lugar de descartarlas si faltan tres episodios grandes. El feedback llega tanto al selector de
-  temas como al escritor del guion.
+  temas como al escritor del guion. Antes de usar un episodio como ejemplo narrativo o decidir un cambio de micronicho,
+  se consulta su desglose por fuente: las vistas publicitarias y un desglose no disponible lo excluyen del aprendizaje.
+  Los totales y rankings del informe siguen incluyendo esos episodios; no son un ranking de rendimiento orgánico.
 - **Shorts** (`short.py`): exige cuatro ejemplos con al menos 100 vistas y 50 vistas interesadas (`engagedViews`). La
   puntuación combina retención (80%, limitada al 100%) y suscriptores por vista interesada (20%, saturado al 2%).
   Muestra hasta tres ejemplos con retención >=75%, dos de rendimiento en suscriptores y tres con retención <60%;
@@ -264,8 +292,9 @@ YouTube: no genera contenido, no gasta créditos de IA ni cambia vídeos. Guarda
 artefacto y un resumen en la ejecución, con periodos de 28 y 90 días, corte disponible, muestras y formatos separados.
 Consulta también la curva de retención de los largos a los 30 y 60 segundos cuando hay datos.
 
-`reporting` identifica el lote de mejora `opening-alerts-2026-11-04`, iniciado el 4 de noviembre de 2026.
-Los vídeos generados desde este despliegue
+`reporting` identifica el lote `pacing-2026-11-09`, con fecha de referencia del 9 de noviembre de 2026.
+La intervención editorial de este lote afecta a los largos; la etiqueta compartida del pipeline en Shorts
+no implica que haya cambiado su formato. Solo al desplegar estos cambios los vídeos generados
 guardan `pipeline_revision` en el historial; los ya programados y los guiones reutilizados no se etiquetan
 retroactivamente. La revisión del lote requiere la etiqueta coincidente, publicación desde `reporting.since` y
 madurez y muestra suficientes; espera cuatro piezas por formato (`reporting.batch_size`) antes de cerrar el lote.

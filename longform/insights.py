@@ -1,8 +1,10 @@
+import re
 from datetime import date, datetime, timedelta
 from statistics import mean, median
 from zoneinfo import ZoneInfo
 
 from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 
 from longform.upload import credentials
 from longform.series import active_series
@@ -16,6 +18,38 @@ SETTLE_DAYS = 3
 RETENTION_TARGET = 40
 SHORT_RETENTION_TARGET = 75
 PERFORMANCE_METRICS = "views,engagedViews,averageViewPercentage,averageViewDuration,likes,subscribersGained"
+OPENING_SECONDS = 30
+OPENING_TARGET = 65
+LONG_FORM_MIN_SECONDS = 180
+
+
+def duration_seconds(value: str) -> float:
+    match = re.fullmatch(r"PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+(?:\.\d+)?)S)?", value)
+    if not match or not any(match.groups()):
+        raise ValueError("Invalid video duration")
+    hours, minutes, seconds = (float(x or 0) for x in match.groups())
+    return hours * 3600 + minutes * 60 + seconds
+
+
+def _opening_retention(analytics, start: str, end: str, video_id: str, duration: float) -> float | None:
+    curve = analytics.reports().query(
+        ids="channel==MINE", startDate=start, endDate=end, metrics="audienceWatchRatio",
+        dimensions="elapsedVideoTimeRatio", filters=f"video=={video_id}", sort="elapsedVideoTimeRatio", maxResults=200,
+    ).execute().get("rows", [])
+    if not curve:
+        return None
+    _, ratio = min(curve, key=lambda row: abs(row[0] - OPENING_SECONDS / duration))
+    return min(float(ratio), 1.0) * 100
+
+
+def _advertising_views(analytics, start: str, end: str, video_id: str) -> int:
+    rows = analytics.reports().query(
+        ids="channel==MINE", startDate=start, endDate=end, metrics="views",
+        dimensions="insightTrafficSourceType", filters=f"video=={video_id}", maxResults=200,
+    ).execute().get("rows", [])
+    if not rows:
+        raise ValueError(f"No hay desglose de fuentes de tráfico para {video_id}")
+    return sum(int(views) for source, views in rows if source == "ADVERTISING")
 
 
 def fetch_performance(entries: list[dict], days: int = 90, min_views: int = MIN_VIEWS) -> list[dict]:
@@ -43,7 +77,7 @@ def fetch_performance(entries: list[dict], days: int = 90, min_views: int = MIN_
     ids = list(by_id)
     for offset in range(0, len(ids), 50):
         response = youtube.videos().list(
-            part="snippet,status", id=",".join(ids[offset:offset + 50]),
+            part="snippet,status,contentDetails", id=",".join(ids[offset:offset + 50]),
         ).execute()
         for video in response.get("items", []):
             if video["status"]["privacyStatus"] != "public":
@@ -55,6 +89,7 @@ def fetch_performance(entries: list[dict], days: int = 90, min_views: int = MIN_
             if published_date <= limit:
                 eligible[video["id"]] = {
                     **by_id[video["id"]], "published_at": published, "analytics_end": end,
+                    "video_seconds": duration_seconds(video["contentDetails"]["duration"]),
                 }
     print(f"Analytics hasta {end}: {len(eligible)} vídeos públicos con al menos {SETTLE_DAYS} días de datos")
     performance = []
@@ -82,6 +117,20 @@ def fetch_performance(entries: list[dict], days: int = 90, min_views: int = MIN_
                 "likes": int(likes),
                 "subscribers": int(subscribers),
             })
+    for video in performance:
+        if video["video_seconds"] < LONG_FORM_MIN_SECONDS or video["views"] < MIN_EPISODE_VIEWS:
+            continue
+        try:
+            video["advertising_views"] = _advertising_views(analytics, start, end, video["video_id"])
+        except (HttpError, ValueError) as e:
+            video["advertising_views"] = None
+            print(f"Sin desglose publicitario para {video['video_id']}; se excluye del aprendizaje ({type(e).__name__}: {e})")
+        try:
+            video["opening_retention"] = _opening_retention(
+                analytics, start, end, video["video_id"], video["video_seconds"],
+            )
+        except Exception as e:
+            print(f"Sin curva de retención para {video['video_id']} ({type(e).__name__}: {e})")
     return performance
 
 
@@ -96,8 +145,20 @@ def _eligible_shorts(shorts: list[dict]) -> list[dict]:
 
 
 def _diagnosis(video: dict) -> str:
+    opening = video.get("opening_retention")
+    if opening is not None and opening < OPENING_TARGET:
+        return (
+            f"; {opening:.0f}% were still watching at {OPENING_SECONDS}s (reference {OPENING_TARGET}%): "
+            "inspect the opening for delayed evidence or unclear stakes; this metric does not establish the cause"
+        )
     if video["retention"] < RETENTION_TARGET:
-        return f"; below the {RETENTION_TARGET}% retention target: the hook or the script lost viewers"
+        if opening is not None:
+            return (
+                f"; opening held {opening:.0f}% at {OPENING_SECONDS}s but average viewed is below "
+                f"{RETENTION_TARGET}%: prioritize later investigative progress, repetition and chapter pacing "
+                "rather than rewriting a stronger opening by default"
+            )
+        return f"; below the {RETENTION_TARGET}% retention reference; inspect opening and later pacing separately"
     return "; retention meets the episode target; impressions and CTR are unavailable, so do not diagnose packaging"
 
 
@@ -112,10 +173,17 @@ def build_insights(performance: list[dict]) -> str:
     performance = [e for e in performance if e["views"] >= MIN_EPISODE_VIEWS]
     if not performance:
         return ""
+    excluded = [e for e in performance if e.get("advertising_views") != 0]
+    performance = [e for e in performance if e.get("advertising_views") == 0]
     lines = [
         "LONG-FORM FEEDBACK (not Shorts): early, low-volume evidence, not proof of what caused the results.",
+        "Episodes with advertising views or an unavailable traffic breakdown are excluded from storytelling examples; "
+        "their blended retention is not organic performance.",
+        f"Excluded episodes: {len(excluded)}. Eligible episodes without advertising views: {len(performance)}.",
         "Aim for at least 40% average viewed. Even the strongest episode is not a template if it misses that target.",
-        "For low retention, test a shorter opening, earlier evidence and less repeated context; do not promise more twists.",
+        f"Use {OPENING_TARGET}% still watching at {OPENING_SECONDS} seconds as an editorial reference, not a causal "
+        "test. With a stronger opening but low average viewed, prioritize progress and repetition after the opening.",
+        "Move verified answers earlier and remove repeated context; do not add more promises or unsupported twists.",
         *[_line(v) for v in sorted(performance, key=lambda e: e["retention"], reverse=True)[:6]],
     ]
     return "\n".join(lines)

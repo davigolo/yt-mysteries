@@ -66,7 +66,10 @@ def active_series(history: list[dict]) -> list[dict]:
 
 
 def _eligible_episodes(history: list[dict], episodes: list[dict], min_views: int) -> list[dict]:
-    by_id = {e["video_id"]: e for e in episodes if e["views"] >= min_views}
+    by_id = {
+        e["video_id"]: e for e in episodes
+        if e["views"] >= min_views and e.get("advertising_views") == 0
+    }
     return [by_id[e["video_id"]] for e in history if e.get("video_id") in by_id]
 
 

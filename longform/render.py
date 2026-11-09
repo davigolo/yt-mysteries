@@ -157,7 +157,7 @@ def write_ass(timeline: Timeline, chapter_titles: list[str], episode_title: str,
         lines.append(f"Dialogue: 1,{_ts(start)},{_ts(end)},Veil,,0,0,0,,{{\\an7\\pos(0,0)\\1a&H50&\\fad(500,400)\\p1}}{veil}\n")
         lines.append(f"Dialogue: 2,{_ts(start)},{_ts(end)},Title,,0,0,0,,{{\\fad(700,400)}}{_clean(episode_title.upper())}\n")
     for number, (title, start) in enumerate(zip(chapter_titles, timeline.chapter_starts)):
-        if not title:
+        if not title or (number == 1 and timeline.title_start is None):
             continue
         if number == 1 and timeline.title_start is not None:
             start = timeline.title_start + config["voice"]["title_pause"]

@@ -10,7 +10,9 @@ script:
     - "gemini-4-argon"
     - "gemini-pro-latest"
     - "gemini-3.8-flash"
-  target_words: 2400
+  target_words: 1800
+  max_words: 1980
+  max_seconds: 840
   chapters: 6
   microniche:
     initial: "last-messages"
@@ -87,8 +89,8 @@ publish:
   max_per_run: 1
 
 reporting:
-  rollout_id: "opening-alerts-2026-11-04"
-  since: "2026-11-04"
+  rollout_id: "pacing-2026-11-09"
+  since: "2026-11-09"
   batch_size: 4
 
 playlists:

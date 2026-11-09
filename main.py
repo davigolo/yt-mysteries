@@ -72,6 +72,8 @@ def main() -> None:
         except Exception as e:
             print(f"Sin estadísticas ({type(e).__name__}: {e}); se genera sin ellas")
         script = generate_script(config, history, insights, episode_performance=episodes)
+    if not reused and script.words > config["script"]["max_words"]:
+        raise RuntimeError(f"El guion supera el límite de {config['script']['max_words']} palabras")
     (WORKDIR / "script.json").write_text(script.to_json(), encoding="utf-8")
     print(f"Título: {script.title}\nGuion guardado en build/script.json")
     if script.microniche:
@@ -94,12 +96,17 @@ def main() -> None:
         raise RuntimeError("No quedan suficientes créditos en ElevenLabs para este vídeo")
 
     audios = synthesize([s.narration for s in scenes], config, WORKDIR)
+    voice_track = WORKDIR / "voice.wav"
+    timeline = build_voice_track(audios, chapter_of, config, WORKDIR, voice_track)
+    if not reused and timeline.total > config["script"]["max_seconds"]:
+        raise RuntimeError(
+            f"El episodio dura {timeline.total:.1f}s y supera el límite de {config['script']['max_seconds']}s; "
+            "acorta el guion antes de generar imágenes o publicar. Guion guardado en build/script.json."
+        )
     durations = [a.words[-1].end if a.words else a.duration for a in audios]
     source = VisualSource(config, WORKDIR)
     visuals = source.fetch(scenes, durations, f'"{script.title}" ({script.topic})')
 
-    voice_track = WORKDIR / "voice.wav"
-    timeline = build_voice_track(audios, chapter_of, config, WORKDIR, voice_track)
     titles = [c.title for c in script.chapters]
     captions, subtitles = WORKDIR / "captions.srt", WORKDIR / "overlay.ass"
     write_srt(timeline, captions)
