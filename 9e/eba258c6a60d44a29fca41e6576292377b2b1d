@@ -1,0 +1,43 @@
+scripts/channel_report.py
+  s_58ff9bbf593377::t_4e87099962ac75 26
+README.md
+  s_c62cc2c6f2936a::t_21d2f2f49de7d8 163-189,241-243,295-297
+ROADMAP.md
+  s_c62cc2c6f2936a::t_b8ecb950485458 132-153
+config.yaml
+  s_c62cc2c6f2936a::t_b3b3d446280660 13-15,92-93
+longform/insights.py
+  s_c62cc2c6f2936a::t_bd651aea521f13 1,7,21-52,80,92,120-133,148-153,155-161,176-177,180-182,184-186
+longform/render.py
+  s_c62cc2c6f2936a::t_36d8b9eea24179 160
+longform/script.py
+  s_c62cc2c6f2936a::t_2d2fca565df123 25,113-126,143-145,153,208-209,226,233,329-340,342-347,485,489,519-523,554,560-562,565-568
+longform/series.py
+  s_c62cc2c6f2936a::t_5bdaf989066ee9 69-72
+main.py
+  s_c62cc2c6f2936a::t_4b578a794f512e 75-76,99-105
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9eeba258c6a60d44a29fca41e6576292377b2b1d",
+  "prompts": {},
+  "sessions": {
+    "s_58ff9bbf593377": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "5e4b8a41-e2f2-4754-bcca-dfa6283c1a99",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    },
+    "s_c62cc2c6f2936a": {
+      "agent_id": {
+        "tool": "github-copilot-cli",
+        "id": "0b28a933-7892-4eaf-9e21-487ca28757ac",
+        "model": "unknown"
+      },
+      "human_author": "david <davidglom@ext.inditex.com>"
+    }
+  }
+}
