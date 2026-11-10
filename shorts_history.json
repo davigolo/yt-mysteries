@@ -554,5 +554,21 @@
     "microniche": "last-messages",
     "series_id": "e2f147112f2741e0aeedae23bd3215c1",
     "publish_at": "2026-11-11T00:30:00+00:00"
+  },
+  {
+    "date": "2026-11-10",
+    "episode_id": "-yYdqIJ6_Co",
+    "angle": "After the Hawaii Clipper's final radio hold for rain static at its noon coordinates, searchers skimmed a circular oil slick nearby, only for lab tests to prove it was marine ship fuel rather than aviation oil.",
+    "title": "The False Oil Slick After a 1938 Radio Hold",
+    "video_id": "DzJGeeaJrgY",
+    "privacy": "scheduled",
+    "uploaded_at": "2026-11-10T01:49:01+00:00",
+    "hook": "Half a teaspoon of oil fooled newspapers.",
+    "words": 82,
+    "duration_seconds": 36.25,
+    "pipeline_revision": "pacing-2026-11-09",
+    "microniche": "last-messages",
+    "series_id": "e2f147112f2741e0aeedae23bd3215c1",
+    "publish_at": "2026-11-11T17:00:00+00:00"
   }
 ]
