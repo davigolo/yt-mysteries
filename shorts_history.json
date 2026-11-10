@@ -586,5 +586,21 @@
     "microniche": "last-messages",
     "series_id": "e2f147112f2741e0aeedae23bd3215c1",
     "publish_at": "2026-11-12T00:30:00+00:00"
+  },
+  {
+    "date": "2026-11-10",
+    "episode_id": "-yYdqIJ6_Co",
+    "angle": "Even six hours after the Hawaii Clipper requested a one-minute hold for rain static and went silent, airline executives remained unalarmed because its Guam manifest listed five full hours of reserve fuel.",
+    "title": "The 5-Hour Reserve After a 1938 Radio Hold",
+    "video_id": "Q7rX0lBalVU",
+    "privacy": "scheduled",
+    "uploaded_at": "2026-11-10T23:31:59+00:00",
+    "hook": "Six hours of silence caused zero panic.",
+    "words": 90,
+    "duration_seconds": 43.21,
+    "pipeline_revision": "pacing-2026-11-09",
+    "microniche": "last-messages",
+    "series_id": "e2f147112f2741e0aeedae23bd3215c1",
+    "publish_at": "2026-11-12T17:00:00+00:00"
   }
 ]
