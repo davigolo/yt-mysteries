@@ -570,5 +570,21 @@
     "microniche": "last-messages",
     "series_id": "e2f147112f2741e0aeedae23bd3215c1",
     "publish_at": "2026-11-11T17:00:00+00:00"
+  },
+  {
+    "date": "2026-11-10",
+    "episode_id": "Z08owVo06YY",
+    "angle": "Glen and Bessie Hyde's boat was found upright with her dry diary stopped at River Mile 231, leading searchers on Christmas Day 1928 to cut the two-ton scow loose before realizing the couple might have been stranded on shore if it had drifted away.",
+    "title": "The Empty Boat Cut Loose After a 1928 Final Entry",
+    "video_id": "Nf7UjJJpywA",
+    "privacy": "scheduled",
+    "uploaded_at": "2026-11-10T20:35:10+00:00",
+    "hook": "A diary survived six miles of whitewater dry.",
+    "words": 88,
+    "duration_seconds": 38.81,
+    "pipeline_revision": "pacing-2026-11-09",
+    "microniche": "last-messages",
+    "series_id": "e2f147112f2741e0aeedae23bd3215c1",
+    "publish_at": "2026-11-12T00:30:00+00:00"
   }
 ]
