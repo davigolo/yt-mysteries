@@ -602,5 +602,21 @@
     "microniche": "last-messages",
     "series_id": "e2f147112f2741e0aeedae23bd3215c1",
     "publish_at": "2026-11-12T17:00:00+00:00"
+  },
+  {
+    "date": "2026-11-11",
+    "episode_id": "Z08owVo06YY",
+    "angle": "While Bessie Hyde's recovered diary logged passing River Mile 231 on November 30, 1928, the Kodak camera found right beside it stopped taking photographs sixty-six miles upstream on November 27, even as the couple navigated Lava Falls.",
+    "title": "The 66-Mile Camera Silence Before a 1928 Final Entry",
+    "video_id": "EpB4hHP6T7E",
+    "privacy": "scheduled",
+    "uploaded_at": "2026-11-11T20:21:22+00:00",
+    "hook": "A camera stopped sixty-six miles before her diary.",
+    "words": 90,
+    "duration_seconds": 41.05,
+    "pipeline_revision": "pacing-2026-11-09",
+    "microniche": "last-messages",
+    "series_id": "e2f147112f2741e0aeedae23bd3215c1",
+    "publish_at": "2026-11-13T00:30:00+00:00"
   }
 ]
