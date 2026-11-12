@@ -618,5 +618,21 @@
     "microniche": "last-messages",
     "series_id": "e2f147112f2741e0aeedae23bd3215c1",
     "publish_at": "2026-11-13T00:30:00+00:00"
+  },
+  {
+    "date": "2026-11-12",
+    "episode_id": "-yYdqIJ6_Co",
+    "angle": "Before the Hawaii Clipper vanished after its final request to stand by for rain static, its calm noon position report ruled out any sudden cabin fire or cockpit panic.",
+    "title": "The Calm Noon Log Before a 1938 Radio Cutoff",
+    "video_id": "EDJeoPhV4cg",
+    "privacy": "scheduled",
+    "uploaded_at": "2026-11-12T21:00:56+00:00",
+    "hook": "A calm noon report preceded total silence.",
+    "words": 82,
+    "duration_seconds": 38.17,
+    "pipeline_revision": "pacing-2026-11-09",
+    "microniche": "last-messages",
+    "series_id": "e2f147112f2741e0aeedae23bd3215c1",
+    "publish_at": "2026-11-14T00:30:00+00:00"
   }
 ]
